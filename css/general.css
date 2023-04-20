@@ -1,4 +1,12 @@
-.botonReservaInicio, .botonCampeonato{
+.diapositiva {
+    height: 500px;
+    background-image: url('../img/banner.jpg');
+    background-position: cover;
+    background-repeat: no-repeat;
+}
+
+.botonReservaInicio,
+.botonCampeonato {
     background-color: #f5f5f5;
     border: 1px solid #ccc;
     border-radius: 20px;
@@ -7,6 +15,39 @@
     width: 100%;
 }
 
-.botones{
+.botones {
     display: flex;
+}
+
+.imagebox {
+    padding: 0px;
+    position: relative;
+    text-align: center;
+    width: 100%;
+}
+
+.imagebox img {
+    opacity: 1;
+    transition: 0.5s opacity;
+}
+
+.imagebox .imagebox-desc {
+    background-color: rgba(0, 0, 0, 0.6);
+    bottom: 0px;
+    color: white;
+    font-size: 1.2em;
+    left: 0px;
+    padding: 10px 15px;
+    position: absolute;
+    transition: 0.5s padding;
+    text-align: center;
+    width: 100%;
+}
+
+.imagebox:hover img {
+    opacity: 0.7;
+}
+
+.imagebox:hover .imagebox-desc {
+    padding-bottom: 10%;
 }
