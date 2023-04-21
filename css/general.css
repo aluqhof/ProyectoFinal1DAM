@@ -13,6 +13,18 @@
     border-radius: 10px;
 }
 
+@media screen and (max-width: 600px) {
+    .banner .mask .bloque h4 {
+        font-size: 0.8em;
+    }
+}
+
+@media screen and (max-width: 950px) {
+    .banner .mask .bloque h4 {
+        font-size: 1.1em;
+    }
+}
+
 .card {
     position: relative;
 }
@@ -56,4 +68,13 @@
 
 .card:hover .card-body h5 {
     transform: scale(1.05);
+}
+
+.tablaHorarios {
+    margin: 0 auto;
+    width: 80%;
+}
+
+.tituloHorario{
+    margin-top: 30px;
 }
