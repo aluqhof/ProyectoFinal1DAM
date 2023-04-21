@@ -1,27 +1,35 @@
+.navbar{
+    background-color: #00daff;
+}
+
 .banner {
     background-image: url('../img/banner.jpg');
     background-repeat: no-repeat;
     background-position: center;
-    height: 400px;
-    width: 100%;
+    background-size: 100%;
 }
 
 .banner .mask {
-    background-color: rgba(0, 0, 0, 0.6);
     height: 100%;
     width: 100%;
-    border-radius: 10px;
 }
 
 @media screen and (max-width: 600px) {
-    .banner .mask .bloque h4 {
-        font-size: 0.8em;
+    .banner .mask .bloque h1 {
+        font-size: 1em;
     }
 }
 
 @media screen and (max-width: 950px) {
     .banner .mask .bloque h4 {
-        font-size: 1.1em;
+        font-size: 0.8em;
+        font-weight: 300;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .banner .mask .bloque .btn {
+        font-size: 0.8em;
     }
 }
 
@@ -75,6 +83,16 @@
     width: 80%;
 }
 
-.tituloHorario{
+.tituloHorario {
     margin-top: 30px;
+}
+
+.bannerAcceso {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('../img/fondo.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
 }
