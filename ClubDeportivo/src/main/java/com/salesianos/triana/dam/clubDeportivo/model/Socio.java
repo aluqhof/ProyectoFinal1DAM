@@ -1,14 +1,20 @@
 package com.salesianos.triana.dam.clubDeportivo.model;
 
+import java.time.LocalDate;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Data
@@ -20,4 +26,20 @@ public class Socio {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
+	private String nombre;
+	private String apellidos;
+	private String usuario;
+	private String contrasena;
+	private String telefono;
+	private LocalDate fecha_alta;
+	private LocalDate fecha_baja;
+	private double cuota;
+	
+	// One-to-Many con la clase Pista
+	@ToString.Exclude
+	@EqualsAndHashCode.Exclude
+    @OneToMany(mappedBy = "socio")
+	//@Builder.Default me da error
+    private List<Pista> pistas;
 }
