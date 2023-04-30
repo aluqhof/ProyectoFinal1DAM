@@ -3,6 +3,9 @@ package com.salesianos.triana.dam.clubDeportivo.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public interface BaseService <T, ID>{
 
 	List<T> findAll();

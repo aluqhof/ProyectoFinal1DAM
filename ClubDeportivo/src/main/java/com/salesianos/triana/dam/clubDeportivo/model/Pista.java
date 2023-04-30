@@ -14,10 +14,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.salesianos.triana.dam.clubDeportivo.repository.ReservaRepositorio;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

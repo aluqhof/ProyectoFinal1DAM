@@ -1,6 +1,7 @@
 package com.salesianos.triana.dam.clubDeportivo.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -36,10 +37,11 @@ public class Socio {
 	private LocalDate fecha_baja;
 	private double cuota;
 	
+	/*
 	// One-to-Many con la clase Pista
 	@ToString.Exclude
 	@EqualsAndHashCode.Exclude
+	@Builder.Default
     @OneToMany(mappedBy = "socio")
-	//@Builder.Default me da error
-    private List<Pista> pistas;
+    private List<Pista> pistas = new ArrayList<>();*/
 }

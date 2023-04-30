@@ -1,5 +1,7 @@
 package com.salesianos.triana.dam.clubDeportivo;
 
+import java.time.LocalDate;
+
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,8 +9,10 @@ import org.springframework.stereotype.Component;
 
 import com.salesianos.triana.dam.clubDeportivo.model.Deporte;
 import com.salesianos.triana.dam.clubDeportivo.model.Pista;
+import com.salesianos.triana.dam.clubDeportivo.model.Socio;
 import com.salesianos.triana.dam.clubDeportivo.repository.DeporteRepositorio;
 import com.salesianos.triana.dam.clubDeportivo.repository.PistaRepositorio;
+import com.salesianos.triana.dam.clubDeportivo.repository.SocioRepositorio;
 
 import lombok.RequiredArgsConstructor;
 
@@ -19,6 +23,7 @@ public class MainDeMentira {
 	@Autowired
 	private final DeporteRepositorio deporteRepositorio;
 	private final PistaRepositorio pistaRepositorio;
+	private final SocioRepositorio socioRepositorio;
 
 	@PostConstruct
 	public void ejecutar() {
@@ -72,5 +77,23 @@ public class MainDeMentira {
 		for (Pista pista : d2.getPistas()) {
 			System.out.println(pista);
 		}
+		
+        Socio s1 = new Socio();
+        s1.setNombre("Alex");
+        s1.setApellidos("Luque");
+        s1.setUsuario("hdfssas");
+        s1.setContrasena("xxxxx");
+        s1.setFecha_alta(LocalDate.of(2020, 3, 15));
+        s1.setCuota(50);
+        Socio s2 = new Socio();
+        s2.setNombre("Alex");
+        s2.setApellidos("Flores");
+        s2.setUsuario("hdfssas");
+        s2.setContrasena("xxxxx");
+        s2.setFecha_alta(LocalDate.of(2020, 4, 15));
+        s2.setCuota(50);
+        
+        socioRepositorio.save(s1);
+        socioRepositorio.save(s2);
 	}
 }
