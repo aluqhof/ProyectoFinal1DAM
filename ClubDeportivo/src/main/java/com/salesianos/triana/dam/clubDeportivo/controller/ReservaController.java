@@ -5,19 +5,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.salesianos.triana.dam.clubDeportivo.service.SocioService;
+import com.salesianos.triana.dam.clubDeportivo.service.ReservaService;
 
 @Controller
-public class SocioController {
+public class ReservaController {
 
 	@Autowired
-	private SocioService service;
-
+	private ReservaService service;
 	
-	@GetMapping("/panel-admin")
-	public String listarSocios (Model model) {
+	@GetMapping("/panel-admin/reservas")
+	public String listarReservas (Model model) {
 		
-		model.addAttribute("socios", service.findAll());
+		model.addAttribute("reservas", service.findAll());
 		
 		return "html/panelAdmin";
 	}

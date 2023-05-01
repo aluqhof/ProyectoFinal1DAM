@@ -1,6 +1,7 @@
 package com.salesianos.triana.dam.clubDeportivo;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.annotation.PostConstruct;
 
@@ -9,9 +10,11 @@ import org.springframework.stereotype.Component;
 
 import com.salesianos.triana.dam.clubDeportivo.model.Deporte;
 import com.salesianos.triana.dam.clubDeportivo.model.Pista;
+import com.salesianos.triana.dam.clubDeportivo.model.Reserva;
 import com.salesianos.triana.dam.clubDeportivo.model.Socio;
 import com.salesianos.triana.dam.clubDeportivo.repository.DeporteRepositorio;
 import com.salesianos.triana.dam.clubDeportivo.repository.PistaRepositorio;
+import com.salesianos.triana.dam.clubDeportivo.repository.ReservaRepositorio;
 import com.salesianos.triana.dam.clubDeportivo.repository.SocioRepositorio;
 
 import lombok.RequiredArgsConstructor;
@@ -24,6 +27,7 @@ public class MainDeMentira {
 	private final DeporteRepositorio deporteRepositorio;
 	private final PistaRepositorio pistaRepositorio;
 	private final SocioRepositorio socioRepositorio;
+	private final ReservaRepositorio reservaRepositorio;
 
 	@PostConstruct
 	public void ejecutar() {
@@ -95,5 +99,24 @@ public class MainDeMentira {
         
         socioRepositorio.save(s1);
         socioRepositorio.save(s2);
+        
+        Reserva r1=new Reserva();
+        r1.setFechaReserva(LocalDateTime.of(2023, 7, 13, 20, 00));
+        r1.setSocio(s2);
+        r1.setPista(p4);
+        
+        Reserva r2=new Reserva();
+        r2.setFechaReserva(LocalDateTime.of(2023, 7, 14, 20, 00));
+        r2.setSocio(s1);
+        r2.setPista(p2);
+        
+        Reserva r3=new Reserva();
+        r3.setFechaReserva(LocalDateTime.of(2023, 7, 15, 20, 00));
+        r3.setSocio(s2);
+        r3.setPista(p1);
+        
+        reservaRepositorio.save(r1);
+        reservaRepositorio.save(r2);
+        reservaRepositorio.save(r3);
 	}
 }
