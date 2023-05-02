@@ -18,6 +18,6 @@ public class ReservaController {
 		
 		model.addAttribute("reservas", service.findAll());
 		
-		return "html/panelAdmin";
+		return "panelAdmin";
 	}
 }
