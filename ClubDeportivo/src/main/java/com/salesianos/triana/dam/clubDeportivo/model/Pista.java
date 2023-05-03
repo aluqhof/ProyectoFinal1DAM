@@ -1,6 +1,7 @@
 package com.salesianos.triana.dam.clubDeportivo.model;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,13 +61,12 @@ public class Pista {
 		this.deporte=null;
 	}
 	
-	public boolean isHoraDisponible(LocalDateTime fechaReservaCliente) {
+	public boolean isHoraDisponible(LocalTime horaReserva, LocalDate fechaReserva) {
 	    for (Reserva reserva : reservas) {
-	        if (reserva.getFechaReserva().equals(fechaReservaCliente)) {
+	        if (reserva.getFecha_reserva().equals(fechaReserva) && reserva.getHora_reserva().equals(horaReserva)) {
 	            return false;
 	        }
 	    }
 	    return true;
 	}
-	
 }

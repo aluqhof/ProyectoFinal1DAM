@@ -1,7 +1,7 @@
 package com.salesianos.triana.dam.clubDeportivo;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import javax.annotation.PostConstruct;
 
@@ -101,17 +101,20 @@ public class MainDeMentira {
         socioRepositorio.save(s2);
         
         Reserva r1=new Reserva();
-        r1.setFechaReserva(LocalDateTime.of(2023, 7, 13, 20, 00));
+        r1.setFecha_reserva(LocalDate.of(2023, 7, 13));
+        r1.setHora_reserva(LocalTime.of(20, 00));
         r1.setSocio(s2);
         r1.setPista(p4);
         
         Reserva r2=new Reserva();
-        r2.setFechaReserva(LocalDateTime.of(2023, 7, 14, 20, 00));
+        r2.setFecha_reserva(LocalDate.of(2023, 8, 13));
+        r2.setHora_reserva(LocalTime.of(20, 00));
         r2.setSocio(s1);
         r2.setPista(p2);
         
         Reserva r3=new Reserva();
-        r3.setFechaReserva(LocalDateTime.of(2023, 7, 15, 20, 00));
+        r3.setFecha_reserva(LocalDate.of(2023, 9, 13));
+        r3.setHora_reserva(LocalTime.of(20, 00));
         r3.setSocio(s2);
         r3.setPista(p1);
         
