@@ -30,6 +30,12 @@ public class SocioController {
 	    service.save(socio);
 	    return "redirect:/panel-admin";
 	}
+	
+	@PostMapping("/socios-edit")
+	public String editarSocio(@ModelAttribute("socio") Socio socio) {
+	    service.save(socio);
+	    return "redirect:/panel-admin";
+	}
  //th:href="@{/deleteSocio/{id}(id=${socio.id})}"
 	/*
 	@GetMapping("/deleteSocio/{id}")

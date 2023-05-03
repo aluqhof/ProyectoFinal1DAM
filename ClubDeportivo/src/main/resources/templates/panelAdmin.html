@@ -323,12 +323,12 @@
                                             <input type="number" class="form-control" id="addSocioCuota"
                                                 th:field="*{cuota}">
                                         </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Cancelar</button>
+                                            <input type="submit" class="btn btn-primary" value="Añadir">
+                                        </div>
                                     </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Cancelar</button>
-                                    <button type="submit" class="btn btn-primary">Añadir</button>
                                 </div>
                             </div>
                         </div>
@@ -344,41 +344,41 @@
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <form>
+                                    <form method="POST" th:action="@{/socios-edit}" th:object="${socio}">
                                         <div class="mb-3">
                                             <label for="editNombre" class="col-form-label">Nombre:</label>
-                                            <input type="text" class="form-control" id="editNombre">
+                                            <input type="text" class="form-control" id="editNombre" th:field="*{nombre}">
                                         </div>
                                         <div class="mb-3">
                                             <label for="editApellidos" class="col-form-label">Apellidos:</label>
-                                            <input type="text" class="form-control" id="editApellidos">
+                                            <input type="text" class="form-control" id="editApellidos" th:field="*{apellidos}">
                                         </div>
                                         <div class="mb-3">
                                             <label for="editUsuario" class="col-form-label">Usuario:</label>
-                                            <input type="text" class="form-control" id="editUsuario">
+                                            <input type="text" class="form-control" id="editUsuario" th:field="*{usuario}">
                                         </div>
                                         <div class="mb-3">
                                             <label for="editTelefono" class="col-form-label">Teléfono:</label>
-                                            <input type="text" class="form-control" id="editTelefono">
+                                            <input type="text" class="form-control" id="editTelefono" th:field="*{telefono}">
                                         </div>
                                         <div class="mb-3">
                                             <label for="editFechaAlta" class="col-form-label">Fecha Alta:</label>
-                                            <input type="text" class="form-control" id="editFechaAlta">
+                                            <input type="text" class="form-control" id="editFechaAlta" th:field="*{fecha_alta}">
                                         </div>
                                         <div class="mb-3">
                                             <label for="editFechaBaja" class="col-form-label">Fecha Baja:</label>
-                                            <input type="text" class="form-control" id="editFechaBaja">
+                                            <input type="text" class="form-control" id="editFechaBaja" th:field="*{fecha_baja}">
                                         </div>
                                         <div class="mb-3">
                                             <label for="editCuota" class="col-form-label">Cuota:</label>
-                                            <input type="text" class="form-control" id="editCuota">
+                                            <input type="text" class="form-control" id="editCuota" th:field="*{cuota}">
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Cancelar</button>
+                                            <input type="button" class="btn btn-primary" value="Guardar cambios">
                                         </div>
                                     </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Cancelar</button>
-                                    <button type="button" class="btn btn-primary">Guardar cambios</button>
                                 </div>
                             </div>
                         </div>
