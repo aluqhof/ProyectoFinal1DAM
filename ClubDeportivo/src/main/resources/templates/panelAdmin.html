@@ -35,7 +35,8 @@
                     <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
                         id="menu">
                         <li class="nav-item">
-                            <a href="index.html" class="nav-link align-middle px-0">
+                            <a href="#general"
+                                class="nav-link align-middle px-0">
                                 <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">General</span>
                             </a>
                         </li>
@@ -43,11 +44,6 @@
                             <a href="#reservas" class="nav-link px-0 align-middle">
                                 <i class="bi bi-calendar-event fs-4"></i> <span
                                     class="ms-1 d-none d-sm-inline">Reservas</span></a>
-                        </li>
-                        <li>
-                            <a href="#campeonatos" class="nav-link px-0 align-middle">
-                                <i class="bi bi-trophy fs-4"></i> <span
-                                    class="ms-1 d-none d-sm-inline">Campeonatos</span> </a>
                         </li>
                         <li>
                             <a href="#socios" class="nav-link px-0 align-middle">
@@ -69,6 +65,9 @@
                 </div>
             </div>
             <div class="col py-3">
+                <div id="general" class="content">
+                    <p>Hola esto son los campeonatos</p>
+                </div>
                 <div id="reservas" class="content">
                     <div class="container-fluid">
                         <div class="row my-3">
@@ -93,6 +92,7 @@
                                         <th scope="col">Número Pista</th>
                                         <th scope="col">Precio</th>
                                         <th scope="col">Deporte</th>
+                                        <th scope="col">Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -119,113 +119,6 @@
                             </table>
                         </div>
                     </div>
-
-                    <!-- Modal Añadir Reserva -->
-                    <div class="modal fade" id="addReservaModal" tabindex="-1" aria-labelledby="addReservaModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="addReservaModalLabel">Añadir Reserva</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <!-- Formulario de Añadir Reserva -->
-                                    <form method="POST" th:action="@{/reservas}" th:object="${reserva}">
-                                        <div class="mb-3">
-                                            <label for="addReservaFecha" class="form-label">Fecha Reserva</label>
-                                            <input type="date" class="form-control" id="addReservaFecha"
-                                                th:field="*{fecha_reserva}">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="addReservaHora" class="form-label">Hora Reserva</label>
-                                            <input type="time" class="form-control" id="addReservaHora"
-                                                th:field="*{hora_reserva}">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="addReservaIDSocio" class="form-label">ID Socio</label>
-                                            <input type="number" class="form-control" id="addReservaIDSocio">
-                                            <!--<select class="form-select" id="addReservaIDSocio" th:field="*{socio}">
-                                            <option value="">Selecciona un socio</option>
-                                            <option th:each="socio : ${socios}" th:value="${socio}" th:text="${socio.nombre + ' ' + socio.apellidos}"></option>
-                                        </select>-->
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="addReservaIDPista" class="form-label">ID Pista</label>
-                                            <input type="number" class="form-control" id="addReservaIDPista">
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Cancelar</button>
-                                            <input type="submit" class="btn btn-primary" value="Añadir">
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <!-- Modal Editar Reserva -->
-                    <div class="modal fade" id="editReservaModal" tabindex="-1" aria-labelledby="editReservaModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="editReservaModalLabel">Editar Reserva</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <form>
-                                        <div class="mb-3">
-                                            <label for="editFecha" class="col-form-label">Fecha Reserva:</label>
-                                            <input type="datetime-local" class="form-control" id="editFecha">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="editSocio" class="col-form-label">ID Socio</label>
-                                            <input type="number" class="form-control" id="editSocio">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="editPista" class="col-form-label">ID Pista</label>
-                                            <input type="number" class="form-control" id="editPista">
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Cancelar</button>
-                                    <button type="button" class="btn btn-primary">Guardar cambios</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Modal Eliminar Reserva -->
-                    <div class="modal fade" id="deleteReservaModal" tabindex="-1"
-                        aria-labelledby="deleteReservaModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="deleteReservaModalLabel">Eliminar Reserva</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    ¿Está seguro de que desea eliminar esta reserva?
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Cancelar</button>
-                                    <button type="button" class="btn btn-danger">Eliminar</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="campeonatos" class="content">
-                    <p>Hola esto son los campeonatos</p>
                 </div>
 
                 <div id="socios" class="content">
@@ -280,147 +173,6 @@
                                     </tr>
                                 </tbody>
                             </table>
-                        </div>
-                    </div>
-                    <!-- Modal Añadir Socio -->
-                    <div class="modal fade" id="addSocioModal" tabindex="-1" aria-labelledby="addSocioModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="addSocioModalLabel">Añadir Socio</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <!-- Formulario de Añadir Socio -->
-                                    <form method="POST" th:action="@{/socios}" th:object="${socio}">
-                                        <div class="mb-3">
-                                            <label for="addSocioNombre" class="form-label">Nombre</label>
-                                            <input type="text" class="form-control" id="addSocioNombre"
-                                                th:field="*{nombre}">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="addSocioApellidos" class="form-label">Apellidos</label>
-                                            <input type="text" class="form-control" id="addSocioApellidos"
-                                                th:field="*{apellidos}">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="addSocioUsuario" class="form-label">Usuario</label>
-                                            <input type="text" class="form-control" id="addSocioUsuario"
-                                                th:field="*{usuario}">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="addSocioContraseña" class="form-label">Contraseña</label>
-                                            <input type="password" class="form-control" id="addSocioContraseña"
-                                                th:field="*{contrasena}">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="addSocioTelefono" class="form-label">Teléfono</label>
-                                            <input type="tel" class="form-control" id="addSocioTelefono"
-                                                th:field="*{telefono}">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="addSocioFechaAlta" class="form-label">Fecha Alta</label>
-                                            <input type="date" class="form-control" id="addSocioFechaAlta"
-                                                th:field="*{fecha_alta}">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="addSocioFechaBaja" class="form-label">Fecha Baja</label>
-                                            <input type="date" class="form-control" id="addSocioFechaBaja"
-                                                th:field="*{fecha_baja}">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="addSocioCuota" class="form-label">Cuota</label>
-                                            <input type="number" class="form-control" id="addSocioCuota"
-                                                th:field="*{cuota}">
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Cancelar</button>
-                                            <input type="submit" class="btn btn-primary" value="Añadir">
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Modal Editar Socio -->
-                    <div class="modal fade" id="editSocioModal" tabindex="-1" aria-labelledby="editSocioModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="editSocioModalLabel">Editar Socio</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <form method="POST" th:action="@{/socios-edit}" th:object="${socio}">
-                                        <div class="mb-3">
-                                            <label for="editNombre" class="col-form-label">Nombre:</label>
-                                            <input type="text" class="form-control" id="editNombre"
-                                                th:field="*{nombre}">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="editApellidos" class="col-form-label">Apellidos:</label>
-                                            <input type="text" class="form-control" id="editApellidos"
-                                                th:field="*{apellidos}">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="editUsuario" class="col-form-label">Usuario:</label>
-                                            <input type="text" class="form-control" id="editUsuario"
-                                                th:field="*{usuario}">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="editTelefono" class="col-form-label">Teléfono:</label>
-                                            <input type="text" class="form-control" id="editTelefono"
-                                                th:field="*{telefono}">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="editFechaAlta" class="col-form-label">Fecha Alta:</label>
-                                            <input type="text" class="form-control" id="editFechaAlta"
-                                                th:field="*{fecha_alta}">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="editFechaBaja" class="col-form-label">Fecha Baja:</label>
-                                            <input type="text" class="form-control" id="editFechaBaja"
-                                                th:field="*{fecha_baja}">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="editCuota" class="col-form-label">Cuota:</label>
-                                            <input type="text" class="form-control" id="editCuota" th:field="*{cuota}">
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Cancelar</button>
-                                            <input type="button" class="btn btn-primary" value="Guardar cambios">
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Modal Eliminar Socio -->
-                    <div class="modal fade" id="deleteSocioModal" tabindex="-1" aria-labelledby="deleteSocioModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="deleteSocioModalLabel">Eliminar Socio</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    ¿Está seguro de que desea eliminar este socio?
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Cancelar</button>
-                                    <button type="button" class="btn btn-danger"
-                                        th:href="@{/deleteSocio/{id}(id=${socio.id})}">Eliminar</button>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -496,7 +248,7 @@
                                 <tbody>
                                     <tr th:each="pista : ${pistas}" class="text-center">
                                         <th th:text="${pista.id}">1</th>
-                                        <td th:text="${psta.numero}">1</td>
+                                        <td th:text="${pista.numero}">1</td>
                                         <td th:text="${pista.precio}">10</td>
                                         <td th:text="${pista.deporte.nombre}">Tenis</td>
                                         <td>
@@ -517,7 +269,6 @@
                 </div>
             </div>
         </div>
-    </div>
     </div>
 </body>
 
