@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.salesianos.triana.dam.clubDeportivo.model.Socio;
+import com.salesianos.triana.dam.clubDeportivo.service.ReservaService;
 import com.salesianos.triana.dam.clubDeportivo.service.SocioService;
 
 @Controller
@@ -15,12 +16,15 @@ public class SocioController {
 
 	@Autowired
 	private SocioService service;
+	@Autowired
+	private ReservaService serviceReserva;
 
 	@GetMapping("/panel-admin")
 	public String listarSocios(Model model) {
 
 		model.addAttribute("socios", service.findAll());
 		model.addAttribute("socio", new Socio());
+		model.addAttribute("reservas", serviceReserva.findAll());
 
 		return "panelAdmin";
 	}
