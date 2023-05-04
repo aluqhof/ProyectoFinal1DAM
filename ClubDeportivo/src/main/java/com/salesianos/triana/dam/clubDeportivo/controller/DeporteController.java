@@ -15,7 +15,7 @@ public class DeporteController {
 	private DeporteService service;
 	
 	@GetMapping("/deportes")
-	public String listarSocios(Model model) {
+	public String listarDeportes(Model model) {
 
 		model.addAttribute("deportes", service.findAll());
 		model.addAttribute("deporte", new Deporte());

@@ -12,7 +12,7 @@ import com.salesianos.triana.dam.clubDeportivo.model.Socio;
 @Controller
 public class MainController {
 
-	@GetMapping("/inicio")
+	@GetMapping({"/", "/inicio"})
 	public String showHomePage(Model model) {
 		return "index";
 	}

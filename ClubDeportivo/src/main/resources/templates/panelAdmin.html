@@ -429,12 +429,12 @@
                     <div class="container-fluid">
                         <div class="row my-3">
                             <div class="col">
-                                <h3>Socios</h3>
+                                <h3>Deportes</h3>
                             </div>
                         </div>
                         <div class="row my-2">
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#addSocioModal">
+                                data-bs-target="#addDeporteModal">
                                 <i class="bi bi-person-plus"></i>
                             </button>
 
@@ -470,7 +470,50 @@
                 </div>
 
                 <div id="pistas" class="content">
-                    <p>Hola esto son las pistas</p>
+                    <div class="container-fluid">
+                        <div class="row my-3">
+                            <div class="col">
+                                <h3>Pistas</h3>
+                            </div>
+                        </div>
+                        <div class="row my-2">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#addPistaModal">
+                                <i class="bi bi-plus-square"></i>
+                            </button>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover tablaPistas">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th scope="col">#</th>
+                                        <th scope="col">Número</th>
+                                        <th scope="col">Precio</th>
+                                        <th scope="col">Deporte</th>
+                                        <th scope="col">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="pista : ${pistas}" class="text-center">
+                                        <th th:text="${pista.id}">1</th>
+                                        <td th:text="${psta.numero}">1</td>
+                                        <td th:text="${pista.precio}">10</td>
+                                        <td th:text="${pista.deporte.nombre}">Tenis</td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                                                data-bs-target="#editPistaModal">
+                                                <i class="bi bi-pencil-square"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                                                data-bs-target="#deletePistaModal">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
