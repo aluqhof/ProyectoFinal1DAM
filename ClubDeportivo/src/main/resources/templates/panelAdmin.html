@@ -133,35 +133,35 @@
                                 <div class="modal-body">
                                     <!-- Formulario de Añadir Reserva -->
                                     <form method="POST" th:action="@{/reservas}" th:object="${reserva}">
-                                      <div class="mb-3">
-                                        <label for="addReservaFecha" class="form-label">Fecha Reserva</label>
-                                        <input type="date" class="form-control" id="addReservaFecha"
-                                          th:field="*{fecha_reserva}">
-                                      </div>
-                                      <div class="mb-3">
-                                        <label for="addReservaHora" class="form-label">Hora Reserva</label>
-                                        <input type="time" class="form-control" id="addReservaHora"
-                                          th:field="*{hora_reserva}">
-                                      </div>
-                                      <div class="mb-3">
-                                        <label for="addReservaIDSocio" class="form-label">ID Socio</label>
-                                        <select class="form-select" id="addReservaIDSocio" th:field="*{socio}">
+                                        <div class="mb-3">
+                                            <label for="addReservaFecha" class="form-label">Fecha Reserva</label>
+                                            <input type="date" class="form-control" id="addReservaFecha"
+                                                th:field="*{fecha_reserva}">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="addReservaHora" class="form-label">Hora Reserva</label>
+                                            <input type="time" class="form-control" id="addReservaHora"
+                                                th:field="*{hora_reserva}">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="addReservaIDSocio" class="form-label">ID Socio</label>
+                                            <input type="number" class="form-control" id="addReservaIDSocio">
+                                            <!--<select class="form-select" id="addReservaIDSocio" th:field="*{socio}">
                                             <option value="">Selecciona un socio</option>
                                             <option th:each="socio : ${socios}" th:value="${socio}" th:text="${socio.nombre + ' ' + socio.apellidos}"></option>
-                                        </select>
-                                    </div>
-                                      <div class="mb-3">
-                                        <label for="addReservaIDPista" class="form-label">ID Pista</label>
-                                        <input type="number" class="form-control" id="addReservaIDPista"
-                                          th:field="*{pista.id}">
-                                      </div>
-                                      <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                          data-bs-dismiss="modal">Cancelar</button>
-                                        <input type="submit" class="btn btn-primary" value="Añadir">
-                                      </div>
+                                        </select>-->
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="addReservaIDPista" class="form-label">ID Pista</label>
+                                            <input type="number" class="form-control" id="addReservaIDPista">
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Cancelar</button>
+                                            <input type="submit" class="btn btn-primary" value="Añadir">
+                                        </div>
                                     </form>
-                                  </div>
+                                </div>
                             </div>
 
                         </div>
