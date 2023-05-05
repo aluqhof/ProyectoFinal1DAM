@@ -1,6 +1,7 @@
 package com.salesianos.triana.dam.clubDeportivo.model;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
@@ -25,7 +26,9 @@ public class Reserva {
 	@Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
-    private LocalDateTime fechaReserva;
+    private LocalDate fecha_reserva;
+    
+    private LocalTime hora_reserva;
     
     // Many-to-One con la clase Socio
     @ManyToOne

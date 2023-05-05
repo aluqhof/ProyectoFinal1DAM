@@ -17,6 +17,7 @@ public class PistaService extends BaseServiceImp<Pista, Integer, PistaRepositori
 	@Autowired
     private ReservaRepositorio reservaRepositorio;
 	
+	/* Esto lo tiene que tener bien la rama 1
 	public void crearReserva(Pista pista, Socio socio, LocalDateTime fechaReservaCliente) {
 	    if (!pista.isHoraDisponible(fechaReservaCliente)) {
 	        throw new IllegalArgumentException("La hora ya está reservada");
@@ -29,5 +30,5 @@ public class PistaService extends BaseServiceImp<Pista, Integer, PistaRepositori
 	    
 	    pista.getReservas().add(reserva); // Agregar la reserva a la lista de reservas de la pista
 	    reserva.setPista(pista); // Establecer la referencia a la pista en la reserva
-	}
+	}*/
 }

@@ -27,7 +27,7 @@ public class ReservaController {
 		
 		model.addAttribute("reservas", service.findAll());
 		
-		return "html/panelAdmin";
+		return "panelAdmin";
 	}
 	
 	@GetMapping("/reserva-pista")
@@ -38,8 +38,10 @@ public class ReservaController {
 		return "formularioReserva";
 	}
 	
-	@PostMapping("/addReservaPista")
+	//Algo está mal
+	@PostMapping("/reserva-pista/nuevo")
 	public String agregarReserva(@ModelAttribute("reserva") Reserva reserva) {
-		return "redirect:/";
+		service.save(reserva);
+		return "index";
 	}
 }
