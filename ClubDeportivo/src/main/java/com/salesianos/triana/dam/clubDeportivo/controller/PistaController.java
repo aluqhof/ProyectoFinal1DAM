@@ -14,7 +14,7 @@ public class PistaController {
 	@Autowired
 	private PistaService service;
 
-	@GetMapping("/pistas")
+	@GetMapping("/panel-admin/pistas")
 	public String listarPistas(Model model) {
 
 		model.addAttribute("pistas", service.findAll());

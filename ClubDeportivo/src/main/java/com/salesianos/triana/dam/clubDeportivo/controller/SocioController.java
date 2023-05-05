@@ -16,7 +16,7 @@ public class SocioController {
 	@Autowired
 	private SocioService service;
 
-	@GetMapping("/socios")
+	@GetMapping("/panel-admin/socios")
 	public String listarSocios(Model model) {
 
 		model.addAttribute("socios", service.findAll());
@@ -28,7 +28,7 @@ public class SocioController {
 	@PostMapping("/socios-add")
 	public String agregarSocio(@ModelAttribute("socio") Socio socio) {
 	    service.save(socio);
-	    return "redirect:/panel-admin";
+	    return "redirect:/panel-admin/socios";
 	}
 	
 	@PostMapping("/socios-edit")

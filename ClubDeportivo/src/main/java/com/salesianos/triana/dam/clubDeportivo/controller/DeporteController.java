@@ -14,7 +14,7 @@ public class DeporteController {
 	@Autowired
 	private DeporteService service;
 	
-	@GetMapping("/deportes")
+	@GetMapping("/panel-admin/deportes")
 	public String listarDeportes(Model model) {
 
 		model.addAttribute("deportes", service.findAll());

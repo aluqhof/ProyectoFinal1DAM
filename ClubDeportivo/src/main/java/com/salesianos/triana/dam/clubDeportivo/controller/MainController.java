@@ -17,7 +17,7 @@ public class MainController {
 		return "index";
 	}
 	
-	@GetMapping("/panel-admin-prueba")
+	@GetMapping("/panel-admin")
 	public String showAdminPanel(Model model) {
 		model.addAttribute("socio", new Socio());
 		model.addAttribute("reserva", new Reserva());
