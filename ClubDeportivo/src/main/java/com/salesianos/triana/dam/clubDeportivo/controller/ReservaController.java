@@ -6,6 +6,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.salesianos.triana.dam.clubDeportivo.model.Reserva;
 import com.salesianos.triana.dam.clubDeportivo.service.DeporteService;
@@ -21,15 +23,20 @@ public class ReservaController {
 	private DeporteService deporteService;
 	@Autowired
 	private PistaService pistaService;
-	
-	@GetMapping("/panel-admin/reservas")
-	public String listarReservas (Model model) {
-		
+
+	@GetMapping("/reservas")
+	public String listarReservas(Model model) {
+
 		model.addAttribute("reservas", service.findAll());
 		
 		return "panelAdmin";
 	}
-	
+	@PostMapping("/addReservas")
+	public String agregarReserva(@ModelAttribute("reserva") Reserva reserva) {
+		service.save(reserva);
+		return "redirect:/reservas";
+	}
+
 	@GetMapping("/reserva-pista")
 	public String verFormularioReserva(Model model) {
 		model.addAttribute("pistas", pistaService.findAll());
@@ -44,4 +51,6 @@ public class ReservaController {
 		service.save(reserva);
 		return "index";
 	}
+
+
 }

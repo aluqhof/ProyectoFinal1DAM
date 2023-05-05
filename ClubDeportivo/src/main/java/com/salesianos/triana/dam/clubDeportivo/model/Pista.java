@@ -62,12 +62,13 @@ public class Pista {
 	}
 	
 	public boolean isHoraDisponible(LocalDate fechaReservaCliente, LocalTime horaReservaCliente) {
+	public boolean isHoraDisponible(LocalTime horaReserva, LocalDate fechaReserva) {
 	    for (Reserva reserva : reservas) {
 	        if (reserva.getFecha_reserva().equals(fechaReservaCliente) && reserva.getHora_reserva().equals(horaReservaCliente)) {
+	        if (reserva.getFecha_reserva().equals(fechaReserva) && reserva.getHora_reserva().equals(horaReserva)) {
 	            return false;
 	        }
 	    }
 	    return true;
 	}
-	
 }

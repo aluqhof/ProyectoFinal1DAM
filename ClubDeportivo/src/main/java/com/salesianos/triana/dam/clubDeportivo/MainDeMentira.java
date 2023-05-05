@@ -1,7 +1,6 @@
 package com.salesianos.triana.dam.clubDeportivo;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import javax.annotation.PostConstruct;

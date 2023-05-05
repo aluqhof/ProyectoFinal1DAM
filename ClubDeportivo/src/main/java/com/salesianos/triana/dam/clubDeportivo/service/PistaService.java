@@ -1,6 +1,7 @@
 package com.salesianos.triana.dam.clubDeportivo.service;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,18 +18,20 @@ public class PistaService extends BaseServiceImp<Pista, Integer, PistaRepositori
 	@Autowired
     private ReservaRepositorio reservaRepositorio;
 	
-	/* Esto lo tiene que tener bien la rama 1
-	public void crearReserva(Pista pista, Socio socio, LocalDateTime fechaReservaCliente) {
-	    if (!pista.isHoraDisponible(fechaReservaCliente)) {
+	public void crearReserva(Pista pista, Socio socio, LocalDate fechaReserva, LocalTime horaReserva) {
+	    if (!pista.isHoraDisponible(horaReserva, fechaReserva)) {
 	        throw new IllegalArgumentException("La hora ya está reservada");
 	    }
+
 	    Reserva reserva = new Reserva();
 	    reserva.setPista(pista);
 	    reserva.setSocio(socio);
-	    reserva.setFechaReserva(fechaReservaCliente);
+	    reserva.setFecha_reserva(fechaReserva);
+	    reserva.setHora_reserva(horaReserva);
 	    reservaRepositorio.save(reserva);
 	    
 	    pista.getReservas().add(reserva); // Agregar la reserva a la lista de reservas de la pista
 	    reserva.setPista(pista); // Establecer la referencia a la pista en la reserva
-	}*/
+	}
+
 }
