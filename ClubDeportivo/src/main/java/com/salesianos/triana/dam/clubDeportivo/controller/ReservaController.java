@@ -43,7 +43,6 @@ public class ReservaController {
 		return "formularioReserva";
 	}
 	
-	//Algo está mal
 	@PostMapping("/reserva-pista/nuevo")
 	public String agregarReservaUser(@ModelAttribute("reserva") Reserva reserva, Model model) {
 		model.addAttribute("pistas", pistaService.findAll());
