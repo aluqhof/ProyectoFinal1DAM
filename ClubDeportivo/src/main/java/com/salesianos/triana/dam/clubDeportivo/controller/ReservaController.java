@@ -45,9 +45,11 @@ public class ReservaController {
 	
 	//Algo está mal
 	@PostMapping("/reserva-pista/nuevo")
-	public String agregarReservaUser(@ModelAttribute("reserva") Reserva reserva) {
+	public String agregarReservaUser(@ModelAttribute("reserva") Reserva reserva, Model model) {
+		model.addAttribute("pistas", pistaService.findAll());
+		model.addAttribute("deportes", deporteService.findAll());
 		service.save(reserva);
-		return "index";
+		return "redirect:/reserva-pista";
 	}
 
 

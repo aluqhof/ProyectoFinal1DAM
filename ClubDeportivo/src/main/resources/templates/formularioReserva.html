@@ -59,13 +59,9 @@
                                             <div class="form-group">
                                                 <span class="form-label">Pista</span>
                                                 <select class="form-select" id="addPista" th:field="*{pista}" required>
-                                                    <!--<option value=""></option>
-                                                    <option th:each="pista : ${pistas}" th:value="${pista}"
-                                                        th:text="${pista.numero}"></option>-->
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-
+                                                    <option value=""></option>
+                                                    <option th:each="pista : ${pistas}" th:value="${pista.id}"
+                                                        th:text="${pista.numero}"></option>
                                                 </select>
                                                 <span class="select-arrow"></span>
                                             </div>
