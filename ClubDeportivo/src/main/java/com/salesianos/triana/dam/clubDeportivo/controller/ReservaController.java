@@ -1,7 +1,5 @@
 package com.salesianos.triana.dam.clubDeportivo.controller;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,19 +27,18 @@ public class ReservaController {
 	private SocioService socioService;
 
 	@GetMapping("panel-admin/reservas")
-	public String listarReservas(Model model, @RequestParam(required = false) Long reservaId) {
+	public String listarReservas(Model model, @RequestParam(name = "reservaId", required = false) Long reservaId) {
 
 		model.addAttribute("reservas", service.findAll());
 		model.addAttribute("deportes", deporteService.findAll());
 	    model.addAttribute("pistas", pistaService.findAll());
 	    model.addAttribute("socios", socioService.findAll());
 	    if (reservaId != null) {
-	        Optional<Reserva> reserva = service.findById(reservaId);
+	        Reserva reserva = service.findById(reservaId);
 	        model.addAttribute("reserva", reserva);
 	    } else {
 	        model.addAttribute("reserva", new Reserva());
 	    }
-
 	    return "panelAdmin";
 	}
 	
@@ -50,6 +47,21 @@ public class ReservaController {
 		service.add(reserva);
 		return "redirect:/panel-admin/reservas";
 	}
+	
+	@PostMapping("/editReserva")
+	public String editReservaAdmin(@ModelAttribute("reserva") Reserva reserva) {
+		service.edit(reserva);
+		return "redirect:/panel-admin/reservas";
+	}
+	
+	/*@PostMapping("/deleteReserva")
+	public String deleteReserva(@RequestParam("reservaId") Long reservaId) {
+		if (reservaId != null) {
+	        service.deleteById(reservaId);
+	    }
+	    return "redirect:/panel-admin/reservas";
+	}*/
+
 
 	@GetMapping("/reserva-pista")
 	public String verFormularioReserva(Model model) {

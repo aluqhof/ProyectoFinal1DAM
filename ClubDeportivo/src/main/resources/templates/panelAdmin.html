@@ -139,7 +139,8 @@
                                             <div class="mb-3">
                                                 <label for="addReservaHora" class="form-label">Hora Reserva</label>
                                                 <input type="time" class="form-control" id="addReservaHora"
-                                                    th:field="*{hora_reserva}" step="3600" min="07:00" max="21:00" required>
+                                                    th:field="*{hora_reserva}" step="3600" min="07:00" max="21:00"
+                                                    required>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="addReservaIDSocio" class="form-label">ID Socio</label>
@@ -154,7 +155,8 @@
                                                 <select class="form-select" id="addReservaIDPista" th:field="*{pista}">
                                                     <option value="">Selecciona una pista</option>
                                                     <option th:each="pista : ${pistas}" th:value="${pista.id}"
-                                                        th:text="${pista.numero + ' - ' +pista.deporte.nombre}"></option>
+                                                        th:text="${pista.numero + ' - ' +pista.deporte.nombre}">
+                                                    </option>
                                                 </select>
                                             </div>
                                             <div class="modal-footer">
@@ -166,6 +168,79 @@
                                     </div>
                                 </div>
 
+                            </div>
+                        </div>
+
+                        <!-- Modal Editar Reserva -->
+                        <div class="modal fade" id="editReservaModal" tabindex="-1"
+                            aria-labelledby="editReservaModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="editReservaModalLabel">Editar Reserva</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form method="post" th:action="@{/editReserva}" th:object="${reserva}">
+                                            <input type="hidden" th:field="*{id}" th:value="${reserva.id}" >
+                                            <div class="mb-3">
+                                                <label for="editFecha" class="col-form-label">Fecha Reserva:</label>
+                                                <input type="date" class="form-control" id="editFecha"
+                                                    th:field="*{fecha_reserva}" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="editHora" class="col-form-label">Hora Reserva:</label>
+                                                <input type="time" class="form-control" id="editHora"
+                                                    th:field="*{hora_reserva}" step="3600" min="07:00" max="21:00" required>
+                                            </div>
+                                            <select class="form-select" id="editReservaIDSocio" th:field="*{socio}" required>
+                                                <option value="">Selecciona un socio</option>
+                                                <option th:each="socio : ${socios}" th:value="${socio.id}"
+                                                    th:text="${socio.nombre + ' ' + socio.apellidos}"></option>
+                                            </select>
+                                            <div class="mb-3">
+                                                <label for="editReservaIDPista" class="form-label">ID Pista</label>
+                                                <select class="form-select" id="editReservaIDPista" th:field="*{pista}" required>
+                                                    <option value="">Selecciona una pista</option>
+                                                    <option th:each="pista : ${pistas}" th:value="${pista.id}"
+                                                        th:text="${pista.numero + ' - ' +pista.deporte.nombre}">
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Cancelar</button>
+                                                <input type="submit" class="btn btn-primary"
+                                                    value="Guardar cambios">
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Modal Eliminar Reserva -->
+                        <div class="modal fade" id="deleteReservaModal" tabindex="-1"
+                            aria-labelledby="deleteReservaModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="deleteReservaModalLabel">Eliminar Reserva</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        ¿Está seguro de que desea eliminar esta reserva?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Cancelar</button>
+                                        <form id="deleteForm" th:action="@{/deleteReserva}" method="post">
+                                            <input type="hidden" name="reservaId" th:value="${reserva.id}">
+                                            <input type="submit" class="btn btn-danger" value="Eliminar">
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
