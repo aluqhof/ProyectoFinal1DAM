@@ -11,6 +11,7 @@ import com.salesianos.triana.dam.clubDeportivo.model.Reserva;
 import com.salesianos.triana.dam.clubDeportivo.service.DeporteService;
 import com.salesianos.triana.dam.clubDeportivo.service.PistaService;
 import com.salesianos.triana.dam.clubDeportivo.service.ReservaService;
+import com.salesianos.triana.dam.clubDeportivo.service.SocioService;
 
 @Controller
 public class ReservaController {
@@ -21,17 +22,21 @@ public class ReservaController {
 	private DeporteService deporteService;
 	@Autowired
 	private PistaService pistaService;
+	@Autowired
+	private SocioService socioService;
 
 	@GetMapping("panel-admin/reservas")
 	public String listarReservas(Model model) {
-
 		model.addAttribute("reservas", service.findAll());
-		
+		model.addAttribute("socios", socioService.findAll());
+		model.addAttribute("pistas", pistaService.findAll());
+		model.addAttribute("reserva", new Reserva());
 		return "panelAdmin";
 	}
-	@PostMapping("/addReservas")
+	
+	@PostMapping("/addReserva")
 	public String agregarReservaAdmin(@ModelAttribute("reserva") Reserva reserva) {
-		service.save(reserva);
+		service.add(reserva);
 		return "redirect:/panel-admin/reservas";
 	}
 
