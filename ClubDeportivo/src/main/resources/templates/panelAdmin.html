@@ -64,7 +64,7 @@
                     <hr>
                 </div>
             </div>
-            <div class="col py-3">
+            <div class="col py-3 contenidoDerechaAdmin">
                 <div id="general" class="content">
                     <p>Hola esto son los campeonatos</p>
                 </div>
@@ -105,11 +105,11 @@
                                         <td th:text="${reserva.pista.precio}">2.30</td>
                                         <td th:text="${reserva.pista.deporte.nombre}">Tenis</td>
                                         <td>
-                                            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                                            <button type="button" class="btn btn-primary btn-sm botonEditar" data-bs-toggle="modal"
                                                 data-bs-target="#editReservaModal">
                                                 <i class="bi bi-pencil-square"></i>
                                             </button>
-                                            <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                                            <button type="button" class="btn btn-danger btn-sm botonBorrar"  data-bs-toggle="modal"
                                                 data-bs-target="#deleteReservaModal">
                                                 <i class="bi bi-trash"></i>
                                             </button>

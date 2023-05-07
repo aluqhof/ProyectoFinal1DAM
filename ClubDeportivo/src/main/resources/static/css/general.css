@@ -1,4 +1,29 @@
+.contenidoDerechaAdmin {
+    max-width: 90%;
+}
 
+@media screen and (max-width: 600px) {
+
+    .contenidoDerechaAdmin table th,
+    td {
+        font-size: 0.6em;
+        text-align: center;
+    }
+    .contenidoDerechaAdmin .botonEditar, .botonBorrar {
+        width: 20%;
+    }
+}
+
+@media screen and (max-width: 950px) {
+    .contenidoDerechaAdmin table th,
+    td {
+        font-size: 0.8em;
+        text-align: center;
+    }
+    .contenidoDerechaAdmin .botonEditar, .botonBorrar {
+        width: 40%;
+    }
+}
 
 .navbar {
     background-color: #00daff;
