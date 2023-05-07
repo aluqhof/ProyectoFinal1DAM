@@ -35,8 +35,7 @@
                     <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
                         id="menu">
                         <li class="nav-item">
-                            <a href="#general"
-                                class="nav-link align-middle px-0">
+                            <a href="#general" class="nav-link align-middle px-0">
                                 <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">General</span>
                             </a>
                         </li>
@@ -105,18 +104,69 @@
                                         <td th:text="${reserva.pista.precio}">2.30</td>
                                         <td th:text="${reserva.pista.deporte.nombre}">Tenis</td>
                                         <td>
-                                            <button type="button" class="btn btn-primary btn-sm botonEditar" data-bs-toggle="modal"
-                                                data-bs-target="#editReservaModal">
+                                            <button type="button" class="btn btn-primary btn-sm botonEditar"
+                                                data-bs-toggle="modal" data-bs-target="#editReservaModal">
                                                 <i class="bi bi-pencil-square"></i>
                                             </button>
-                                            <button type="button" class="btn btn-danger btn-sm botonBorrar"  data-bs-toggle="modal"
-                                                data-bs-target="#deleteReservaModal">
+                                            <button type="button" class="btn btn-danger btn-sm botonBorrar"
+                                                data-bs-toggle="modal" data-bs-target="#deleteReservaModal">
                                                 <i class="bi bi-trash"></i>
                                             </button>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
+                        </div>
+                        <!-- Modal Añadir Reserva -->
+                        <div class="modal fade" id="addReservaModal" tabindex="-1"
+                            aria-labelledby="addReservaModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="addReservaModalLabel">Añadir Reserva</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <!-- Formulario de Añadir Reserva -->
+                                        <form method="POST" th:action="@{/addReserva}" th:object="${reserva}">
+                                            <div class="mb-3">
+                                                <label for="addReservaFecha" class="form-label">Fecha Reserva</label>
+                                                <input type="date" class="form-control" id="addReservaFecha"
+                                                    th:field="*{fecha_reserva}" required>
+                                            </div>
+                                            <!--Tiene que ir todo asociado con el horario-->
+                                            <div class="mb-3">
+                                                <label for="addReservaHora" class="form-label">Hora Reserva</label>
+                                                <input type="time" class="form-control" id="addReservaHora"
+                                                    th:field="*{hora_reserva}" step="3600" min="07:00" max="21:00" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="addReservaIDSocio" class="form-label">ID Socio</label>
+                                                <select class="form-select" id="addReservaIDSocio" th:field="*{socio}">
+                                                    <option value="">Selecciona un socio</option>
+                                                    <option th:each="socio : ${socios}" th:value="${socio.id}"
+                                                        th:text="${socio.nombre + ' ' + socio.apellidos}"></option>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="addReservaIDPista" class="form-label">ID Pista</label>
+                                                <select class="form-select" id="addReservaIDPista" th:field="*{pista}">
+                                                    <option value="">Selecciona una pista</option>
+                                                    <option th:each="pista : ${pistas}" th:value="${pista.id}"
+                                                        th:text="${pista.numero + ' - ' +pista.deporte.nombre}"></option>
+                                                </select>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Cancelar</button>
+                                                <input type="submit" class="btn btn-primary" value="Añadir">
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
                 </div>

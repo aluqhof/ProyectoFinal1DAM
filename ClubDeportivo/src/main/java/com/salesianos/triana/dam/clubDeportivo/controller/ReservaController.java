@@ -44,9 +44,10 @@ public class ReservaController {
 
 	    return "panelAdmin";
 	}
-	@PostMapping("/addReservas")
+	
+	@PostMapping("/addReserva")
 	public String agregarReservaAdmin(@ModelAttribute("reserva") Reserva reserva) {
-		service.save(reserva);
+		service.add(reserva);
 		return "redirect:/panel-admin/reservas";
 	}
 
