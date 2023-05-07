@@ -47,7 +47,7 @@ public class ReservaController {
 	public String agregarReservaUser(@ModelAttribute("reserva") Reserva reserva, Model model) {
 		model.addAttribute("pistas", pistaService.findAll());
 		model.addAttribute("deportes", deporteService.findAll());
-		service.save(reserva);
+		service.add(reserva);
 		return "redirect:/reserva-pista";
 	}
 

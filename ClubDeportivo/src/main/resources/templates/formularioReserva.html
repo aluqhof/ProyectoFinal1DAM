@@ -33,22 +33,27 @@
                                 <form method="POST" th:action="@{/reserva-pista/nuevo}" th:object="${reserva}">
                                     <div class="form-group">
                                         <span class="form-label">Deporte</span>
-                                        <select class="form-select" id="addDeporte" th:field="*{pista.deporte.id}" required>
+                                        <select class="form-select" id="addDeporte" th:field="*{pista.deporte}"
+                                            required>
                                             <option value="">Selecciona un deporte</option>
-                                            <option th:each="deporte : ${deportes}" th:value="${deporte.id}" th:text="${deporte.nombre}"></option>
+                                            <option th:each="deporte : ${deportes}" th:value="${deporte.id}"
+                                                th:text="${deporte.nombre}"></option>
                                         </select>
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <span class="form-label">Fecha</span>
-                                                <input class="form-control" id="addFechaReserva" type="date" th:field="*{fecha_reserva}" required>
+                                                <input class="form-control" id="addFechaReserva" type="date"
+                                                    th:field="*{fecha_reserva}" required>
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="form-group">
-                                                <span class="form-label">Hora</span>
-                                                <input class="form-control" id="addHoraReserva" type="time" th:field="*{hora_reserva}" required>
+                                                <span class="form-label">Hora</span><!--Tiene que ir asociado con el horario-->
+                                                <input class="form-control" id="addHoraReserva" type="time"
+                                                    th:field="*{hora_reserva}" step="3600" min="07:00" max="21:00"
+                                                    required>
                                             </div>
                                         </div>
                                     </div>
@@ -56,9 +61,11 @@
                                         <div class=" offset-sm-4 col-sm-4">
                                             <div class="form-group">
                                                 <span class="form-label">Pista</span>
-                                                <select class="form-select" id="addPista" th:field="*{pista.id}" required>
+                                                <select class="form-select" id="addPista" th:field="*{pista}" required>
                                                     <option value=""></option>
-                                                    <option th:each="pista : ${pistas}" th:value="${pista.id}" th:text="${pista.numero}"></option>
+                                                    <option th:each="pista : ${pistas}" th:value="${pista.id}"
+                                                        th:text="${pista.numero}">
+                                                    </option>
                                                 </select>
                                                 <span class="select-arrow"></span>
                                             </div>
