@@ -68,12 +68,21 @@ public class ReservaController {
 	@PostMapping("/add/submit")
 	public String procesarFormulario(@ModelAttribute("reserva") Reserva r) {
 		service.add(r);
-		return "redirect:http:/reservas/";
+		return "redirect:/reservas/";
 	}
 	
 	@PostMapping("/edit/submit")
 	public String editReservaAdmin(@ModelAttribute("reserva") Reserva reserva) {
 		service.edit(reserva);
+		return "redirect:/reservas/";
+	}
+	
+	@GetMapping("/borrar/{id}")
+	public String borrar(@PathVariable("id") long id) {
+		Reserva aBorrar = service.findById(id).orElse(null);
+		if(aBorrar!=null) {
+			service.delete(aBorrar);
+		}
 		return "redirect:/reservas/";
 	}
 
