@@ -30,43 +30,52 @@ public class ReservaController {
 	private SocioService socioService;
 
 	@GetMapping("/")
-	public String listarReservas(Model model, @RequestParam(name = "reservaId", required = false) Long reservaId) {
+	public String showReservas(Model model, @RequestParam(name = "reservaId", required = false) Long reservaId) {
 
 		model.addAttribute("reservas", service.findAll());
 		model.addAttribute("deportes", deporteService.findAll());
 	    model.addAttribute("pistas", pistaService.findAll());
 	    model.addAttribute("socios", socioService.findAll());
-	    model.addAttribute("reserva", new Reserva());
-	    model.addAttribute("mostrarForm", false);
+	    model.addAttribute("reserva", new Reserva(0L)); // establecer el id en cero
 	    return "reservas";
 	}
 	
-	 
-	@GetMapping("/update/{id}")
-	public String actualizarReserva(@PathVariable("id") Long id, Model model) {
-	    model.addAttribute("reservas", service.findAll());
-	    model.addAttribute("deportes", deporteService.findAll());
+	@GetMapping("/add")
+	public String addReserva(Model model) {
+		model.addAttribute("reservas", service.findAll());
+		model.addAttribute("deportes", deporteService.findAll());
 	    model.addAttribute("pistas", pistaService.findAll());
 	    model.addAttribute("socios", socioService.findAll());
-	    model.addAttribute("reserva", service.findById(id));
-	    model.addAttribute("mostrarForm", true);
-	    return "reservas";
+	    model.addAttribute("reserva", new Reserva());
+	    return "formularioReservaAdmin";
+	}
+	 
+	@GetMapping("/update/{id}")
+	public String updateReserva(@PathVariable("id") Long id, Model model) {
+		model.addAttribute("reservas", service.findAll());
+		model.addAttribute("deportes", deporteService.findAll());
+	    model.addAttribute("pistas", pistaService.findAll());
+	    model.addAttribute("socios", socioService.findAll());
+	    Reserva rEditar = service.findById(id).orElse(null);
+	    if(rEditar !=null) {
+	    	model.addAttribute("reserva", rEditar);
+	    	return "formularioReservaAdmin";
+	    }else {
+	    	return "redirect:/reservas/";
+	    }
 	}
 	
-	@PostMapping("/editReserva")
+	@PostMapping("/add/submit")
+	public String procesarFormulario(@ModelAttribute("reserva") Reserva r) {
+		service.add(r);
+		return "redirect:http:/reservas/";
+	}
+	
+	@PostMapping("/edit/submit")
 	public String editReservaAdmin(@ModelAttribute("reserva") Reserva reserva) {
 		service.edit(reserva);
 		return "redirect:/reservas/";
 	}
-	
-	/*@PostMapping("/deleteReserva")
-	public String deleteReserva(@RequestParam("reservaId") Long reservaId) {
-		if (reservaId != null) {
-	        service.deleteById(reservaId);
-	    }
-	    return "redirect:/panel-admin/reservas";
-	}*/
-
 
 	@GetMapping("/reserva-pista")
 	public String verFormularioReserva(Model model) {

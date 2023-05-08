@@ -1,6 +1,7 @@
 package com.salesianos.triana.dam.clubDeportivo.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -19,8 +20,8 @@ public abstract class BaseServiceImp<T, ID, R extends JpaRepository<T, ID>>
 	}
 
 	@Override
-	public T findById(ID id) {
-		return repository.findById(id).orElse(null);
+	public Optional<T> findById(ID id) {
+		return repository.findById(id);
 	}
 
 	@Override

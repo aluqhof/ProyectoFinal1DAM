@@ -1,6 +1,7 @@
 package com.salesianos.triana.dam.clubDeportivo.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -8,7 +9,7 @@ import org.springframework.stereotype.Service;
 public interface BaseService <T, ID>{
 
 	List<T> findAll();
-	T findById(ID id);
+	Optional<T> findById(ID id);
 	T add (T t);
 	T save (T t);
 	T edit(T t);

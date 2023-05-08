@@ -43,4 +43,8 @@ public class Reserva {
     @ManyToOne
     @JoinColumn(foreignKey = @ForeignKey (name="fk_pista_reserva"))
     private Pista pista;
+    
+    public Reserva (Long id) {
+    	this.id=id;
+    }
 }
