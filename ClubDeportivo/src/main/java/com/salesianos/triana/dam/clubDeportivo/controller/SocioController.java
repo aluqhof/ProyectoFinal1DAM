@@ -6,35 +6,37 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.salesianos.triana.dam.clubDeportivo.model.Socio;
 import com.salesianos.triana.dam.clubDeportivo.service.SocioService;
 
 @Controller
+@RequestMapping("/socios")
 public class SocioController {
 
 	@Autowired
 	private SocioService service;
 
-	@GetMapping("/panel-admin/socios")
+	@GetMapping("/")
 	public String listarSocios(Model model) {
 
 		model.addAttribute("socios", service.findAll());
 		model.addAttribute("socio", new Socio());
 
-		return "panelAdmin";
+		return "socios";
 	}
 
-	@PostMapping("/socios-add")
+	@PostMapping("/addSocio")
 	public String agregarSocio(@ModelAttribute("socio") Socio socio) {
 	    service.save(socio);
-	    return "redirect:/panel-admin/socios";
+	    return "redirect:/";
 	}
 	
-	@PostMapping("/socios-edit")
+	@PostMapping("/editSocio")
 	public String editarSocio(@ModelAttribute("socio") Socio socio) {
 	    service.save(socio);
-	    return "redirect:/panel-admin";
+	    return "redirect:/";
 	}
  //th:href="@{/deleteSocio/{id}(id=${socio.id})}"
 	/*
