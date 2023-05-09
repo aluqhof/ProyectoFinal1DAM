@@ -23,7 +23,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MainDeMentira {
 
-	@Autowired
+	/*@Autowired
 	private final DeporteRepositorio deporteRepositorio;
 	private final PistaRepositorio pistaRepositorio;
 	private final SocioRepositorio socioRepositorio;
@@ -121,5 +121,5 @@ public class MainDeMentira {
         reservaRepositorio.save(r1);
         reservaRepositorio.save(r2);
         reservaRepositorio.save(r3);
-	}
+	}*/
 }

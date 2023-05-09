@@ -60,7 +60,7 @@
                     <!-- <form class="d-flex">
                         <a href="" data-bs-toggle="modal" data-bs-target="#loginModal"
                             class="btn botonAcceso btn-outline-dark btn-lg">Acceder</a>-->
-                    <li class="nav-item" sec:authenticated>
+                    <li class="nav-item" sec:authorize="!authenticated()">
                         <a href="" data-bs-toggle="modal" data-bs-target="#loginModal"
                             class="btn botonAcceso btn-outline-dark btn-lg">Acceder</a>
                     </li>
@@ -69,9 +69,6 @@
                             th:href="@{/logout}">Log out</a>
                     </li>
                     <!--</form>-->
-                </div>
-                <div sec:authorize="hasRole('ADMIN')">
-                    Este contenido solo es visible para usuarios con rol de ADMIN.
                 </div>
             </div>
         </nav>
