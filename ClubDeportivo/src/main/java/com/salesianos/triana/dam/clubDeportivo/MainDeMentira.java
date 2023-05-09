@@ -1,21 +1,6 @@
 package com.salesianos.triana.dam.clubDeportivo;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-
-import javax.annotation.PostConstruct;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import com.salesianos.triana.dam.clubDeportivo.model.Deporte;
-import com.salesianos.triana.dam.clubDeportivo.model.Pista;
-import com.salesianos.triana.dam.clubDeportivo.model.Reserva;
-import com.salesianos.triana.dam.clubDeportivo.model.Socio;
-import com.salesianos.triana.dam.clubDeportivo.repository.DeporteRepositorio;
-import com.salesianos.triana.dam.clubDeportivo.repository.PistaRepositorio;
-import com.salesianos.triana.dam.clubDeportivo.repository.ReservaRepositorio;
-import com.salesianos.triana.dam.clubDeportivo.repository.SocioRepositorio;
 
 import lombok.RequiredArgsConstructor;
 

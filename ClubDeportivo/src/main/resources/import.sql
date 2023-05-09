@@ -15,4 +15,4 @@ INSERT INTO socio (nombre, apellidos, usuario, contrasena, telefono, fecha_alta,
 
 INSERT INTO reserva (fecha_reserva, hora_reserva, socio_id, pista_id) VALUES ('2023-05-10', '10:00:00', 1, 1), ('2023-05-10', '11:00:00', 2, 2), ('2023-05-10', '12:00:00', 3, 3), ('2023-05-11', '10:00:00', 1, 4), ('2023-05-11', '11:00:00', 2, 5), ('2023-05-11', '12:00:00', 3, 6), ('2023-05-12', '10:00:00', 1, 1), ('2023-05-12', '11:00:00', 2, 2), ('2023-05-12', '12:00:00', 3, 3), ('2023-05-13', '10:00:00', 1, 4);
 
-ALTER SEQUENCE HIBERNATE_SEQUENCE RESTART with 1000
+ALTER SEQUENCE hibernate_sequence RESTART WITH 1000;
