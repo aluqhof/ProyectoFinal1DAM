@@ -65,12 +65,12 @@ public class SecurityConfig {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
 		.authorizeRequests()
-			.antMatchers("/css/**","/js/**","/webjars/**", "/h2-console/**").permitAll()
-			.antMatchers("/admin/**").hasRole("ADMIN")
+			.antMatchers("/css/**","/js/**","/img/**", "/h2-console/**").permitAll()
+			.antMatchers("/reservas/**", "/socios/**", "/pistas/**", "/deportes/**", "/general/**").hasRole("ADMIN")
 			.anyRequest().authenticated()
 			.and()
 		.formLogin()
-			.loginPage("/login")
+			.loginPage("/")
 			.permitAll();
 		
 		// Añadimos esto para poder seguir accediendo a la consola de H2

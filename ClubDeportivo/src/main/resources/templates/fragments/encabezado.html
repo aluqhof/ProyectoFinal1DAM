@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="UTF-8">
@@ -27,6 +27,10 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarColor01">
                     <ul class="navbar-nav me-auto">
+                        <li id="btnadmin" class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
+                            <a class="nav-link btn btn-dark text-danger mx-1" href="http://localhost:9000/reservas/"
+                                role="button">Administración</a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link active" href="index.html" th:href="@{/inicio}">Inicio
                                 <span class="visually-hidden">(current)</span>
@@ -53,12 +57,51 @@
                             </div>
                         </li>
                     </ul>
-                    <form class="d-flex">
-                        <a href="#" class="btn botonAcceso btn-outline-dark btn-lg">Acceder</a>
-                    </form>
+                    <!-- <form class="d-flex">
+                        <a href="" data-bs-toggle="modal" data-bs-target="#loginModal"
+                            class="btn botonAcceso btn-outline-dark btn-lg">Acceder</a>-->
+                    <li class="nav-item" sec:authenticated>
+                        <a href="" data-bs-toggle="modal" data-bs-target="#loginModal"
+                            class="btn botonAcceso btn-outline-dark btn-lg">Acceder</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="authenticated()">
+                        <a class="nav-link btn btn-dark text-danger mx-1" href="#" role="button"
+                            th:href="@{/logout}">Log out</a>
+                    </li>
+                    <!--</form>-->
+                </div>
+                <div sec:authorize="hasRole('ADMIN')">
+                    Este contenido solo es visible para usuarios con rol de ADMIN.
                 </div>
             </div>
         </nav>
+        <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="loginModalLabel">Iniciar sesión</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post" th:action="@{/login}">
+                            <div class="mb-3">
+                                <label for="inputEmail" class="form-label">Correo electrónico</label>
+                                <input type="username" class="form-control" name="username" id="username"
+                                    aria-describedby="emailHelp">
+                            </div>
+                            <div class="mb-3">
+                                <label for="inputPassword" class="form-label">Contraseña</label>
+                                <input type="password" class="form-control" name="password" id="password">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                <input type="submit" class="btn btn-primary" value="Iniciar sesión">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </header>
 </body>
 
