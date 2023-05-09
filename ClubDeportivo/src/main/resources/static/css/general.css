@@ -134,6 +134,10 @@
     }
 }
 
+.errorForm{
+    color: red;
+    font-size: 0.8em;
+}
 /*Estilos para el formulario de registro*/
 
 #booking {
