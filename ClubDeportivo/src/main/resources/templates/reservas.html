@@ -57,70 +57,46 @@
                                         <td th:text="${reserva.pista.deporte.nombre}">Tenis</td>
                                         <td>
                                             <a th:href="@{/reservas/update/{id}(id=${reserva.id})}"
-                                                class="botonEditar">
+                                                class="btn btn-primary btn-sm botonEditar">
                                                 <i class="bi bi-pencil-square"></i>
                                             </a>
-                                            <a class="botonBorrar"
-                                                data-bs-toggle="modal"
-                                                th:attr="data-bs-target='#borrarReserva'+ '-' + ${reserva.id}">
+                                            <button type="button" class="btn btn-danger btn-sm botonBorrar"
+                                                data-bs-toggle="modal" data-bs-target="#deleteReservaModal">
                                                 <i class="bi bi-trash"></i>
-                                            </a>
+                                            </button>
                                         </td>
-                                        <div class="modal text-white" th:id="borrarReserva + '-' + ${reserva.id}">
-                                            <div class="modal-dialog remove">
-                                                <div class="modal-content">
-
-                                                    <div class="modal-header bg-danger border-0">
-                                                        <h4 class="modal-title mx-auto">¿Estas seguro?</h4>
-                                                        <button type="button" class="btn-close mx-0"
-                                                            data-bs-dismiss="modal"></button>
-                                                    </div>
-
-                                                    <!-- Modal body -->
-                                                    <div class="modal-body bg-danger">
-                                                        <a class="btn bg-white mx-auto w-100"
-                                                            th:href="@{/reservas/borrar/{id}(id=${reserva.id})}">Borrar</a>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
-
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
-
-                    </div>
-                </div>
-            </div>
-            <!-- Modal Eliminar Reserva -->
-            <div class="modal fade" id="deleteReservaModal" tabindex="-1" aria-labelledby="deleteReservaModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="deleteReservaModalLabel">Eliminar
-                                Reserva</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            ¿Está seguro de que desea eliminar esta reserva?
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                            <form id="deleteForm" th:action="@{/deleteReserva}" method="post">
-                                <input type="hidden" name="reservaId" th:value="${reserva.id}">
-                                <input type="submit" class="btn btn-danger" value="Eliminar">
-                            </form>
+                        <!-- Modal Eliminar Reserva -->
+                        <div class="modal fade" id="deleteReservaModal" tabindex="-1"
+                            aria-labelledby="deleteReservaModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="deleteReservaModalLabel">Eliminar Reserva</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        ¿Está seguro de que desea eliminar esta reserva?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Cancelar</button>
+                                        <form id="deleteForm" th:action="@{/deleteReserva}" method="post">
+                                            <input type="hidden" name="reservaId" th:value="${reserva.id}">
+                                            <input type="submit" class="btn btn-danger" value="Eliminar">
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    </div>
-    </div>
     </div>
 </body>
 
