@@ -2,6 +2,16 @@
     max-width: 90%;
 }
 
+.botonEditar,
+.botonBorrar {
+    color: black;
+    text-decoration: none;
+    border: 1px solid black;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #d1e8ec;
+}
+
 @media screen and (max-width: 600px) {
 
     .contenidoDerechaAdmin table th,
@@ -9,21 +19,29 @@
         font-size: 0.6em;
         text-align: center;
     }
-    .contenidoDerechaAdmin .botonEditar, .botonBorrar {
-        width: 20%;
+
+    .contenidoDerechaAdmin .botonEditar,
+    .botonBorrar {
+        width: 40%;
+        font-size: 0.7em;
     }
 }
 
-@media screen and (max-width: 950px) {
+@media screen and (max-width: 950px) and (min-width: 600px){
+
     .contenidoDerechaAdmin table th,
     td {
         font-size: 0.8em;
         text-align: center;
     }
-    .contenidoDerechaAdmin .botonEditar, .botonBorrar {
+
+    .contenidoDerechaAdmin .botonEditar,
+    .botonBorrar {
         width: 40%;
+        font-size: 0.9em;
     }
 }
+
 
 .navbar {
     background-color: #00daff;
@@ -134,10 +152,11 @@
     }
 }
 
-.errorForm{
+.errorForm {
     color: red;
     font-size: 0.8em;
 }
+
 /*Estilos para el formulario de registro*/
 
 #booking {
