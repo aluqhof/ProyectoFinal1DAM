@@ -6,7 +6,9 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -21,6 +23,8 @@ public class Socio extends Usuario{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	
 	private String nombre;
 	private String apellidos;
 	private String telefono;
