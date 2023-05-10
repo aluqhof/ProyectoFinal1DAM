@@ -12,7 +12,7 @@ import com.salesianos.triana.dam.clubDeportivo.model.Socio;
 import com.salesianos.triana.dam.clubDeportivo.repository.SocioRepositorio;
 
 import lombok.RequiredArgsConstructor;
-
+/*
 @Component
 @RequiredArgsConstructor
 public class InitData {
@@ -49,4 +49,4 @@ public class InitData {
 		
 	}
 
-}
+}*/

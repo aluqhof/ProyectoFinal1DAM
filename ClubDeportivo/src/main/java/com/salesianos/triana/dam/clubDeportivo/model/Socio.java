@@ -28,7 +28,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Socio implements UserDetails{
+public class Socio extends Usuario implements UserDetails{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,8 +36,6 @@ public class Socio implements UserDetails{
 	
 	private String nombre;
 	private String apellidos;
-	private String username;
-	private String password;
 	private String telefono;
 	private LocalDate fecha_alta;
 	private LocalDate fecha_baja;
