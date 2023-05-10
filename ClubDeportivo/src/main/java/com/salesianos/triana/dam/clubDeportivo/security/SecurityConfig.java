@@ -21,6 +21,7 @@ public class SecurityConfig {
 	private final UserDetailsService userDetailsService;
 	private final PasswordEncoder passwordEncoder;
 	
+	//Eliminar?
 	@Bean
 	public AuthenticationManager 
 			authenticationManager(HttpSecurity http) throws Exception {
@@ -34,23 +35,6 @@ public class SecurityConfig {
 		
 		
 	}
-	
-	/*@Bean
-    public InMemoryUserDetailsManager userDetailsService() {
-        UserDetails user = User.builder()
-        		.username("admin")
-        		.password("{noop}admin")
-        		.roles("ADMIN")
-            .build();
-        return new InMemoryUserDetailsManager(user);
-    }*/
-	
-	/*
-	@Bean
-	public UserDetailsService userDetailsService() {
-		return new UserDetailsServiceImpl();
-	}*/
-	
 	
 	
 	@Bean 
