@@ -21,7 +21,7 @@ public class SecurityConfig {
 	private final UserDetailsService userDetailsService;
 	private final PasswordEncoder passwordEncoder;
 	
-	//Eliminar?
+
 	@Bean
 	public AuthenticationManager 
 			authenticationManager(HttpSecurity http) throws Exception {

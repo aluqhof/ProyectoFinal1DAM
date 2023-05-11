@@ -11,10 +11,14 @@ import lombok.NoArgsConstructor;
 public class Admin extends Usuario{
 
 	private static final long serialVersionUID = 1L;
+	
+	private String nombre, apellidos;
 
-	public Admin(Long id, String username, String password) {
+	public Admin(Long id, String username, String password, String nombre, String apellidos) {
 		super(id, username, password);
 		// TODO Auto-generated constructor stub
+		this.nombre=nombre;
+		this.apellidos=apellidos;
 	}
 
 	

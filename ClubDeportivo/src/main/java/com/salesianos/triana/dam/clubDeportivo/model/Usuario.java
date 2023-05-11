@@ -41,9 +41,6 @@ public abstract class Usuario implements UserDetails{
 	    } else {
 	        role += "USER";
 	    }
-	    if (this instanceof Socio) {
-	        role += ",ROLE_SOCIO";
-	    }
 	    return List.of(new SimpleGrantedAuthority(role));
 	}
 

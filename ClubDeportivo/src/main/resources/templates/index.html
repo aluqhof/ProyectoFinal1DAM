@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="UTF-8">
@@ -16,6 +16,13 @@
     <header th:replace="fragments/encabezado :: encabezado">
     </header>
     <main>
+		<h2>Welcome</h2>
+        <p>Spring Security Thymeleaf tutorial</p>
+        <div sec:authorize="hasRole('USER')">Text visible to user.</div>
+        <div sec:authorize="hasRole('ADMIN')">Text visible to admin.</div>
+        <div sec:authorize="isAuthenticated()">
+            Bienvenido <span sec:authentication="username">Usuario</span>
+        </div>
         <div class="banner text-center bg-image">
             <div class="mask d-flex justify-content-center align-items-center">
                 <div class="bloque text-white mt-2">
