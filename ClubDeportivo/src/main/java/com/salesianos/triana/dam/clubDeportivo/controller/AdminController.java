@@ -45,7 +45,9 @@ public class AdminController {
 		model.addAttribute("deportes", deporteService.findAll());
 	    model.addAttribute("pistas", pistaService.findAll());
 	    model.addAttribute("socios", socioService.findAll());
-	    model.addAttribute("reserva", new Reserva());
+	    Reserva reserva = new Reserva();
+	    model.addAttribute("reserva", reserva);
+	    System.out.println(reserva.getId());
 	    return "formularioReservaAdmin";
 	}
 	 
@@ -60,19 +62,28 @@ public class AdminController {
 	    	model.addAttribute("reserva", rEditar);
 	    	return "formularioReservaAdmin";
 	    }else {
-	    	return "redirect:/admin/reservas/";
+	    	return "redirect:/admin/reservas";
 	    }
 	}
 	
+	@GetMapping("/reservas/borrar/{id}")
+	public String borrar(@PathVariable("id") long id) {
+		Reserva aBorrar = service.findById(id).orElse(null);
+		if(aBorrar!=null) {
+			service.delete(aBorrar);
+		}
+		return "redirect:/admin/reservas";
+	}
+	
 	@PostMapping("/reservas/add/submit")
-	public String procesarFormulario(@ModelAttribute("reserva") Reserva r) {
-		service.add(r);
-		return "redirect:http:/admin/reservas/";
+	public String addReservaSubmit(@ModelAttribute("reserva") Reserva reserva) {
+		service.add(reserva);
+		return "redirect:/admin/reservas";
 	}
 	
 	@PostMapping("/reservas/edit/submit")
-	public String editReservaAdmin(@ModelAttribute("reserva") Reserva reserva) {
+	public String editReservaSubmit(@ModelAttribute("reserva") Reserva reserva) {
 		service.edit(reserva);
-		return "redirect:/admin/reservas/";
+		return "redirect:/admin/reservas";
 	}
 }
