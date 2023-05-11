@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 import com.salesianos.triana.dam.clubDeportivo.model.Admin;
 import com.salesianos.triana.dam.clubDeportivo.model.Socio;
-import com.salesianos.triana.dam.clubDeportivo.model.Usuario;
 import com.salesianos.triana.dam.clubDeportivo.repository.UsuarioRepositorio;
 
 import lombok.RequiredArgsConstructor;
@@ -24,13 +23,13 @@ public class InitData {
 	@PostConstruct
 	public void init() {
 		
-		Usuario socio = new Socio();
+		Socio socio = new Socio();
 		socio.setUsername("user");
 		socio.setPassword(passwordEncoder.encode("1234"));
 		
 		System.out.println(socio.getPassword());
 		
-		Usuario admin = new Admin();
+		Admin admin = new Admin();
 		admin.setUsername("admin");
 		admin.setPassword(passwordEncoder.encode("admin"));
 		

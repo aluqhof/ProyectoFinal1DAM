@@ -1,13 +1,13 @@
 package com.salesianos.triana.dam.clubDeportivo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.salesianos.triana.dam.clubDeportivo.model.Reserva;
 import com.salesianos.triana.dam.clubDeportivo.service.DeporteService;
@@ -16,6 +16,7 @@ import com.salesianos.triana.dam.clubDeportivo.service.ReservaService;
 import com.salesianos.triana.dam.clubDeportivo.service.SocioService;
 
 @RequestMapping("/admin")
+@Controller
 public class AdminController {
 
 	@Autowired
@@ -28,7 +29,7 @@ public class AdminController {
 	private SocioService socioService;
 	
 	@GetMapping("/reservas")
-	public String showReservas(Model model, @RequestParam(name = "reservaId", required = false) Long reservaId) {
+	public String showReservas(Model model) {
 
 		model.addAttribute("reservas", service.findAll());
 		model.addAttribute("deportes", deporteService.findAll());
