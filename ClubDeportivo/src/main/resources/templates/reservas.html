@@ -27,7 +27,7 @@
                             </div>
                         </div>
                         <div class="row my-2">
-                            <a id="add" href="#" class="btn btn-primary" th:href="@{/reservas/add}">
+                            <a id="add" href="#" class="btn btn-primary" th:href="@{/admin/reservas/add}">
                                 <i class="bi bi-plus-square"></i>
                             </a>
                             </button>
@@ -56,7 +56,7 @@
                                         <td th:text="${reserva.pista.precio}">2.30</td>
                                         <td th:text="${reserva.pista.deporte.nombre}">Tenis</td>
                                         <td>
-                                            <a th:href="@{/reservas/update/{id}(id=${reserva.id})}"
+                                            <a th:href="@{/admin/reservas/update/{id}(id=${reserva.id})}"
                                                 class="btn btn-primary btn-sm botonEditar">
                                                 <i class="bi bi-pencil-square"></i>
                                             </a>

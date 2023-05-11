@@ -33,6 +33,7 @@ public class InitData {
 		Usuario admin = new Admin();
 		admin.setUsername("admin");
 		admin.setPassword(passwordEncoder.encode("admin"));
+		
 		repo.saveAll(List.of(socio, admin));
 		
 		System.out.println(admin.getPassword());
