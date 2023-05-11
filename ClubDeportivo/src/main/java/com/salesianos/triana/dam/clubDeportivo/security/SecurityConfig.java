@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-public class SecurityConfig {
+public class SecurityConfig{
 	
 	private final UserDetailsService userDetailsService;
 	private final PasswordEncoder passwordEncoder;
@@ -48,22 +48,27 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
-		.authorizeRequests() 
-			.antMatchers("/css/**","/js/**","/img/**", "/h2-console/**").permitAll()
-			.antMatchers("/admin/**").hasRole("ADMIN")
-			.anyRequest().permitAll()
-			.and()
-		.formLogin()
-			.loginPage("/login")
-			.defaultSuccessUrl("/")
-			.permitAll();
-		
-		// Añadimos esto para poder seguir accediendo a la consola de H2
-		// con Spring Security habilitado.
-		http.csrf().disable();
-		http.headers().frameOptions().disable();
-		
-		return http.build();
+        .authorizeRequests() 
+            .antMatchers("/css/**","/js/**","/img/**", "/h2-console/**").permitAll()
+            .antMatchers("/admin/**").hasRole("ADMIN")
+            .anyRequest().authenticated() // Requiere autenticación para cualquier otra petición
+            .and()
+        .formLogin()
+            .loginPage("/login")
+            .defaultSuccessUrl("/")
+            .permitAll()
+            .and()
+        .logout()
+            .logoutUrl("/logout")
+            .logoutSuccessUrl("/")
+            .permitAll();
+        
+	    // Añadimos esto para poder seguir accediendo a la consola de H2
+	    // con Spring Security habilitado.
+	    http.csrf().disable();
+	    http.headers().frameOptions().disable();
+	    
+	    return http.build();
 	}
 
 }

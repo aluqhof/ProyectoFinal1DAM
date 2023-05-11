@@ -53,12 +53,11 @@
                         </li>
                     </ul>
                     <form class="d-flex">
-                        <a href="" th:href="@{/login}"
-                            class="btn botonAcceso btn-outline-dark btn-lg">Acceder</a>s
+                        <a href="" th:href="@{/login}" class="btn botonAcceso btn-outline-dark btn-lg">Acceder</a>
                     </form>
                     <form class="d-flex" sec:authorize="isAuthenticated()">
-                        <a href="" th:href="@{/login}"
-                            class="btn botonAcceso btn-outline-dark btn-lg">Log out</a>s
+                        <form th:action="@{/logout}" method="POST" id="logoutForm"></form>
+                        <a href="javascript:document.getElementById('logoutForm').submit()" class="btn botonSalir btn-outline-dark btn-lg">Salir</a>
                     </form>
                 </div>
             </div>

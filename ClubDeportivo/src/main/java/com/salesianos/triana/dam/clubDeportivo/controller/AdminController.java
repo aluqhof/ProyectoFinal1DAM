@@ -35,7 +35,7 @@ public class AdminController {
 		model.addAttribute("deportes", deporteService.findAll());
 	    model.addAttribute("pistas", pistaService.findAll());
 	    model.addAttribute("socios", socioService.findAll());
-	    model.addAttribute("reserva", new Reserva(0L)); // establecer el id en cero
+	    model.addAttribute("reserva", new Reserva()); 
 	    return "reservas";
 	}
 	
@@ -65,8 +65,8 @@ public class AdminController {
 	}
 	
 	@PostMapping("/reservas/add/submit")
-	public String procesarFormulario(@ModelAttribute("reserva") Reserva r) {
-		service.add(r);
+	public String procesarFormulario(@ModelAttribute("reserva") Reserva reserva) {
+		service.add(reserva);
 		return "redirect:http:/admin/reservas/";
 	}
 	

@@ -27,7 +27,7 @@
     }
 }
 
-@media screen and (max-width: 950px) and (min-width: 600px){
+@media screen and (max-width: 950px) and (min-width: 600px) {
 
     .contenidoDerechaAdmin table th,
     td {
