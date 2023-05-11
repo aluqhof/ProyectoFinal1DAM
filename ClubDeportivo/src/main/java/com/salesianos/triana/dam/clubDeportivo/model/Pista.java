@@ -40,10 +40,10 @@ public class Pista {
 	@JoinColumn(foreignKey = @ForeignKey (name="fk_deporte_pista"))
 	private Deporte deporte;
 	
-	// Many-to-One con la clase Socio
+	/*
     @ManyToOne
     @JoinColumn(foreignKey = @ForeignKey (name="fk_socio_pista"))
-    private Socio socio;
+    private Socio socio;*/
 	
     @ToString.Exclude
 	@EqualsAndHashCode.Exclude
