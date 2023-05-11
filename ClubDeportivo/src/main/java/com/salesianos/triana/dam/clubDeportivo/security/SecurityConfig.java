@@ -51,10 +51,11 @@ public class SecurityConfig {
 		.authorizeRequests()
 			.antMatchers("/css/**","/js/**","/img/**", "/h2-console/**").permitAll()
 			.antMatchers("/reservas/**", "/socios/**", "/pistas/**", "/deportes/**", "/general/**").hasRole("ADMIN")
-			.anyRequest().authenticated()
+			.anyRequest().permitAll()
 			.and()
 		.formLogin()
-			.loginPage("/")
+			.loginPage("/login")
+			.defaultSuccessUrl("/")
 			.permitAll();
 		
 		// Añadimos esto para poder seguir accediendo a la consola de H2

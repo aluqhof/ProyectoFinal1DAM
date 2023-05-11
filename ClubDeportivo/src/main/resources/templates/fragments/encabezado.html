@@ -27,10 +27,6 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarColor01">
                     <ul class="navbar-nav me-auto">
-                        <li id="btnadmin" class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
-                            <a class="nav-link btn btn-dark text-danger mx-1" href="http://localhost:9000/reservas/"
-                                role="button">Administración</a>
-                        </li>
                         <li class="nav-item">
                             <a class="nav-link active" href="index.html" th:href="@{/inicio}">Inicio
                                 <span class="visually-hidden">(current)</span>
@@ -57,18 +53,10 @@
                             </div>
                         </li>
                     </ul>
-                    <!-- <form class="d-flex">
-                        <a href="" data-bs-toggle="modal" data-bs-target="#loginModal"
-                            class="btn botonAcceso btn-outline-dark btn-lg">Acceder</a>-->
-                    <li class="nav-item" sec:authorize="!authenticated()">
-                        <a href="" data-bs-toggle="modal" data-bs-target="#loginModal"
-                            class="btn botonAcceso btn-outline-dark btn-lg">Acceder</a>
-                    </li>
-                    <li class="nav-item" sec:authorize="authenticated()">
-                        <a class="nav-link btn btn-dark text-danger mx-1" href="#" role="button"
-                            th:href="@{/logout}">Log out</a>
-                    </li>
-                    <!--</form>-->
+                    <form class="d-flex">
+                        <a href="" th:href="@{/login}"
+                            class="btn botonAcceso btn-outline-dark btn-lg">Acceder</a>s
+                    </form>
                 </div>
             </div>
         </nav>

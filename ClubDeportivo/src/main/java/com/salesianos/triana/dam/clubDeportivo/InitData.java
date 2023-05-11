@@ -1,6 +1,5 @@
 package com.salesianos.triana.dam.clubDeportivo;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -8,45 +7,36 @@ import javax.annotation.PostConstruct;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import com.salesianos.triana.dam.clubDeportivo.model.Admin;
 import com.salesianos.triana.dam.clubDeportivo.model.Socio;
-import com.salesianos.triana.dam.clubDeportivo.repository.SocioRepositorio;
+import com.salesianos.triana.dam.clubDeportivo.model.Usuario;
+import com.salesianos.triana.dam.clubDeportivo.repository.UsuarioRepositorio;
 
 import lombok.RequiredArgsConstructor;
-/*
+
 @Component
 @RequiredArgsConstructor
 public class InitData {
 	
-	private final SocioRepositorio repo;
+	private final UsuarioRepositorio repo;
 	private final PasswordEncoder passwordEncoder;
 	
 	@PostConstruct
 	public void init() {
 		
-		Socio usuario = Socio.builder()
-				.nombre("Pepe")
-				.apellidos("Vázquez")
-				.username("user")
-				.password(passwordEncoder.encode("1234"))
-				.fecha_alta(LocalDate.of(2020, 3, 10))
-				.cuota(50)
-				.telefono("668868")
-				.admin(false)
-				.build();
+		Usuario socio = new Socio();
+		socio.setUsername("user");
+		socio.setPassword(passwordEncoder.encode("1234"));
 		
-		Socio admin = Socio.builder()
-				.nombre("Pepe")
-				.apellidos("Flores")
-				.username("admin")
-				.password(passwordEncoder.encode("admin"))
-				.fecha_alta(LocalDate.of(2020, 3, 10))
-				.cuota(0)
-				.telefono("668868")
-				.admin(true)
-				.build();
+		System.out.println(socio.getPassword());
 		
-		repo.saveAll(List.of(usuario, admin));
+		Usuario admin = new Admin();
+		admin.setUsername("admin");
+		admin.setPassword(passwordEncoder.encode("admin"));
+		repo.saveAll(List.of(socio, admin));
+		
+		System.out.println(admin.getPassword());
 		
 	}
 
-}*/
+}
