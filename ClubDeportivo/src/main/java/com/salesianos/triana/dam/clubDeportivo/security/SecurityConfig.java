@@ -51,13 +51,17 @@ public class SecurityConfig {
 		.authorizeRequests() 
 			.antMatchers("/css/**","/js/**","/img/**", "/h2-console/**").permitAll()
 			.antMatchers("/admin/**").hasRole("ADMIN")
-			.anyRequest().permitAll()
+			.anyRequest().authenticated()
 			.and()
 		.formLogin()
 			.loginPage("/login")
 			.defaultSuccessUrl("/")
-			.permitAll();
-		
+			.permitAll()
+		.and()
+		.logout()
+		.logoutUrl("/logout")
+		.logoutSuccessUrl("/")
+		.permitAll();
 		// Añadimos esto para poder seguir accediendo a la consola de H2
 		// con Spring Security habilitado.
 		http.csrf().disable();
