@@ -57,7 +57,7 @@ public class SecurityConfig{
             .loginPage("/login")
             .defaultSuccessUrl("/")
             .permitAll()
-            .and()
+		.and()
         .logout()
             .logoutUrl("/logout")
             .logoutSuccessUrl("/")

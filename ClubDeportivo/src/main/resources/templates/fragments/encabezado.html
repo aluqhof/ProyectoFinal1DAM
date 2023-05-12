@@ -15,6 +15,7 @@
 
 <body>
     <header th:fragment="encabezado">
+        <form th:action="@{/logout}" method="POST" id="logoutForm"></form>
         <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container-fluid">
                 <a class="navbar-brand" href="index.html" th:href="@{/inicio}">
@@ -31,8 +32,8 @@
                                 <span class="visually-hidden">(current)</span>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Features</a>
+                        <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
+                            <a class="nav-link" href="#" th:href="@{http://localhost:9000/admin/reservas}">Administración</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Pricing</a>
@@ -52,13 +53,12 @@
                             </div>
                         </li>
                     </ul>
-                    <form class="d-flex">
+                    <li class="d-flex" sec:authorize="!isAuthenticated()">
                         <a href="" th:href="@{/login}" class="btn botonAcceso btn-outline-dark btn-lg">Acceder</a>
-                    </form>
-                    <form class="d-flex" sec:authorize="isAuthenticated()">
-                        <form th:action="@{/logout}" method="POST" id="logoutForm"></form>
+                    </li>
+                    <li class="d-flex" sec:authorize="isAuthenticated()">
                         <a href="javascript:document.getElementById('logoutForm').submit()" class="btn botonSalir btn-outline-dark btn-lg">Salir</a>
-                    </form>
+                    </li>
                 </div>
             </div>
         </nav>

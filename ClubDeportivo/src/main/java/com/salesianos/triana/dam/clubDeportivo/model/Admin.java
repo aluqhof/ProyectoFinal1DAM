@@ -3,11 +3,13 @@ package com.salesianos.triana.dam.clubDeportivo.model;
 import javax.persistence.Entity;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Data
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper=false)
 public class Admin extends Usuario{
 
 	private static final long serialVersionUID = 1L;

@@ -49,13 +49,13 @@
                 </a>
             </div>
         </div>
-        <div class="bannerAcceso container-fluid bg-primary py-3">
+        <div class="bannerAcceso container-fluid bg-primary py-3" sec:authorize="!isAuthenticated()">
             <div class="row align-items-center">
                 <div class="col-md-6 text-md-start text-center">
                     <h1 class="display-6 text-black">Accede a la zona privada</h1>
                 </div>
                 <div class="col-md-6 text-md-end text-center">
-                    <a href="#" class="btn botonAcceso btn-outline-dark btn-lg">Iniciar sesión</a>
+                    <a href="#"  th:href="@{/login}" class="btn botonAcceso btn-outline-dark btn-lg">Iniciar sesión</a>
                 </div>
             </div>
         </div>
