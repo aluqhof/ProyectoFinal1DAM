@@ -15,6 +15,7 @@ import lombok.ToString;
 @Entity
 @Data
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper=false)
 public class Socio extends Usuario{
 
 	/**
