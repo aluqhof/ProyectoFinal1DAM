@@ -30,7 +30,7 @@ public abstract class Usuario implements UserDetails{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	protected Long id;
+	protected long id;
 	
 	protected String username, password;
 	

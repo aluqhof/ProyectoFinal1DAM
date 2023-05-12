@@ -47,7 +47,6 @@ public class AdminController {
 	    model.addAttribute("socios", socioService.findAll());
 	    Reserva reserva = new Reserva();
 	    model.addAttribute("reserva", reserva);
-	    System.out.println(reserva.getId());
 	    return "formularioReservaAdmin";
 	}
 	 
