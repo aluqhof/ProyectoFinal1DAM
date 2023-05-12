@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../static/css/general.css" th:href="@{/css/general.css}">
     <script th:src="@{/js/validacionReservas.js}" defer></script>
-    <title>Document</title>
+    <title>Formulario Reserva</title>
 </head>
 
 <body>
@@ -22,13 +22,16 @@
         <div class="row flex-nowrap col-12">
             <nav th:replace="fragments/navAdmin :: menuPanelAdmin"></nav>
             <div class="col py-3 contenidoDerechaAdmin">
-                <form method="POST" th:action="${reserva.id != 0} ? @{/admin/reservas/edit/submit} : @{/admin/reservas/add/submit}" th:object="${reserva}">
+                <form method="POST" onsubmit="validarFormulario()"
+                    th:action="${reserva.id != 0} ? @{/admin/reservas/edit/submit} : @{/admin/reservas/add/submit}"
+                    th:object="${reserva}">
                     <h3 th:text="${reserva.id == 0} ? 'Nueva Reserva' : 'Editar Reserva'"></h3>
                     <input th:if="${reserva.id != 0}" type="hidden" name="id" th:field="*{id}" />
                     <div class="mb-3">
                         <label for="addReservaFecha" class="form-label">Fecha Reserva</label>
                         <input type="date" class="form-control" id="addReservaFecha" th:field="*{fecha_reserva}"
                             required>
+                        <p class="errorForm my-1">Indica una fecha válida</p>
                     </div>
                     <!--Tiene que ir todo asociado con el horario-->
                     <div class="mb-3">
@@ -57,9 +60,8 @@
                         <p class="errorForm my-1">Por favor, selecciona una pista</p>
                     </div>
                     <div class="mb-3">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <input type="submit" class="btn btn-primary"
-                            th:value="Guardar">
+                        <a class="btn btn-secondary" th:href="@{/admin/reservas}">Cancelar</a>
+                        <input type="submit" class="btn btn-primary" th:value="Guardar">
                     </div>
                 </form>
             </div>
