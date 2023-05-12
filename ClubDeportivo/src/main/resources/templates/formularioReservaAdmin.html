@@ -22,7 +22,7 @@
         <div class="row flex-nowrap col-12">
             <nav th:replace="fragments/navAdmin :: menuPanelAdmin"></nav>
             <div class="col py-3 contenidoDerechaAdmin">
-                <form method="POST" onsubmit="validarFormulario()"
+                <form method="POST" onsubmit="return validarFormulario()"
                     th:action="${reserva.id != 0} ? @{/admin/reservas/edit/submit} : @{/admin/reservas/add/submit}"
                     th:object="${reserva}">
                     <h3 th:text="${reserva.id == 0} ? 'Nueva Reserva' : 'Editar Reserva'"></h3>
