@@ -1,4 +1,0 @@
-2023-05-11 23:54:18 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "[*]*/"
-Syntax error in SQL statement "[*]*/"; SQL statement:
-*/ [42000-214]
