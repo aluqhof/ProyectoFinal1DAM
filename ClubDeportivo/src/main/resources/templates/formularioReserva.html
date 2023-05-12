@@ -31,6 +31,7 @@
                             <div class="booking-form mt-md-5">
                                 <form method="POST" th:action="@{/reserva-pista/nuevo}" th:object="${reserva}">
                                     <div class="form-group">
+                                        <input type="hidden" th:field="*{socio.id}" th:value="${socio.id}">
                                         <span class="form-label">Deporte</span>
                                         <select class="form-select" id="addDeporte" th:field="*{pista.deporte}"
                                             required>
