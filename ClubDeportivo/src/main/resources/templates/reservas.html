@@ -59,10 +59,34 @@
                                                 class="btn btn-primary btn-sm botonEditar">
                                                 <i class="bi bi-pencil-square"></i>
                                             </a>
-                                            <a class="btn btn-danger btn-sm botonBorrar"
-                                                data-bs-toggle="modal" data-bs-target="#deleteReservaModal">
-                                                <i class="bi bi-trash"></i>
-                                        </a>
+                                            <a class="btn btn-danger btn-sm botonBorrar" data-bs-toggle="modal"
+                                                th:attr="data-bs-target='#removeReserva'+ '-' + ${reserva.id}">
+                                                <i class=" bi bi-trash"></i>
+                                            </a>
+                                            <div class="modal text-black" th:id="removeReserva + '-' + ${reserva.id}">
+                                                <div class="modal-dialog remove">
+                                                    <div class="modal-content">
+
+                                                        <div class="modal-header bg-primary border-1">
+                                                            <h4 class="modal-title mx-auto text-white">¿Estás seguro?
+                                                            </h4>
+                                                            <button type="button" class="btn-close mx-0"
+                                                                data-bs-dismiss="modal"></button>
+                                                        </div>
+
+                                                        <div class="modal-body bg-white">
+                                                            <p class="text-dark mb-4">¿Quieres borrar esta reserva?</p>
+                                                            <div class="d-grid gap-2">
+                                                                <a class="btn btn-danger btn-lg"
+                                                                    th:href="@{/admin/reservas/borrar/{id}(id=${reserva.id})}">
+                                                                    <i class="bi bi-trash me-2"></i> Borrar reserva
+                                                                </a>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -84,7 +108,8 @@
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"
                                             data-bs-dismiss="modal">Cancelar</button>
-                                        <form id="deleteForm" th:action="@{/deleteReserva}" method="post">
+                                        <form id="deleteForm" th:action="@{admin/reservas/borrar{id}(id=${reserva.id})}"
+                                            method="post">
                                             <input type="hidden" name="reservaId" th:value="${reserva.id}">
                                             <input type="submit" class="btn btn-danger" value="Eliminar">
                                         </form>

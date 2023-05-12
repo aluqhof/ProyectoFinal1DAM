@@ -26,8 +26,8 @@ import lombok.NoArgsConstructor;
 public class Reserva {
 
 	@Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private long id;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate fecha_reserva;

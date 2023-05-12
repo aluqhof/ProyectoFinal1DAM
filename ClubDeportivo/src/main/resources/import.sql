@@ -22,4 +22,4 @@ INSERT INTO reserva (id, fecha_reserva, hora_reserva, socio_id, pista_id) VALUES
 
 INSERT INTO reserva (id, fecha_reserva, hora_reserva, socio_id, pista_id) VALUES (4, '2023-05-16', '12:00:00', 2, 4); 
 
-ALTER SEQUENCE hibernate_sequence RESTART WITH 1000
+ALTER SEQUENCE hibernate_sequence RESTART WITH 1000;
