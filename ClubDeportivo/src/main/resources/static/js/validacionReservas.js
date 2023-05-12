@@ -1,34 +1,55 @@
-document.getElementById("addReservaFecha").addEventListener("blur", validarFecha);
-document.getElementById("addReservaHora").addEventListener("blur", validarHora);
-document.getElementById("addReservaIDSocio").addEventListener("blur", validarIDSocio);
-document.getElementById("addReservaIDPista").addEventListener("blur", validarPista);
-let mensajes = document.querySelectorAll(".errorForm");
-mensajes.forEach(p => p.hidden = true);
+let deportesSelect = document.getElementById("addDeporte");
+let pistasSelect = document.getElementById("addPista");
 
-function validarFormulario() {
+deportesSelect.addEventListener("change", function () {
+
+    let deporteId = deportesSelect.value;
+
+    if (!deporteId) {
+        pistasSelect.style.display = "none";
+        return;
+    }
+    // Filtrar las opciones del select de pistas y mostrar solo las que pertenecen al deporte seleccionado
+    for (let i = 0; i < pistasSelect.options.length; i++) {
+        let option = pistasSelect.options[i];
+        if (option.dataset.deporteId === deporteId || !option.dataset.deporteId) {
+            option.style.display = "block";
+        } else {
+            option.style.display = "none";
+        }
+    }
+
+    // Mostrar el segundo select de pistas
+    pistasSelect.style.display = "block";
+});
+
+let fechaReserva = document.getElementById("addFechaReserva");
+let horaReserva = document.getElementById("addHoraReserva");
+let error = document.querySelectorAll(".errorForm");
+error.forEach(p => p.hidden = true);
+
+function validarFormulario(event) {
     let resultado = false;
 
     resultado = validarFecha() &&
-        validarHora() &&
-        validarIDSocio() &&
-        validarPista();
-
-return resultado;
-}
-
-let fechaReserva = document.getElementById("addReservaFecha");
-let horaReserva = document.getElementById("addReservaHora");
-function validarFecha() {
-    let fecha = new Date(fechaReserva.value);
-    let hoy = new Date();
-
-    if (fecha < hoy) {
-        fechaReserva.focus();
-        fechaReserva.nextElementSibling.hidden = false;
-        return false;
+        validarHora();
+    if (!resultado) {
+        event.preventDefault();
     }
 
-    if (fecha.getDay() === 0) {//No es domingo
+
+    return resultado;
+}
+
+fechaReserva.addEventListener("blur", validarFecha);
+horaReserva.addEventListener("blur", validarHora);
+
+function validarFecha() {
+    let auxfecha = fechaReserva.value;
+    let fecha = new Date(auxfecha);
+    let hoy = new Date();
+
+    if (fecha < hoy || fecha.getDay() === 0 || fecha > new Date(hoy.getTime() + 14 * 24 * 60 * 60 * 1000)) {
         fechaReserva.focus();
         fechaReserva.nextElementSibling.hidden = false;
         return false;
@@ -39,17 +60,12 @@ function validarFecha() {
 }
 
 function validarHora() {
+
+    let fecha = new Date(fechaReserva.value);
+    let horaLimite = new Date(fecha.getFullYear(), fecha.getMonth(), fecha.getDate(), new Date().getHours(), new Date().getMinutes() + 10);
     let hora = horaReserva.value;
 
-    // Verificar que se haya seleccionado una hora de reserva
-    if (!hora) {
-        horaReserva.focus();
-        horaReserva.nextElementSibling.hidden = false;
-        return false;
-    }
-
-    // Verificar que la hora de reserva esté dentro del horario de apertura del club deportivo
-    if (hora < "09:00" || hora > "21:00") {
+    if (!hora || hora < horaLimite || hora.getHours() < 7 || hora.getHours() >= 21) {
         horaReserva.focus();
         horaReserva.nextElementSibling.hidden = false;
         return false;
@@ -59,28 +75,5 @@ function validarHora() {
     return true;
 }
 
-function validarIDSocio() {
-    let idSocio = document.getElementById("addReservaIDSocio");
-    // Verificar que se haya seleccionado un socio
-    if (!idSocio.value) {
-        idSocio.focus();
-        idSocio.nextElementSibling.hidden = false;
-        return false;
-    }
-
-    idSocio.nextElementSibling.hidden = true;
-    return true;
-}
-
-function validarPista() {
-    let idPista = document.getElementById("addReservaIDPista");
-    // Verificar que se haya seleccionado una pista
-    if (!idPista.value) {
-        idPista.focus();
-        idPista.nextElementSibling.hidden = false;
-        return false;
-    }
-
-    idPista.nextElementSibling.hidden = true;
-    return true;
-}
+let formulario = document.getElementById("formularioReserva");
+formulario.addEventListener("submit", validarFormulario);

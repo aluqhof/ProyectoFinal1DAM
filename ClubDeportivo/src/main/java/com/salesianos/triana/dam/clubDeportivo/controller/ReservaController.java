@@ -28,9 +28,8 @@ public class ReservaController {
 	private SocioService socioService;
 
 	@GetMapping("/reserva-pista")
-	public String verFormularioReserva(Model model, @AuthenticationPrincipal Socio s) {
+	public String verFormularioReserva(Model model) {
 	    Reserva reserva = new Reserva();
-	    reserva.setSocio(s);
 	    model.addAttribute("pistas", pistaService.findAll());
 	    model.addAttribute("deportes", deporteService.findAll());
 	    model.addAttribute("reserva", reserva);
@@ -38,9 +37,10 @@ public class ReservaController {
 	}
 	
 	@PostMapping("/reserva-pista/nuevo")
-	public String agregarReservaUser(@ModelAttribute("reserva") Reserva reserva, Model model) {
+	public String agregarReservaUser(@ModelAttribute("reserva") Reserva reserva, Model model, @AuthenticationPrincipal Socio s) {
 		model.addAttribute("pistas", pistaService.findAll());
 		model.addAttribute("deportes", deporteService.findAll());
+		reserva.setSocio(s);
 		service.add(reserva);
 		return "redirect:/reserva-pista";
 	}
