@@ -30,8 +30,8 @@ public class PistaService extends BaseServiceImp<Pista, Integer, PistaRepositori
 	    reserva.setHora_reserva(horaReserva);
 	    reservaRepositorio.save(reserva);
 	    
-	    pista.getReservas().add(reserva); // Agregar la reserva a la lista de reservas de la pista
-	    reserva.setPista(pista); // Establecer la referencia a la pista en la reserva
+	    pista.getReservas().add(reserva);
+	    reserva.setPista(pista);
 	}
 
 }

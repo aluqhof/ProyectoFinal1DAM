@@ -11,6 +11,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" th:href="@{/css/general.css}">
+    <script src="" th:src="@{/js/validacionReservas.js}" defer></script>
 </head>
 
 <body>
@@ -29,9 +30,10 @@
                         </div>
                         <div class="col-md-4 col-md-pull-7">
                             <div class="booking-form mt-md-5">
-                                <form method="POST" th:action="@{/reserva-pista/nuevo}" th:object="${reserva}">
+                                <form method="POST" th:action="@{/reserva-pista/nuevo}" th:object="${reserva}"
+                                    id="formularioReserva">
+                                    <input type="hidden" th:field="*{socio}" />
                                     <div class="form-group">
-                                        <!--<input type="hidden" th:field="*{socio.id}" th:value="${socio.id}">-->
                                         <span class="form-label">Deporte</span>
                                         <select class="form-select" id="addDeporte" th:field="*{pista.deporte}"
                                             required>
@@ -46,33 +48,46 @@
                                                 <span class="form-label">Fecha</span>
                                                 <input class="form-control" id="addFechaReserva" type="date"
                                                     th:field="*{fecha_reserva}" required>
+                                                <p class="errorForm">"La fecha seleccionada no es válida. Por favor,
+                                                    verifica que no sea un domingo, tampoco se puede hacer una reserva para
+                                                    un plazo mayor de 14 días.</p>
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="form-group">
-                                                <span class="form-label">Hora</span><!--Tiene que ir asociado con el horario-->
+                                                <span
+                                                    class="form-label">Hora</span><!--Tiene que ir asociado con el horario-->
                                                 <input class="form-control" id="addHoraReserva" type="time"
                                                     th:field="*{hora_reserva}" step="3600" min="07:00" max="21:00"
                                                     required>
+                                                <p class="errorForm">La hora seleccionada no es válida. Por favor, elige
+                                                    una hora que sea al menos 10 minutos mayor que la hora actual.</p>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class=" offset-sm-4 col-sm-4">
                                             <div class="form-group">
-                                                <span class="form-label">Pista</span>
-                                                <select class="form-select" id="addPista" th:field="*{pista}" required>
+                                                <span class="form-label" th:disabled="${#lists.isEmpty(pistas)}"
+                                                    style="display:none;">Pista</span>
+                                                <select id="addPista" class="form-select" th:field="*{pista}" required
+                                                    th:disabled="${#lists.isEmpty(pistas)}" style="display:none;">
                                                     <option value=""></option>
                                                     <option th:each="pista : ${pistas}" th:value="${pista.id}"
-                                                        th:text="${pista.numero}">
-                                                    </option>
+                                                        th:text="${'Pista' + ' - ' + pista.numero}"
+                                                        th:data-deporte-id="${pista.deporte.id}">
+                                                    </option>></option>
                                                 </select>
                                                 <span class="select-arrow"></span>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-btn text-center">
+                                    <div class="form-btn text-center" sec:authorize="hasRole('ROLE_USER')">
                                         <input type="submit" class="submit-btn" value="Reservar">
+                                    </div>
+                                    <div class="alert alert-danger text-center p-md-1" role="alert"
+                                        sec:authorize="hasRole('ROLE_ADMIN')">
+                                        ¡Atención! Solo los socios pueden reservar pistas en este sitio.
                                     </div>
                                 </form>
                             </div>

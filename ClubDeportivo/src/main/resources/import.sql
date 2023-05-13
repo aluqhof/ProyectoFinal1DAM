@@ -2,10 +2,14 @@ INSERT INTO usuario (id, username, password) VALUES (1, 'admin', '{bcrypt}$2a$10
 
 INSERT INTO usuario (id, username, password) VALUES (2, 'user', '{bcrypt}$2a$10$FUDKq1l1PRlxG4B7fnDfoOrxu/ChhiWNtdEPle5hN2JlM/cWbIJlK');
 
+INSERT INTO usuario (id, username, password) VALUES (3, 'alexanderluquehoffrogge@gmail.com', '{bcrypt}$2a$10$FUDKq1l1PRlxG4B7fnDfoOrxu/ChhiWNtdEPle5hN2JlM/cWbIJlK');
+
 
 INSERT INTO admin (id, nombre, apellidos) VALUES (1, 'Alex', 'Luque');
 
 INSERT INTO socio (id, nombre, apellidos, telefono, fecha_alta, cuota) VALUES (2, 'Pepe', 'Fernández', '555-5555', '2022-01-01', 50.0);
+
+INSERT INTO socio (id, nombre, apellidos, telefono, fecha_alta, cuota) VALUES (3, 'Alexander', 'Luque Hoffrogge', '555-5555', '2022-01-01', 50.0);
 
 
 INSERT INTO deporte (id, nombre) VALUES (1, 'Tenis');
