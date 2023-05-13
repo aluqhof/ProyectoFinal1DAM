@@ -45,11 +45,13 @@ fechaReserva.addEventListener("blur", validarFecha);
 horaReserva.addEventListener("blur", validarHora);
 
 function validarFecha() {
-    let auxfecha = fechaReserva.value;
-    let fecha = new Date(auxfecha);
+    let fecha = new Date(`${fechaReserva.value}T${horaReserva.value}:00`);
+    let horaLimite = new Date();
+    horaLimite.setHours(horaLimite.getHours() + 1);
     let hoy = new Date();
 
-    if (fecha < hoy || fecha.getDay() === 0 || fecha > new Date(hoy.getTime() + 14 * 24 * 60 * 60 * 1000)) {
+
+    if (fecha < horaLimite || fecha.getDay() === 0 || fecha > new Date(hoy.getTime() + 14 * 24 * 60 * 60 * 1000)) {
         fechaReserva.focus();
         fechaReserva.nextElementSibling.hidden = false;
         return false;
@@ -65,7 +67,7 @@ function validarHora() {
     let horaLimite = new Date(fecha.getFullYear(), fecha.getMonth(), fecha.getDate(), new Date().getHours(), new Date().getMinutes() + 10);
     let hora = horaReserva.value;
 
-    if (!hora || hora < horaLimite || hora.getHours() < 7 || hora.getHours() >= 21) {
+    if (!hora || hora < horaLimite || hora < "09:00" || hora > "22:00") {
         horaReserva.focus();
         horaReserva.nextElementSibling.hidden = false;
         return false;
