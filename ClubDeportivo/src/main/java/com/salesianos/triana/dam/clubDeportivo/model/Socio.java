@@ -7,6 +7,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -27,6 +29,8 @@ public class Socio extends Usuario{
 	private String nombre;
 	private String apellidos;
 	private String telefono;
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate fecha_alta;
 	//private LocalDate fecha_baja;
 	private double cuota;
