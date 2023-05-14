@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.salesianos.triana.dam.clubDeportivo.model.Pista;
 import com.salesianos.triana.dam.clubDeportivo.model.Reserva;
 import com.salesianos.triana.dam.clubDeportivo.model.Socio;
 import com.salesianos.triana.dam.clubDeportivo.service.DeporteService;
@@ -161,5 +162,14 @@ public class AdminController {
 	public String editSocioSubmit(@ModelAttribute("socio") Socio socio) {
 	    socioService.edit(socio);
 	    return "redirect:/admin/reservas";
+	}
+	
+	@GetMapping("/pistas")
+	public String listarPistas(Model model) {
+
+		model.addAttribute("pistas", pistaService.findAll());
+		model.addAttribute("pista", new Pista());
+
+		return "pistas";
 	}
 }
