@@ -25,6 +25,11 @@ public abstract class BaseServiceImp<T, ID, R extends JpaRepository<T, ID>>
 	}
 
 	@Override
+	public T add(T t) {
+		return repository.save(t);
+	}
+	
+	@Override
 	public T save(T t) {
 		return repository.save(t);
 	}

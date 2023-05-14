@@ -26,8 +26,8 @@ import lombok.NoArgsConstructor;
 public class Reserva {
 
 	@Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private long id;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate fecha_reserva;
@@ -43,4 +43,8 @@ public class Reserva {
     @ManyToOne
     @JoinColumn(foreignKey = @ForeignKey (name="fk_pista_reserva"))
     private Pista pista;
+    
+    public Reserva (Long id) {
+    	this.id=id;
+    }
 }
