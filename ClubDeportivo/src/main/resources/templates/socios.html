@@ -25,6 +25,12 @@
                                 <h3>Socios</h3>
                             </div>
                         </div>
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert"
+                            th:if="${param.error}">
+                            <span>¡No se puede borrar un socio que tiene reservas! Borra
+                                antes sus reservas</span>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
                         <div class="row my-2">
                             <a id="add" href="#" class="btn btn-primary" th:href="@{/admin/socios/add}">
                                 <i class="bi bi-plus-square"></i>
@@ -54,14 +60,38 @@
                                         <td th:text="${socio.fecha_alta}">01/01/2021</td>
                                         <td th:text="${socio.cuota}">$100</td>
                                         <td>
-                                            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
-                                                data-bs-target="#editSocioModal">
+                                            <a th:href="@{/admin/socios/update/{id}(id=${socio.id})}"
+                                                class="btn btn-primary btn-sm botonEditar">
                                                 <i class="bi bi-pencil-square"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                                                data-bs-target="#deleteSocioModal">
-                                                <i class="bi bi-trash"></i>
-                                            </button>
+                                            </a>
+                                            <a class="btn btn-danger btn-sm botonBorrar" data-bs-toggle="modal"
+                                                th:attr="data-bs-target='#removeSocio'+ '-' + ${socio.id}">
+                                                <i class=" bi bi-trash"></i>
+                                            </a>
+                                            <div class="modal text-black" th:id="removeSocio + '-' + ${socio.id}">
+                                                <div class="modal-dialog remove">
+                                                    <div class="modal-content">
+
+                                                        <div class="modal-header bg-primary border-1">
+                                                            <h4 class="modal-title mx-auto text-white">¿Estás seguro?
+                                                            </h4>
+                                                            <button type="button" class="btn-close mx-0"
+                                                                data-bs-dismiss="modal"></button>
+                                                        </div>
+
+                                                        <div class="modal-body bg-white">
+                                                            <p class="text-dark mb-4">¿Quieres borrar este socio?</p>
+                                                            <div class="d-grid gap-2">
+                                                                <a class="btn btn-danger btn-lg"
+                                                                    th:href="@{/admin/socios/borrar/{id}(id=${socio.id})}">
+                                                                    <i class="bi bi-trash me-2"></i> Borrar socio
+                                                                </a>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                 </tbody>
