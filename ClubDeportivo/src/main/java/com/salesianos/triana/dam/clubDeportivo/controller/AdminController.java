@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.salesianos.triana.dam.clubDeportivo.model.Reserva;
+import com.salesianos.triana.dam.clubDeportivo.model.Socio;
 import com.salesianos.triana.dam.clubDeportivo.service.DeporteService;
 import com.salesianos.triana.dam.clubDeportivo.service.PistaService;
 import com.salesianos.triana.dam.clubDeportivo.service.ReservaService;
@@ -20,7 +21,7 @@ import com.salesianos.triana.dam.clubDeportivo.service.SocioService;
 public class AdminController {
 
 	@Autowired
-	private ReservaService service;
+	private ReservaService reservaService;
 	@Autowired
 	private DeporteService deporteService;
 	@Autowired
@@ -31,7 +32,7 @@ public class AdminController {
 	@GetMapping("/reservas")
 	public String showReservas(Model model) {
 
-		model.addAttribute("reservas", service.findAll());
+		model.addAttribute("reservas", reservaService.findAll());
 		model.addAttribute("deportes", deporteService.findAll());
 	    model.addAttribute("pistas", pistaService.findAll());
 	    model.addAttribute("socios", socioService.findAll());
@@ -41,7 +42,7 @@ public class AdminController {
 	
 	@GetMapping("/reservas/add")
 	public String addReserva(Model model) {
-		model.addAttribute("reservas", service.findAll());
+		model.addAttribute("reservas", reservaService.findAll());
 		model.addAttribute("deportes", deporteService.findAll());
 	    model.addAttribute("pistas", pistaService.findAll());
 	    model.addAttribute("socios", socioService.findAll());
@@ -52,11 +53,11 @@ public class AdminController {
 	 
 	@GetMapping("/reservas/update/{id}")
 	public String updateReserva(@PathVariable("id") Long id, Model model) {
-		model.addAttribute("reservas", service.findAll());
+		model.addAttribute("reservas", reservaService.findAll());
 		model.addAttribute("deportes", deporteService.findAll());
 	    model.addAttribute("pistas", pistaService.findAll());
 	    model.addAttribute("socios", socioService.findAll());
-	    Reserva rEditar = service.findById(id).orElse(null);
+	    Reserva rEditar = reservaService.findById(id).orElse(null);
 	    if(rEditar !=null) {
 	    	model.addAttribute("reserva", rEditar);
 	    	return "formularioReservaAdmin";
@@ -66,10 +67,10 @@ public class AdminController {
 	}
 	
 	@GetMapping("/reservas/borrar/{id}")
-	public String borrar(@PathVariable("id") long id) {
-		Reserva aBorrar = service.findById(id).orElse(null);
+	public String borrarReserva(@PathVariable("id") long id) {
+		Reserva aBorrar = reservaService.findById(id).orElse(null);
 		if(aBorrar!=null) {
-			service.delete(aBorrar);
+			reservaService.delete(aBorrar);
 		}
 		return "redirect:/admin/reservas";
 	}
@@ -77,13 +78,25 @@ public class AdminController {
 	@PostMapping("/reservas/add/submit")
 
 	public String addReservaSubmit(@ModelAttribute("reserva") Reserva reserva) {
-		service.add(reserva);
+		reservaService.add(reserva);
 		return "redirect:/admin/reservas";
 	}
 	
 	@PostMapping("/reservas/edit/submit")
 	public String editReservaSubmit(@ModelAttribute("reserva") Reserva reserva) {
-		service.edit(reserva);
+		reservaService.edit(reserva);
 		return "redirect:/admin/reservas";
 	}
+	
+	@GetMapping("/socios")
+	public String listarSocios(Model model) {
+
+		model.addAttribute("socios", socioService.findAll());
+		model.addAttribute("socio", new Socio());
+
+		return "socios";
+	}
+
+	
+	
 }
