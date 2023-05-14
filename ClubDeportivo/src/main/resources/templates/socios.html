@@ -39,10 +39,9 @@
                                         <th scope="col">#</th>
                                         <th scope="col">Nombre</th>
                                         <th scope="col">Apellidos</th>
-                                        <th scope="col">Usuario</th>
+                                        <th scope="col">Correo electrónico</th>
                                         <th scope="col">Teléfono</th>
                                         <th scope="col">Fecha Alta</th>
-                                        <th scope="col">Fecha Baja</th>
                                         <th scope="col">Cuota</th>
                                         <th scope="col">Acciones</th>
                                     </tr>
@@ -52,10 +51,9 @@
                                         <th th:text="${socio.id}">1</th>
                                         <td th:text="${socio.nombre}">John</td>
                                         <td th:text="${socio.apellidos}">Doe hajfd hfdsaj hj</td>
-                                        <td th:text="${socio.usuario}">jdoe</td>
+                                        <td th:text="${socio.username}">jdoe</td>
                                         <td th:text="${socio.telefono}">555-1234</td>
                                         <td th:text="${socio.fecha_alta}">01/01/2021</td>
-                                        <td th:text="${socio.fecha_baja}"></td>
                                         <td th:text="${socio.cuota}">$100</td>
                                         <td>
                                             <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
