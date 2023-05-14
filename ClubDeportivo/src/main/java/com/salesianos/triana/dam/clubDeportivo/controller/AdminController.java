@@ -131,4 +131,35 @@ public class AdminController {
 		socioService.add(socio);
 		return "redirect:/admin/socios";
 	}
+	
+	@GetMapping("/socios/update/{id}")
+	public String editarSocio(@PathVariable("id") Long id, Model model) {
+	    model.addAttribute("socios", socioService.findAll());
+	    Socio sEditar = socioService.findById(id).orElse(null);
+	    if(sEditar !=null) {
+	        model.addAttribute("socio", sEditar);
+	        return "formularioSocioAdmin";
+	    }else {
+	        return "redirect:/admin/socios";
+	    }
+	}
+
+	@GetMapping("/socios/borrar/{id}")
+	public String borrarSocio(@PathVariable("id") long id) {
+	    Socio sBorrar = socioService.findById(id).orElse(null);
+	    if(sBorrar!=null) {
+	        if (reservaService.numeroReservasPorSocio(sBorrar) == 0) {
+	        	socioService.delete(sBorrar);			
+			} else {
+				return "redirect:/admin/socios/?error=true";
+			}
+	    }
+	    return "redirect:/admin/socios";
+	}
+
+	@PostMapping("/socio/edit/submit")
+	public String editSocioSubmit(@ModelAttribute("socio") Socio socio) {
+	    socioService.edit(socio);
+	    return "redirect:/admin/reservas";
+	}
 }

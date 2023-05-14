@@ -39,22 +39,24 @@
                     </div>
                     <div class="mb-3">
                         <label for="addSocioUsername" class="form-label">Correo electrónico</label>
-                        <input type="text" class="form-control" id="addSocioUsername" th:field="*{username}" required>
+                        <input type="text" class="form-control" id="addSocioUsername" th:field="*{username}"
+                            th:readonly="${socio.id != 0}" required>
                         <p class="errorForm my-1">Indica un correo electrónico correcto</p>
                     </div>
                     <div class="mb-3">
                         <label for="addSocioTelefono" class="form-label">Teléfono</label>
-                        <input type="tel" class="form-control" id="addSocioTelefono" th:field="*{telefono}">
+                        <input type="tel" class="form-control" id="addSocioTelefono" th:field="*{telefono}" required>
                         <p class="errorForm my-1">Por favor, selecciona un número correcto</p>
                     </div>
                     <div class="mb-3">
                         <label for="addSocioFechaAlta" class="form-label">Fecha de Alta</label>
-                        <input type="date" class="form-control" id="addSocioFechaAlta" th:field="*{fecha_alta}">
+                        <input type="date" class="form-control" id="addSocioFechaAlta" th:field="*{fecha_alta}"
+                            required>
                         <p class="errorForm my-1">Por favor, selecciona una fecha correcta</p>
                     </div>
                     <div class="mb-3">
                         <label for="addSocioCuota" class="form-label">Cuota</label>
-                        <input type="number" class="form-control" id="addSocioCuota" th:field="*{cuota}">
+                        <input type="number" class="form-control" id="addSocioCuota" th:field="*{cuota}" required>
                     </div>
                     <div class="mb-3">
                         <a class="btn btn-secondary" th:href="@{/admin/socios}">Cancelar</a>
