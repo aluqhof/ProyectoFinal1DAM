@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+        th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css}" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../css/general.css" th:href="@{/css/general.css}">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row flex-nowrap col-12">
+            <nav th:replace="fragments/navAdmin :: menuPanelAdmin"></nav>
+            <div class="col py-3 contenidoDerechaAdmin">
+                <div>
+                    <div class="container-fluid">
+                        <div class="row my-3">
+                            <div class="col">
+                                <h3>Pistas</h3>
+                            </div>
+                        </div>
+                        <div class="row my-2">
+                            <a id="add" href="#" class="btn btn-primary" th:href="@{/admin/pistas/add}">
+                                <i class="bi bi-plus-square"></i>
+                            </a>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover tablaPistas">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th scope="col">#</th>
+                                        <th scope="col">Deporte</th>
+                                        <th scope="col">Número Pista</th>
+                                        <th scope="col">Precio base</th>
+                                        <th scope="col">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="pista : ${pistas}" class="text-center">
+                                        <th th:text="${pista.id}"></th>
+                                        <td th:text="${pista.deporte.nombre}"></td>
+                                        <td th:text="${pista.numero}"></td>
+                                        <td th:text="${pista.precio}"></td>
+                                        <td>
+                                            <a th:href="@{/admin/pistas/update/{id}(id=${pista.id})}"
+                                                class="btn btn-primary btn-sm botonEditar">
+                                                <i class="bi bi-pencil-square"></i>
+                                            </a>
+                                            <a class="btn btn-danger btn-sm botonBorrar" data-bs-toggle="modal"
+                                                th:attr="data-bs-target='#removePista'+ '-' + ${pista.id}">
+                                                <i class=" bi bi-trash"></i>
+                                            </a>
+                                            <div class="modal text-black" th:id="pistaReserva + '-' + ${pista.id}">
+                                                <div class="modal-dialog remove">
+                                                    <div class="modal-content">
+
+                                                        <div class="modal-header bg-primary border-1">
+                                                            <h4 class="modal-title mx-auto text-white">¿Estás seguro?
+                                                            </h4>
+                                                            <button type="button" class="btn-close mx-0"
+                                                                data-bs-dismiss="modal"></button>
+                                                        </div>
+
+                                                        <div class="modal-body bg-white">
+                                                            <p class="text-dark mb-4">¿Quieres borrar esta reserva?</p>
+                                                            <div class="d-grid gap-2">
+                                                                <a class="btn btn-danger btn-lg"
+                                                                    th:href="@{/admin/pistas/borrar/{id}(id=${pista.id})}">
+                                                                    <i class="bi bi-trash me-2"></i> Borrar reserva
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

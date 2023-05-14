@@ -91,31 +91,6 @@
                                 </tbody>
                             </table>
                         </div>
-                        <!-- Modal Eliminar Reserva -->
-                        <div class="modal fade" id="deleteReservaModal" tabindex="-1"
-                            aria-labelledby="deleteReservaModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="deleteReservaModalLabel">Eliminar Reserva</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        ¿Está seguro de que desea eliminar esta reserva?
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">Cancelar</button>
-                                        <form id="deleteForm" th:action="@{admin/reservas/borrar{id}(id=${reserva.id})}"
-                                            method="post">
-                                            <input type="hidden" name="reservaId" th:value="${reserva.id}">
-                                            <input type="submit" class="btn btn-danger" value="Eliminar">
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
