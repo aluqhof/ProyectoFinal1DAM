@@ -36,7 +36,9 @@ public class Pista {
 	private int numero;
 	private double precio;
 	
-	private double aumentoPrecio;
+	private double aumento_precio;
+	
+	private LocalTime hora_aumento_precio;
 	
 	@ManyToOne
 	@JoinColumn(foreignKey = @ForeignKey (name="fk_deporte_pista"))

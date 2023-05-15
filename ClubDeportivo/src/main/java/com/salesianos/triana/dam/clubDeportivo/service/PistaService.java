@@ -14,29 +14,39 @@ import com.salesianos.triana.dam.clubDeportivo.repository.PistaRepositorio;
 import com.salesianos.triana.dam.clubDeportivo.repository.ReservaRepositorio;
 
 @Service
-public class PistaService extends BaseServiceImp<Pista, Integer, PistaRepositorio>{
+public class PistaService extends BaseServiceImp<Pista, Integer, PistaRepositorio> {
 
 	@Autowired
-    private ReservaRepositorio reservaRepositorio;
+	private ReservaRepositorio reservaRepositorio;
 	@Autowired
 	private PistaRepositorio repositorio;
-	
-	public void crearReserva(Pista pista, Socio socio, LocalDate fechaReserva, LocalTime horaReserva) {
-	    if (!pista.isHoraDisponible(horaReserva, fechaReserva)) {
-	        throw new IllegalArgumentException("La hora ya está reservada");
-	    }
 
-	    Reserva reserva = new Reserva();
-	    reserva.setPista(pista);
-	    reserva.setSocio(socio);
-	    reserva.setFecha_reserva(fechaReserva);
-	    reserva.setHora_reserva(horaReserva);
-	    reservaRepositorio.save(reserva);
-	    
-	    pista.getReservas().add(reserva);
-	    reserva.setPista(pista);
+	public boolean crearReserva(Pista pista, Socio socio, LocalDate fechaReserva, LocalTime horaReserva) {
+		double div = 100;
+		double precioAumentado = 0;
+		if (!pista.isHoraDisponible(horaReserva, fechaReserva)) {
+			return false;
+		}
+
+		Reserva reserva = new Reserva();
+		reserva.setPista(pista);
+		reserva.setSocio(socio);
+		reserva.setFecha_reserva(fechaReserva);
+		reserva.setHora_reserva(horaReserva);
+		reservaRepositorio.save(reserva);
+
+		pista.getReservas().add(reserva);
+		reserva.setPista(pista);
+
+		if (horaReserva.isAfter(pista.getHora_aumento_precio()) || horaReserva.equals(pista.getHora_aumento_precio())) {
+			precioAumentado = pista.getPrecio() + pista.getAumento_precio() / div * pista.getAumento_precio();
+			reserva.getPista().setPrecio(precioAumentado);
+			// Realizar la lógica adicional con el precio aumentado
+		}
+		
+		return true;
 	}
-	
+
 	public int numeroDePistasPorDeporte(int id) {
 		return repositorio.countPistasByDeporte(id);
 	}

@@ -84,3 +84,6 @@ function validarPista() {
     idPista.nextElementSibling.hidden = true;
     return true;
 }
+
+let formulario = document.getElementById("formularioReservaAdmin");
+formulario.addEventListener("submit", validarFormulario);

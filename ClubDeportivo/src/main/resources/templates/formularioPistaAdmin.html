@@ -13,7 +13,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../static/css/general.css" th:href="@{/css/general.css}">
-    <script th:src="@{/js/validacionReservasAdmin.js}" defer></script>
+    <script th:src="@{/js/validacionPistaAdmin.js}" defer></script>
     <title>Formulario Pista</title>
 </head>
 
@@ -22,30 +22,35 @@
         <div class="row flex-nowrap col-12">
             <nav th:replace="fragments/navAdmin :: menuPanelAdmin"></nav>
             <div class="col py-3 contenidoDerechaAdmin">
-                <form method="POST"
+                <form method="POST" id="formularioPistaAdmin"
                     th:action="${pista.id != 0} ? @{/admin/pistas/edit/submit} : @{/admin/pistas/add/submit}"
                     th:object="${pista}">
                     <h3 th:text="${pista.id == 0} ? 'Nueva Pista' : 'Editar Pista'"></h3>
                     <input th:if="${pista.id != 0}" type="hidden" name="id" th:field="*{id}" />
                     <div class="mb-3">
                         <label for="addPistaDeporte" class="form-label">Deporte</label>
-                        <select class="form-select" id="addPistaDeporte" th:field="*{deporte}">
+                        <select class="form-select" id="addPistaDeporte" th:field="*{deporte}" required>
                             <option value="">Selecciona un deporte</option>
                             <option th:each="deporte : ${deportes}" th:value="${deporte.id}" th:text="${deporte.nombre}"></option>
                             </option>
                         </select>
                         <p class="errorForm my-1">Selecciona un deporte</p>
                     </div>
-                    <!--Tiene que ir todo asociado con el horario-->
                     <div class="mb-3">
                         <label for="addPistaPrecio" class="form-label">Precio base</label>
-                        <input type="number" class="form-control" id="addPistaPrecio" th:field="*{precio}" required>
+                        <input type="text" class="form-control" id="addPistaPrecio" th:field="*{precio}" required>
                         <p class="errorForm my-1">Indica un precio válido</p>
                     </div>
                     <div class="mb-3">
-                        <label for="addReservaIDSocio" class="form-label">Aumento de precio por luces (%)</label>
-                        <input type="number" step="5" class="form-control" id="addPistaAumento" th:field="*{aumentoPrecio}" required>
-                        <p class="errorForm my-1">Por favor, selecciona el aumento de precio para la pista</p>
+                        <label for="addPistaAumento" class="form-label">Aumento de precio por luces (%)</label>
+                        <input type="number" step="5" class="form-control" id="addPistaAumento" th:field="*{aumento_precio}">
+                        <p class="errorForm my-1">Asegurate de que estés introduciendo un número entero entre 0 y 100</p>
+                    </div>
+                    <div class="mb-3">
+                        <label for="addPistaHoraAumento" class="form-label">Hora Aumento de Precio</label>
+                        <input type="time" class="form-control" id="addPistaHoraAumento" th:field="*{hora_aumento_precio}"
+                            step="3600" min="07:00" max="21:00">
+                        <p class="errorForm my-1">Indica una hora válida</p>
                     </div>
                     <div class="mb-3">
                         <a class="btn btn-secondary" th:href="@{/admin/pistas}">Cancelar</a>

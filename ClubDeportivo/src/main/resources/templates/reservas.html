@@ -46,13 +46,13 @@
                                 </thead>
                                 <tbody>
                                     <tr th:each="reserva : ${reservas}" class="text-center">
-                                        <th th:text="${reserva.id}">1</th>
-                                        <td th:text="${reserva.fecha_reserva}">01/01/2021</td>
-                                        <td th:text="${reserva.hora_reserva}">10:00</td>
-                                        <td th:text="${reserva.socio.id}">2</td>
-                                        <td th:text="${reserva.pista.numero}">3</td>
-                                        <td th:text="${reserva.pista.precio}">2.30</td>
-                                        <td th:text="${reserva.pista.deporte.nombre}">Tenis</td>
+                                        <th th:text="${reserva.id}"></th>
+                                        <td th:text="${reserva.fecha_reserva}"></td>
+                                        <td th:text="${reserva.hora_reserva}"></td>
+                                        <td th:text="${reserva.socio.id}"></td>
+                                        <td th:text="${reserva.pista.numero}"></td>
+                                        <td th:text="${#numbers.formatDecimal(reserva.pista.precio, 1, 2)} + '€'"></td>
+                                        <td th:text="${reserva.pista.deporte.nombre}"></td>
                                         <td>
                                             <a th:href="@{/admin/reservas/update/{id}(id=${reserva.id})}"
                                                 class="btn btn-primary btn-sm botonEditar">
