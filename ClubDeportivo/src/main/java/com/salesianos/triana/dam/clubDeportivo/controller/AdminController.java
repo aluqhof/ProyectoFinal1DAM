@@ -188,4 +188,32 @@ public class AdminController {
 		pistaService.add(pista);
 		return "redirect:/admin/pistas";
 	}
+	
+	@GetMapping("/pistas/update/{id}")
+	public String updatePista(@PathVariable("id") int id, Model model) {
+		model.addAttribute("pistas", pistaService.findAll());
+		model.addAttribute("deportes", deporteService.findAll());
+		Pista pEditar = pistaService.findById(id).orElse(null);
+		if (pEditar != null) {
+			model.addAttribute("pista", pEditar);
+			return "formularioPistaAdmin";
+		} else {
+			return "redirect:/admin/pistas";
+		}
+	}
+
+	@GetMapping("/pistas/borrar/{id}")
+	public String borrarPista(@PathVariable("id") int id) {
+		Pista aBorrar = pistaService.findById(id).orElse(null);
+		if (aBorrar != null) {
+			pistaService.delete(aBorrar);
+		}
+		return "redirect:/admin/pistas";
+	}
+
+	@PostMapping("/pistas/edit/submit")
+	public String editPistaSubmit(@ModelAttribute("pista") Pista pista) {
+		pistaService.edit(pista);
+		return "redirect:/admin/pistas";
+	}
 }
