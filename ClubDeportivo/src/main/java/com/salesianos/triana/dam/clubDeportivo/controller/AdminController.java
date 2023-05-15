@@ -172,4 +172,20 @@ public class AdminController {
 
 		return "pistas";
 	}
+	
+	@GetMapping("/pistas/add")
+	public String agregarPista(Model model) {
+		model.addAttribute("pistas", pistaService.findAll());
+		model.addAttribute("deportes", deporteService.findAll());		
+		model.addAttribute("pista", new Pista());
+		return "formularioPistaAdmin";
+	}
+	
+	@PostMapping("/pistas/add/submit")
+	public String addPistaSubmit(@ModelAttribute("pista") Pista pista) {
+		int numPista=pistaService.numeroDePistasPorDeporte(pista.getDeporte().getId());
+		pista.setNumero(numPista+1);
+		pistaService.add(pista);
+		return "redirect:/admin/pistas";
+	}
 }

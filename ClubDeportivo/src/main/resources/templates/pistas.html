@@ -38,6 +38,7 @@
                                         <th scope="col">Deporte</th>
                                         <th scope="col">Número Pista</th>
                                         <th scope="col">Precio base</th>
+                                        <th scope="col">Aumento por luz</th>
                                         <th scope="col">Acciones</th>
                                     </tr>
                                 </thead>
@@ -47,6 +48,7 @@
                                         <td th:text="${pista.deporte.nombre}"></td>
                                         <td th:text="${pista.numero}"></td>
                                         <td th:text="${pista.precio}"></td>
+                                        <td th:text="${pista.aumentoPrecio} + '%'"></td>
                                         <td>
                                             <a th:href="@{/admin/pistas/update/{id}(id=${pista.id})}"
                                                 class="btn btn-primary btn-sm botonEditar">

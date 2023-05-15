@@ -30,11 +30,13 @@ import lombok.ToString;
 public class Pista {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
 	private int numero;
 	private double precio;
+	
+	private double aumentoPrecio;
 	
 	@ManyToOne
 	@JoinColumn(foreignKey = @ForeignKey (name="fk_deporte_pista"))

@@ -6,6 +6,7 @@ import java.time.LocalTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.salesianos.triana.dam.clubDeportivo.model.Deporte;
 import com.salesianos.triana.dam.clubDeportivo.model.Pista;
 import com.salesianos.triana.dam.clubDeportivo.model.Reserva;
 import com.salesianos.triana.dam.clubDeportivo.model.Socio;
@@ -17,6 +18,8 @@ public class PistaService extends BaseServiceImp<Pista, Integer, PistaRepositori
 
 	@Autowired
     private ReservaRepositorio reservaRepositorio;
+	@Autowired
+	private PistaRepositorio repositorio;
 	
 	public void crearReserva(Pista pista, Socio socio, LocalDate fechaReserva, LocalTime horaReserva) {
 	    if (!pista.isHoraDisponible(horaReserva, fechaReserva)) {
@@ -32,6 +35,10 @@ public class PistaService extends BaseServiceImp<Pista, Integer, PistaRepositori
 	    
 	    pista.getReservas().add(reserva);
 	    reserva.setPista(pista);
+	}
+	
+	public int numeroDePistasPorDeporte(int id) {
+		return repositorio.countPistasByDeporte(id);
 	}
 
 }
