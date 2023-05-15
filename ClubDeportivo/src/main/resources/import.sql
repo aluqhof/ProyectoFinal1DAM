@@ -16,13 +16,13 @@ INSERT INTO deporte (id, nombre) VALUES (1, 'Tenis');
 
 INSERT INTO deporte (id, nombre) VALUES (2, 'Pádel');
 
-INSERT INTO pista (id, numero, precio, deporte_id) VALUES (1, 1, 10.0, 1);
+INSERT INTO pista (id, numero, precio, aumento_precio, deporte_id, hora_aumento_precio) VALUES (1, 1, 10.0, 5.0, 1, '18:00:00');
 
-INSERT INTO pista (id, numero, precio, deporte_id) VALUES (2, 2, 10.0, 1);
+INSERT INTO pista (id, numero, precio, aumento_precio, deporte_id, hora_aumento_precio) VALUES (2, 2, 10.0, 10.0, 1, '18:00:00');
 
-INSERT INTO pista (id, numero, precio, deporte_id) VALUES (3, 1, 15.0, 2);
+INSERT INTO pista (id, numero, precio, aumento_precio, deporte_id, hora_aumento_precio) VALUES (3, 1, 15.0, 15.0, 2, '18:00:00');
 
-INSERT INTO pista (id, numero, precio, deporte_id) VALUES (4, 2, 15.0, 2);
+INSERT INTO pista (id, numero, precio, aumento_precio, deporte_id, hora_aumento_precio) VALUES (4, 2, 15.0, 10.0, 2, '18:00:00');
 
 
 INSERT INTO reserva (id, fecha_reserva, hora_reserva, socio_id, pista_id) VALUES (1, '2023-05-15', '10:00:00', 2, 1);
