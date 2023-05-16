@@ -41,20 +41,20 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr th:each="reserva : ${reservas}" class="text-center">
-                                        <th th:text="${reserva.id}"></th>
-                                        <td th:text="${reserva.fecha_reserva}"></td>
-                                        <td th:text="${reserva.hora_reserva}"></td>
+                                    <tr th:each="deporte : ${deportes}" class="text-center">
+                                        <th th:text="${deporte.id}"></th>
+                                        <td th:text="${deporte.nombre}"></td>
+                                        <td th:text="${deporte.pistas.size()}"></td>
                                         <td>
-                                            <a th:href="@{/admin/reservas/update/{id}(id=${reserva.id})}"
+                                            <a th:href="@{/admin/deportes/update/{id}(id=${deporte.id})}"
                                                 class="btn btn-primary btn-sm botonEditar">
                                                 <i class="bi bi-pencil-square"></i>
                                             </a>
                                             <a class="btn btn-danger btn-sm botonBorrar" data-bs-toggle="modal"
-                                                th:attr="data-bs-target='#removeReserva'+ '-' + ${reserva.id}">
+                                                th:attr="data-bs-target='#removeDeporte'+ '-' + ${deporte.id}">
                                                 <i class=" bi bi-trash"></i>
                                             </a>
-                                            <div class="modal text-black" th:id="removeReserva + '-' + ${reserva.id}">
+                                            <div class="modal text-black" th:id="removeDeporte + '-' + ${deporte.id}">
                                                 <div class="modal-dialog remove">
                                                     <div class="modal-content">
 
@@ -69,7 +69,7 @@
                                                             <p class="text-dark mb-4">¿Quieres borrar esta reserva?</p>
                                                             <div class="d-grid gap-2">
                                                                 <a class="btn btn-danger btn-lg"
-                                                                    th:href="@{/admin/reservas/borrar/{id}(id=${reserva.id})}">
+                                                                    th:href="@{/admin/deporte/borrar/{id}(id=${deporte.id})}">
                                                                     <i class="bi bi-trash me-2"></i> Borrar reserva
                                                                 </a>
                                                             </div>
