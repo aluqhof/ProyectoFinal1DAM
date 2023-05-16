@@ -27,7 +27,7 @@
                     </svg>
                 </div>
                 <div class="text-center">
-                    <h1>Gracias <span sec:authentication="name">Usuario</span></h1>
+                    <h1>Gracias <span th:text="${nombre}">Usuario</span></h1>
                     <p>Te hemos enviado la confirmación de la reserva al correo electrónico. Recuerda revisar tu bandeja
                         de entrada.</p>
                     <a class="btn btn-outline-success" th:href="@{http://localhost:9000/}">Volver al inicio</a>

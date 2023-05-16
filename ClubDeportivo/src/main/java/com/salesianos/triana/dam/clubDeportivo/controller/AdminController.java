@@ -226,4 +226,17 @@ public class AdminController {
 
 		return "deportes";
 	}
+	
+	@GetMapping("/deportes/add")
+	public String agregarDeporte(Model model) {
+		model.addAttribute("deportes", deporteService.findAll());		
+		model.addAttribute("deporte", new Deporte());
+		return "formularioDeporteAdmin";
+	}
+	
+	@PostMapping("/deportes/add/submit")
+	public String addDeporteSubmit(@ModelAttribute("deporte") Deporte deporte) {
+		deporteService.add(deporte);
+		return "redirect:/admin/deportes";
+	}
 }

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+        th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css}" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../static/css/general.css" th:href="@{/css/general.css}">
+    <script th:src="@{/js/validacionDeporteAdmin.js}" defer></script>
+    <title>Formulario Deporte</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row flex-nowrap col-12">
+            <nav th:replace="fragments/navAdmin :: menuPanelAdmin"></nav>
+            <div class="col py-3 contenidoDerechaAdmin">
+                <form method="POST" id="formularioDeporteAdmin"
+                    th:action="${deporte.id != 0} ? @{/admin/deportes/edit/submit} : @{/admin/deportes/add/submit}"
+                    th:object="${deporte}">
+                    <h3 th:text="${deporte.id == 0} ? 'Nuevo Deporte' : 'Editar Deporte'"></h3>
+                    <input th:if="${deporte.id != 0}" type="hidden" name="id" th:field="*{id}" />
+                    <div class="mb-3">
+                        <label for="addNombreDeporte" class="form-label">Deporte</label>
+                        <input type="text" class="form-control" id="addNombreDeporte" th:field="*{nombre}" required>
+                        <p class="errorForm my-1">Introduce un nombre válido</p>
+                    </div>
+                    <div class="mb-3">
+                        <a class="btn btn-secondary" th:href="@{/admin/deportes}">Cancelar</a>
+                        <input type="submit" class="btn btn-primary" th:value="Guardar">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
