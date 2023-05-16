@@ -64,13 +64,4 @@ public class Pista {
 		deporte.getPistas().remove(this);
 		this.deporte=null;
 	}
-	
-	public boolean isHoraDisponible(LocalTime horaReserva, LocalDate fechaReserva) {
-	    for (Reserva reserva : reservas) {
-	        if (reserva.getFecha_reserva().equals(fechaReserva) && reserva.getHora_reserva().equals(horaReserva)) {
-	            return false;
-	        }
-	    }
-	    return true;
-	}
 }

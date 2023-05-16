@@ -43,16 +43,21 @@ public class ReservaController {
 		model.addAttribute("pistas", pistaService.findAll());
 		model.addAttribute("deportes", deporteService.findAll());
 		model.addAttribute("nombre", s.getNombre());
-		reserva.setSocio(s);
-		service.add(reserva);
-		model.addAttribute("reservaExitosa", true);
-		try {
-			emailService.sendEmail(s.getUsername(), "Reserva confirmada",
-					"Hola " + s.getNombre() + " su reserva para el día " + reserva.getFecha_reserva() + " " + "a las "
-							+ reserva.getHora_reserva() + " ha sido confirmada.");
+		//reserva.setSocio(s);
+		if(service.isHoraDisponible(reserva.getHora_reserva(), reserva.getFecha_reserva())) {
+			service.crearReserva(reserva.getPista(), s, reserva.getFecha_reserva(), reserva.getHora_reserva());
+			model.addAttribute("reservaExitosa", true);
+			try {
+				emailService.sendEmail(s.getUsername(), "Reserva confirmada",
+						"Hola " + s.getNombre() + " su reserva para el día " + reserva.getFecha_reserva() + " " + "a las "
+								+ reserva.getHora_reserva() + " ha sido confirmada.");
 
-		} catch (Exception e) {
-			return "error";
+			} catch (Exception e) {
+				return "error";
+			}
+		}else {
+			model.addAttribute("error", "La pista no esta disponible a esa hora, intenta escoger otra pista o buscar otra hora");
+			return "formularioReserva";
 		}
 		return "confirmacionReserva";
 	}
