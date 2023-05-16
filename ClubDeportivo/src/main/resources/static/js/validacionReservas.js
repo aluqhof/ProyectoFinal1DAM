@@ -1,12 +1,13 @@
 let deportesSelect = document.getElementById("addDeporte");
 let pistasSelect = document.getElementById("addPista");
+let pistaContainer = document.getElementById("pistaContainer");
 
 deportesSelect.addEventListener("change", function () {
 
     let deporteId = deportesSelect.value;
 
     if (!deporteId) {
-        pistasSelect.style.display = "none";
+        pistaContainer.style.display = "none";
         return;
     }
     // Filtrar las opciones del select de pistas y mostrar solo las que pertenecen al deporte seleccionado
@@ -20,7 +21,7 @@ deportesSelect.addEventListener("change", function () {
     }
 
     // Mostrar el segundo select de pistas
-    pistasSelect.style.display = "block";
+    pistaContainer.style.display = "block";
 });
 
 let fechaReserva = document.getElementById("addFechaReserva");
@@ -79,3 +80,34 @@ function validarHora() {
 
 let formulario = document.getElementById("formularioReserva");
 formulario.addEventListener("submit", validarFormulario);
+
+pistasSelect.addEventListener("change", actualizarPrecio);
+horaReserva.addEventListener("change", actualizarPrecio);
+
+function actualizarPrecio() {
+    let opcion = pistasSelect.options[pistasSelect.selectedIndex];
+    let precio = opcion.dataset.precio;
+    let horaLimite = opcion.dataset.hora_aumento_precio;
+    let aumento = opcion.dataset.aumento_precio;
+    let horaSeleccionada = horaReserva.value;
+  
+    let precioContainer = document.getElementById("precioContainer");
+    let precioPista = document.getElementById("precioPista");
+  
+    if (precio) {
+      precioPista.textContent = precio;
+      let precioFormateado = parseFloat(precio).toFixed(2);
+      precioPista.textContent = precioFormateado + " €";
+  
+      if (horaSeleccionada >= horaLimite) {
+        let nuevoPrecio = parseFloat(precio) + (parseFloat(precio) * aumento / 100);
+        let nuevoPrecioFormateado = nuevoPrecio.toFixed(2);
+        precioPista.textContent = nuevoPrecioFormateado + " €";
+      }
+  
+      precioContainer.style.display = "block";
+    } else {
+      precioContainer.style.display = "none";
+    }
+  }
+  

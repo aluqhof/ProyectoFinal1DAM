@@ -66,19 +66,23 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class=" offset-sm-4 col-sm-4">
-                                            <div class="form-group">
-                                                <span class="form-label" th:disabled="${#lists.isEmpty(pistas)}"
-                                                    style="display:none;">Pista</span>
+                                        <div class="col-sm-6">
+                                            <div class="form-group" style="display: none;" id="pistaContainer">
+                                                <span class="form-label" th:disabled="${#lists.isEmpty(pistas)}">Pista</span>
                                                 <select id="addPista" class="form-select" th:field="*{pista}" required
-                                                    th:disabled="${#lists.isEmpty(pistas)}" style="display:none;">
+                                                    th:disabled="${#lists.isEmpty(pistas)}">
                                                     <option value=""></option>
                                                     <option th:each="pista : ${pistas}" th:value="${pista.id}"
                                                         th:text="${'Pista' + ' - ' + pista.numero}"
-                                                        th:data-deporte-id="${pista.deporte.id}">
+                                                        th:data-deporte-id="${pista.deporte.id}" th:data-precio="${pista.precio}">
                                                     </option>></option>
                                                 </select>
                                                 <span class="select-arrow"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group text-end" style="display: none;" id="precioContainer">
+                                                <p class="indicadorPrecio form-label" style="color: red;">Precio: <span id="precioPista"></span></p>
                                             </div>
                                         </div>
                                     </div>

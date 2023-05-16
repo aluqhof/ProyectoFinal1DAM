@@ -66,7 +66,8 @@ function validarTelefono() {
 
 function validarFechaAlta() {
     let fechaAlta = document.getElementById("addSocioFechaAlta").value;
-    if (!fechaAlta) { // Verificar que se haya seleccionado una fecha
+    let fechaActual = new Date();
+    if (!fechaAlta || fechaAlta>fechaActual) { // Verificar que se haya seleccionado una fecha
         document.getElementById("addSocioFechaAlta").focus();
         document.getElementById("addSocioFechaAlta").nextElementSibling.hidden = false;
         return false;
