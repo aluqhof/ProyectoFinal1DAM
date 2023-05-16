@@ -1,0 +1,32 @@
+2023-05-16 13:14:23 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Conversión de datos fallida, convirtiendo "0.50 (RESERVA: ""HORA_RESERVA"" TIME)"
+Data conversion error converting "0.50 (RESERVA: ""HORA_RESERVA"" TIME)"; SQL statement:
+INSERT INTO reserva (id, fecha_reserva, hora_reserva, precio_reserva, socio_id, pista_id) VALUES (1, '2023-05-15',10*0.05, '10:00:00', 2, 1) [22018-214]
+2023-05-16 13:14:23 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Conversión de datos fallida, convirtiendo "1.00 (RESERVA: ""HORA_RESERVA"" TIME)"
+Data conversion error converting "1.00 (RESERVA: ""HORA_RESERVA"" TIME)"; SQL statement:
+INSERT INTO reserva (id, fecha_reserva, hora_reserva, precio_reserva, socio_id, pista_id) VALUES (2, '2023-05-16', 10*0.10, '12:00:00', 2, 2) [22018-214]
+2023-05-16 13:14:23 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Conversión de datos fallida, convirtiendo "2.25 (RESERVA: ""HORA_RESERVA"" TIME)"
+Data conversion error converting "2.25 (RESERVA: ""HORA_RESERVA"" TIME)"; SQL statement:
+INSERT INTO reserva (id, fecha_reserva, hora_reserva, precio_reserva, socio_id, pista_id) VALUES (3, '2023-05-15', 15*0.15, '10:00:00', 2, 3) [22018-214]
+2023-05-16 13:14:23 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Conversión de datos fallida, convirtiendo "1.50 (RESERVA: ""HORA_RESERVA"" TIME)"
+Data conversion error converting "1.50 (RESERVA: ""HORA_RESERVA"" TIME)"; SQL statement:
+INSERT INTO reserva (id, fecha_reserva, hora_reserva, precio_reserva, socio_id, pista_id) VALUES (4, '2023-05-16', 15*0.10, '12:00:00', 2, 4) [22018-214]
+2023-05-16 13:16:32 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Conversión de datos fallida, convirtiendo "10.5 (RESERVA: ""HORA_RESERVA"" TIME)"
+Data conversion error converting "10.5 (RESERVA: ""HORA_RESERVA"" TIME)"; SQL statement:
+INSERT INTO reserva (id, fecha_reserva, hora_reserva, precio_reserva, socio_id, pista_id) VALUES (1, '2023-05-15',10.5, '10:00:00', 2, 1) [22018-214]
+2023-05-16 13:16:32 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Conversión de datos fallida, convirtiendo "11 (RESERVA: ""HORA_RESERVA"" TIME)"
+Data conversion error converting "11 (RESERVA: ""HORA_RESERVA"" TIME)"; SQL statement:
+INSERT INTO reserva (id, fecha_reserva, hora_reserva, precio_reserva, socio_id, pista_id) VALUES (2, '2023-05-16', 11, '12:00:00', 2, 2) [22018-214]
+2023-05-16 13:16:32 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Conversión de datos fallida, convirtiendo "17.25 (RESERVA: ""HORA_RESERVA"" TIME)"
+Data conversion error converting "17.25 (RESERVA: ""HORA_RESERVA"" TIME)"; SQL statement:
+INSERT INTO reserva (id, fecha_reserva, hora_reserva, precio_reserva, socio_id, pista_id) VALUES (3, '2023-05-15', 17.25, '10:00:00', 2, 3) [22018-214]
+2023-05-16 13:16:32 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Conversión de datos fallida, convirtiendo "16.5 (RESERVA: ""HORA_RESERVA"" TIME)"
+Data conversion error converting "16.5 (RESERVA: ""HORA_RESERVA"" TIME)"; SQL statement:
+INSERT INTO reserva (id, fecha_reserva, hora_reserva, precio_reserva, socio_id, pista_id) VALUES (4, '2023-05-16', 16.5, '12:00:00', 2, 4) [22018-214]

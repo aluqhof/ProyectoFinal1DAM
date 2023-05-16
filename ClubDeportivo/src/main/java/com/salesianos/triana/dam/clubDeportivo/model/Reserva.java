@@ -34,6 +34,8 @@ public class Reserva {
     
     private LocalTime hora_reserva;
     
+    private double precio_reserva;
+    
     // Many-to-One con la clase Socio
     @ManyToOne
     @JoinColumn(foreignKey = @ForeignKey (name="fk_socio_reserva"))

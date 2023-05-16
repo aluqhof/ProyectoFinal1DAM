@@ -25,12 +25,12 @@ INSERT INTO pista (id, numero, precio, aumento_precio, deporte_id, hora_aumento_
 INSERT INTO pista (id, numero, precio, aumento_precio, deporte_id, hora_aumento_precio) VALUES (4, 2, 15.0, 10, 2, '18:00:00');
 
 
-INSERT INTO reserva (id, fecha_reserva, hora_reserva, socio_id, pista_id) VALUES (1, '2023-05-15', '10:00:00', 2, 1);
+INSERT INTO reserva (id, fecha_reserva, hora_reserva, precio_reserva, socio_id, pista_id) VALUES (1, '2023-05-15', '10:00:00', 10, 2, 1);
 
-INSERT INTO reserva (id, fecha_reserva, hora_reserva, socio_id, pista_id) VALUES (2, '2023-05-16', '12:00:00', 2, 2); 
+INSERT INTO reserva (id, fecha_reserva, hora_reserva, precio_reserva, socio_id, pista_id) VALUES (2, '2023-05-16', '12:00:00', 10, 2, 2); 
 
-INSERT INTO reserva (id, fecha_reserva, hora_reserva, socio_id, pista_id) VALUES (3, '2023-05-15', '10:00:00', 2, 3);
+INSERT INTO reserva (id, fecha_reserva, hora_reserva, precio_reserva, socio_id, pista_id) VALUES (3, '2023-05-15', '10:00:00', 15, 2, 3);
 
-INSERT INTO reserva (id, fecha_reserva, hora_reserva, socio_id, pista_id) VALUES (4, '2023-05-16', '12:00:00', 2, 4); 
+INSERT INTO reserva (id, fecha_reserva, hora_reserva, precio_reserva, socio_id, pista_id) VALUES (4, '2023-05-16', '12:00:00', 15, 2, 4); 
 
 ALTER SEQUENCE hibernate_sequence RESTART WITH 1000;

@@ -28,9 +28,9 @@
                     <h3 th:text="${socio.id == 0} ? 'Nuevo Socio' : 'Editar Socio'"></h3>
                     <input th:if="${socio.id != 0}" type="hidden" name="id" th:field="*{id}" />
                     <div class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${error}">
-                            <span th:text="${error}"></span>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
+                        <span th:text="${error}"></span>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
                     <div class="mb-3">
                         <label for="addSocioNombre" class="form-label">Nombre</label>
                         <input type="text" class="form-control" id="addSocioNombre" th:field="*{nombre}" required>

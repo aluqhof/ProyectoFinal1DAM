@@ -3,12 +3,9 @@ package com.salesianos.triana.dam.clubDeportivo.service;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.salesianos.triana.dam.clubDeportivo.model.Pista;
 import com.salesianos.triana.dam.clubDeportivo.model.Reserva;
 import com.salesianos.triana.dam.clubDeportivo.model.Socio;
 import com.salesianos.triana.dam.clubDeportivo.repository.ReservaRepositorio;
@@ -19,39 +16,26 @@ public class ReservaService extends BaseServiceImp<Reserva, Long, ReservaReposit
 	@Autowired
 	private ReservaRepositorio repositorio;
 	
-	public boolean isHoraDisponible(LocalTime horaReserva, LocalDate fechaReserva) {
+	public boolean isHoraDisponible(LocalTime horaReserva, LocalDate fechaReserva, int id) {
 	    for (Reserva reserva : repositorio.findAll()) {
-	        if (reserva.getFecha_reserva().equals(fechaReserva) && reserva.getHora_reserva().equals(horaReserva)) {
+	        if (reserva.getPista().getId()==id && reserva.getFecha_reserva().equals(fechaReserva) && reserva.getHora_reserva().equals(horaReserva)) {
 	            return false;
 	        }
 	    }
 	    return true;
 	}
 	
-	public boolean crearReserva(Pista pista, Socio socio, LocalDate fechaReserva, LocalTime horaReserva) {
+	public void calcularPrecio(Reserva reserva) {
 		double div = 100;
 		double precioAumentado = 0;
-		if (!isHoraDisponible(horaReserva, fechaReserva)) {
-			return false;
-		}
 
-		Reserva reserva = new Reserva();
-		reserva.setPista(pista);
-		reserva.setSocio(socio);
-		reserva.setFecha_reserva(fechaReserva);
-		reserva.setHora_reserva(horaReserva);
 
-		pista.getReservas().add(reserva);
-		reserva.setPista(pista);
-
-		if (horaReserva.isAfter(pista.getHora_aumento_precio()) || horaReserva.equals(pista.getHora_aumento_precio())) {
-			precioAumentado = pista.getPrecio() + pista.getAumento_precio() / div * pista.getAumento_precio();
-			reserva.getPista().setPrecio(precioAumentado);
-			// Realizar la lógica adicional con el precio aumentado
-		}
-		
-		add(reserva);
-		return true;
+		if (reserva.getHora_reserva().isAfter(reserva.getPista().getHora_aumento_precio()) || 
+				reserva.getHora_reserva().equals(reserva.getPista().getHora_aumento_precio())) {
+			precioAumentado = reserva.getPista().getPrecio() + reserva.getPista().getAumento_precio()
+					/ div * reserva.getPista().getAumento_precio();
+			reserva.setPrecio_reserva(precioAumentado);
+		};
 	}
 
 	public int numeroReservasPorSocio(Socio socio) {

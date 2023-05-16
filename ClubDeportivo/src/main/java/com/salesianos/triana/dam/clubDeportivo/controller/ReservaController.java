@@ -43,9 +43,10 @@ public class ReservaController {
 		model.addAttribute("pistas", pistaService.findAll());
 		model.addAttribute("deportes", deporteService.findAll());
 		model.addAttribute("nombre", s.getNombre());
-		//reserva.setSocio(s);
-		if(service.isHoraDisponible(reserva.getHora_reserva(), reserva.getFecha_reserva())) {
-			service.crearReserva(reserva.getPista(), s, reserva.getFecha_reserva(), reserva.getHora_reserva());
+		if(service.isHoraDisponible(reserva.getHora_reserva(), reserva.getFecha_reserva(), reserva.getPista().getId())) {
+			reserva.setSocio(s);
+			service.calcularPrecio(reserva);
+			service.add(reserva);
 			model.addAttribute("reservaExitosa", true);
 			try {
 				emailService.sendEmail(s.getUsername(), "Reserva confirmada",
