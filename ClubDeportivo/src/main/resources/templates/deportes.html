@@ -25,6 +25,12 @@
                                 <h3>Deportes</h3>
                             </div>
                         </div>
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert"
+                            th:if="${param.error}">
+                            <span>¡No se puede borrar un deporte que tiene pistas! Borra
+                                antes sus pistas</span>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
                         <div class="row my-2">
                             <a id="add" href="#" class="btn btn-primary" th:href="@{/admin/deportes/add}">
                                 <i class="bi bi-plus-square"></i>
@@ -66,11 +72,11 @@
                                                         </div>
 
                                                         <div class="modal-body bg-white">
-                                                            <p class="text-dark mb-4">¿Quieres borrar esta reserva?</p>
+                                                            <p class="text-dark mb-4">¿Quieres borrar este deporte?</p>
                                                             <div class="d-grid gap-2">
                                                                 <a class="btn btn-danger btn-lg"
                                                                     th:href="@{/admin/deportes/borrar/{id}(id=${deporte.id})}">
-                                                                    <i class="bi bi-trash me-2"></i> Borrar reserva
+                                                                    <i class="bi bi-trash me-2"></i> Borrar deporte
                                                                 </a>
                                                             </div>
                                                         </div>
