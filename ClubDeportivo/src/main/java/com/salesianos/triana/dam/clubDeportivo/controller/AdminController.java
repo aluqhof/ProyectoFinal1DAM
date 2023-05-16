@@ -116,7 +116,7 @@ public class AdminController {
 	}
 
 	@PostMapping("/socios/add/submit")
-	public String addSocioSubmit(@ModelAttribute("socio") Socio socio) {
+	public String addSocioSubmit(@ModelAttribute("socio") Socio socio, Model model) {
 		String caracteresPermitidos = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 		int longitud = 8;
 		Random random = new Random();
@@ -124,6 +124,12 @@ public class AdminController {
 		for (int i = 0; i < longitud; i++) {
 			int index = random.nextInt(caracteresPermitidos.length());
 			contraseña += caracteresPermitidos.charAt(index);
+		}
+		for(Socio s : socioService.findAll()) {
+			if(s.getUsername().equals(socio.getUsername())) {
+				model.addAttribute("error", "El nombre de usuario ya existe, por favor elige otro.");
+	            return "formularioSocioAdmin";
+			}
 		}
 		emailService.sendEmail(socio.getUsername(), "¡Bienvenido al club!",
 				"Hola " + socio.getNombre() + " a continuación tienes tus credenciales para entrar en nuestra web"
@@ -237,6 +243,37 @@ public class AdminController {
 	@PostMapping("/deportes/add/submit")
 	public String addDeporteSubmit(@ModelAttribute("deporte") Deporte deporte) {
 		deporteService.add(deporte);
+		return "redirect:/admin/deportes";
+	}
+	
+	@GetMapping("/deportes/update/{id}")
+	public String updateDeporte(@PathVariable("id") int id, Model model) {
+		model.addAttribute("deportes", deporteService.findAll());
+		Deporte dEditar = deporteService.findById(id).orElse(null);
+		if (dEditar != null) {
+			model.addAttribute("deporte", dEditar);
+			return "formularioDeporteAdmin";
+		} else {
+			return "redirect:/admin/deportes";
+		}
+	}
+
+	@GetMapping("/deportes/borrar/{id}")
+	public String borrarDepor(@PathVariable("id") int id) {
+		Deporte aBorrar = deporteService.findById(id).orElse(null);
+		if(aBorrar!=null) {
+	        if (pistaService.numeroDePistasPorDeporte(aBorrar.getId()) == 0) {
+	        	deporteService.delete(aBorrar);			
+			} else {
+				return "redirect:/admin/deportes/?error=true";
+			}
+	    }
+	    return "redirect:/admin/deportes";
+	}
+
+	@PostMapping("/deportes/edit/submit")
+	public String editDeporteSubmit(@ModelAttribute("deporte") Deporte deporte) {
+		deporteService.edit(deporte);
 		return "redirect:/admin/deportes";
 	}
 }
