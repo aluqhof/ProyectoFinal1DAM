@@ -25,6 +25,13 @@
                                 <h3>Reservas</h3>
                             </div>
                         </div>
+                        <form th:action="@{/admin/reservas/reservasbuscadas}" method="GET">
+                            <input type="text" name="nombre" placeholder="Buscar Por Nombre"
+                                style="margin-left: 5%; padding: 4px;" />
+                            <button class="btn btn-danger" type="submit" style="padding: 20px;">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </form>
                         <div class="row my-2">
                             <a id="add" href="#" class="btn btn-primary" th:href="@{/admin/reservas/add}">
                                 <i class="bi bi-plus-square"></i>
@@ -51,7 +58,8 @@
                                         <td th:text="${reserva.hora_reserva}"></td>
                                         <td th:text="${reserva.socio.id}"></td>
                                         <td th:text="${reserva.pista.numero}"></td>
-                                        <td th:text="${#numbers.formatDecimal(reserva.precio_reserva, 1, 2)} + '€'"></td>
+                                        <td th:text="${#numbers.formatDecimal(reserva.precio_reserva, 1, 2)} + '€'">
+                                        </td>
                                         <td th:text="${reserva.pista.deporte.nombre}"></td>
                                         <td>
                                             <a th:href="@{/admin/reservas/update/{id}(id=${reserva.id})}"
@@ -92,6 +100,7 @@
                             </table>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
