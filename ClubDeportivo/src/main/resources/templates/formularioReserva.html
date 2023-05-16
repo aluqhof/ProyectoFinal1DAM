@@ -82,6 +82,10 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${error}">
+                                        <span th:text="${error}"></span>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
                                     <div class="form-btn text-center" sec:authorize="hasRole('ROLE_USER')">
                                         <input type="submit" class="submit-btn" value="Reservar">
                                     </div>

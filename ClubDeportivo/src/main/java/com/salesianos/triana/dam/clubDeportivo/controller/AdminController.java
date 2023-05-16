@@ -86,14 +86,29 @@ public class AdminController {
 	}
 
 	@PostMapping("/reservas/add/submit")
-
-	public String addReservaSubmit(@ModelAttribute("reserva") Reserva reserva) {
+	public String addReservaSubmit(@ModelAttribute("reserva") Reserva reserva, Model model) {
+		model.addAttribute("deportes", deporteService.findAll());
+		model.addAttribute("pistas", pistaService.findAll());
+		model.addAttribute("socios", socioService.findAll());
+		reservaService.calcularPrecio(reserva);
+		if (!reservaService.isHoraDisponible(reserva.getHora_reserva(), reserva.getFecha_reserva(), reserva.getPista().getId())) {
+			model.addAttribute("error", "La pista no esta disponible, por favor escoge otra opción.");
+			return "formularioReservaAdmin";
+		}
 		reservaService.add(reserva);
 		return "redirect:/admin/reservas";
 	}
 
 	@PostMapping("/reservas/edit/submit")
-	public String editReservaSubmit(@ModelAttribute("reserva") Reserva reserva) {
+	public String editReservaSubmit(@ModelAttribute("reserva") Reserva reserva, Model model) {
+		model.addAttribute("deportes", deporteService.findAll());
+		model.addAttribute("pistas", pistaService.findAll());
+		model.addAttribute("socios", socioService.findAll());
+		reservaService.calcularPrecio(reserva);
+		if (!reservaService.isHoraDisponible(reserva.getHora_reserva(), reserva.getFecha_reserva(), reserva.getPista().getId())) {
+			model.addAttribute("error", "La pista no esta disponible, por favor escoge otra opción.");
+			return "formularioReservaAdmin";
+		}
 		reservaService.edit(reserva);
 		return "redirect:/admin/reservas";
 	}
@@ -125,10 +140,10 @@ public class AdminController {
 			int index = random.nextInt(caracteresPermitidos.length());
 			contraseña += caracteresPermitidos.charAt(index);
 		}
-		for(Socio s : socioService.findAll()) {
-			if(s.getUsername().equals(socio.getUsername())) {
+		for (Socio s : socioService.findAll()) {
+			if (s.getUsername().equals(socio.getUsername())) {
 				model.addAttribute("error", "El nombre de usuario ya existe, por favor elige otro.");
-	            return "formularioSocioAdmin";
+				return "formularioSocioAdmin";
 			}
 		}
 		emailService.sendEmail(socio.getUsername(), "¡Bienvenido al club!",
@@ -139,38 +154,38 @@ public class AdminController {
 		socioService.add(socio);
 		return "redirect:/admin/socios";
 	}
-	
+
 	@GetMapping("/socios/update/{id}")
 	public String editarSocio(@PathVariable("id") Long id, Model model) {
-	    model.addAttribute("socios", socioService.findAll());
-	    Socio sEditar = socioService.findById(id).orElse(null);
-	    if(sEditar !=null) {
-	        model.addAttribute("socio", sEditar);
-	        return "formularioSocioAdmin";
-	    }else {
-	        return "redirect:/admin/socios";
-	    }
+		model.addAttribute("socios", socioService.findAll());
+		Socio sEditar = socioService.findById(id).orElse(null);
+		if (sEditar != null) {
+			model.addAttribute("socio", sEditar);
+			return "formularioSocioAdmin";
+		} else {
+			return "redirect:/admin/socios";
+		}
 	}
 
 	@GetMapping("/socios/borrar/{id}")
 	public String borrarSocio(@PathVariable("id") long id) {
-	    Socio sBorrar = socioService.findById(id).orElse(null);
-	    if(sBorrar!=null) {
-	        if (reservaService.numeroReservasPorSocio(sBorrar) == 0) {
-	        	socioService.delete(sBorrar);			
+		Socio sBorrar = socioService.findById(id).orElse(null);
+		if (sBorrar != null) {
+			if (reservaService.numeroReservasPorSocio(sBorrar) == 0) {
+				socioService.delete(sBorrar);
 			} else {
 				return "redirect:/admin/socios/?error=true";
 			}
-	    }
-	    return "redirect:/admin/socios";
+		}
+		return "redirect:/admin/socios";
 	}
 
 	@PostMapping("/socio/edit/submit")
 	public String editSocioSubmit(@ModelAttribute("socio") Socio socio) {
-	    socioService.edit(socio);
-	    return "redirect:/admin/reservas";
+		socioService.edit(socio);
+		return "redirect:/admin/reservas";
 	}
-	
+
 	@GetMapping("/pistas")
 	public String listarPistas(Model model) {
 
@@ -179,23 +194,23 @@ public class AdminController {
 
 		return "pistas";
 	}
-	
+
 	@GetMapping("/pistas/add")
 	public String agregarPista(Model model) {
 		model.addAttribute("pistas", pistaService.findAll());
-		model.addAttribute("deportes", deporteService.findAll());		
+		model.addAttribute("deportes", deporteService.findAll());
 		model.addAttribute("pista", new Pista());
 		return "formularioPistaAdmin";
 	}
-	
+
 	@PostMapping("/pistas/add/submit")
 	public String addPistaSubmit(@ModelAttribute("pista") Pista pista) {
-		int numPista=pistaService.numeroDePistasPorDeporte(pista.getDeporte().getId());
-		pista.setNumero(numPista+1);
+		int numPista = pistaService.numeroDePistasPorDeporte(pista.getDeporte().getId());
+		pista.setNumero(numPista + 1);
 		pistaService.add(pista);
 		return "redirect:/admin/pistas";
 	}
-	
+
 	@GetMapping("/pistas/update/{id}")
 	public String updatePista(@PathVariable("id") int id, Model model) {
 		model.addAttribute("pistas", pistaService.findAll());
@@ -223,7 +238,7 @@ public class AdminController {
 		pistaService.edit(pista);
 		return "redirect:/admin/pistas";
 	}
-	
+
 	@GetMapping("/deportes")
 	public String listarDeportes(Model model) {
 
@@ -232,20 +247,20 @@ public class AdminController {
 
 		return "deportes";
 	}
-	
+
 	@GetMapping("/deportes/add")
 	public String agregarDeporte(Model model) {
-		model.addAttribute("deportes", deporteService.findAll());		
+		model.addAttribute("deportes", deporteService.findAll());
 		model.addAttribute("deporte", new Deporte());
 		return "formularioDeporteAdmin";
 	}
-	
+
 	@PostMapping("/deportes/add/submit")
 	public String addDeporteSubmit(@ModelAttribute("deporte") Deporte deporte) {
 		deporteService.add(deporte);
 		return "redirect:/admin/deportes";
 	}
-	
+
 	@GetMapping("/deportes/update/{id}")
 	public String updateDeporte(@PathVariable("id") int id, Model model) {
 		model.addAttribute("deportes", deporteService.findAll());
@@ -261,14 +276,14 @@ public class AdminController {
 	@GetMapping("/deportes/borrar/{id}")
 	public String borrarDepor(@PathVariable("id") int id) {
 		Deporte aBorrar = deporteService.findById(id).orElse(null);
-		if(aBorrar!=null) {
-	        if (pistaService.numeroDePistasPorDeporte(aBorrar.getId()) == 0) {
-	        	deporteService.delete(aBorrar);			
+		if (aBorrar != null) {
+			if (pistaService.numeroDePistasPorDeporte(aBorrar.getId()) == 0) {
+				deporteService.delete(aBorrar);
 			} else {
 				return "redirect:/admin/deportes/?error=true";
 			}
-	    }
-	    return "redirect:/admin/deportes";
+		}
+		return "redirect:/admin/deportes";
 	}
 
 	@PostMapping("/deportes/edit/submit")

@@ -32,7 +32,6 @@ public class Socio extends Usuario{
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate fecha_alta;
-	//private LocalDate fecha_baja;
 	private double cuota;
 
 	

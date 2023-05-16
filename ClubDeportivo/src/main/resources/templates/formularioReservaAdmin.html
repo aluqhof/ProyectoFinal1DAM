@@ -27,6 +27,10 @@
                     th:object="${reserva}">
                     <h3 th:text="${reserva.id == 0} ? 'Nueva Reserva' : 'Editar Reserva'"></h3>
                     <input th:if="${reserva.id != 0}" type="hidden" name="id" th:field="*{id}" />
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${error}">
+                        <span th:text="${error}"></span>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
                     <div class="mb-3">
                         <label for="addReservaFecha" class="form-label">Fecha Reserva</label>
                         <input type="date" class="form-control" id="addReservaFecha" th:field="*{fecha_reserva}"
@@ -42,7 +46,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="addReservaIDSocio" class="form-label">ID Socio</label>
-                        <select class="form-select" id="addReservaIDSocio" th:field="*{socio}">
+                        <select class="form-select" id="addReservaIDSocio" th:field="*{socio}" required>
                             <option value="">Selecciona un socio</option>
                             <option th:each="socio : ${socios}" th:value="${socio.id}"
                                 th:text="${socio.nombre + ' ' + socio.apellidos}"></option>
