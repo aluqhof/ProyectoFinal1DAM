@@ -116,7 +116,7 @@ public class AdminController {
 	}
 
 	@PostMapping("/socios/add/submit")
-	public String addSocioSubmit(@ModelAttribute("socio") Socio socio) {
+	public String addSocioSubmit(@ModelAttribute("socio") Socio socio, Model model) {
 		String caracteresPermitidos = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 		int longitud = 8;
 		Random random = new Random();
@@ -124,6 +124,12 @@ public class AdminController {
 		for (int i = 0; i < longitud; i++) {
 			int index = random.nextInt(caracteresPermitidos.length());
 			contraseña += caracteresPermitidos.charAt(index);
+		}
+		for(Socio s : socioService.findAll()) {
+			if(s.getUsername().equals(socio.getUsername())) {
+				model.addAttribute("error", "El nombre de usuario ya existe, por favor elige otro.");
+	            return "formularioSocioAdmin";
+			}
 		}
 		emailService.sendEmail(socio.getUsername(), "¡Bienvenido al club!",
 				"Hola " + socio.getNombre() + " a continuación tienes tus credenciales para entrar en nuestra web"
