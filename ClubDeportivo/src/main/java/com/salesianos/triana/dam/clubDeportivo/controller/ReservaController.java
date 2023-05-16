@@ -42,6 +42,7 @@ public class ReservaController {
 			@AuthenticationPrincipal Socio s) {
 		model.addAttribute("pistas", pistaService.findAll());
 		model.addAttribute("deportes", deporteService.findAll());
+		model.addAttribute("nombre", s.getNombre());
 		reserva.setSocio(s);
 		service.add(reserva);
 		model.addAttribute("reservaExitosa", true);
