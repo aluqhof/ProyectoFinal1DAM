@@ -5,14 +5,18 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.salesianos.triana.dam.clubDeportivo.model.Pager;
 import com.salesianos.triana.dam.clubDeportivo.model.Reserva;
+import com.salesianos.triana.dam.clubDeportivo.model.Socio;
 import com.salesianos.triana.dam.clubDeportivo.service.ReservaService;
+import com.salesianos.triana.dam.clubDeportivo.service.SocioService;
 
+@Controller
 public class PagerController {
 	
 	private static final int BUTTONS_TO_SHOW = 5;
@@ -23,9 +27,40 @@ public class PagerController {
 
 	@Autowired
 	private ReservaService reservaService;
+	@Autowired
+	private SocioService socioService;
 	
-	@GetMapping("/admin/reservas/reservasbuscadas")
-	public String listarReservasPaginando(@RequestParam("pageSize") Optional<Integer> pageSize,
+	@GetMapping("/admin/reservas/busqueda")
+	public String listarReservasPaginando(
+	        @RequestParam("pageSize") Optional<Integer> pageSize,
+	        @RequestParam("page") Optional<Integer> page,
+	        @RequestParam("nombre") Optional<String> nombre,
+	        Model model) {
+
+	    int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
+	    int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+	    String evalNombre = nombre.orElse(null);
+
+	    Page<Reserva> reservas = null;
+
+	    if (evalNombre == null) {
+	        reservas = reservaService.findAllPageable(PageRequest.of(evalPage, evalPageSize));
+	    } else {
+	        reservas = reservaService.findBySocioNombreContainingIgnoreCasePageable(evalNombre, PageRequest.of(evalPage, evalPageSize));
+	    }
+
+	    Pager pager = new Pager(reservas.getTotalPages(), reservas.getNumber(), BUTTONS_TO_SHOW);
+
+	    model.addAttribute("reservas", reservas);
+	    model.addAttribute("selectedPageSize", evalPageSize);
+	    model.addAttribute("pageSizes", PAGE_SIZES);
+	    model.addAttribute("pager", pager);
+
+	    return "reservas";
+	}
+	
+	@GetMapping("/admin/socios/busqueda")
+	public String listarSociosPaginando(@RequestParam("pageSize") Optional<Integer> pageSize,
             @RequestParam("page") Optional<Integer> page, @RequestParam("nombre") Optional<String> nombre, Model model) {	
 
     	// Evalúa el tamaño de página. Si el parámetro es "nulo", devuelve
@@ -39,13 +74,13 @@ public class PagerController {
         
         String evalNombre = nombre.orElse(null);
         
-        Page<Reserva> reservas = null;
+        Page<Socio> socios = null;
         
         
         if (evalNombre == null) {
-        	reservas = reservaService.findAllPageable(PageRequest.of(evalPage, evalPageSize));
+        	socios = socioService.findAllPageable(PageRequest.of(evalPage, evalPageSize));
         } else {
-        	reservas = reservaService.findByNombreContainingIgnoreCasePageable(evalNombre, PageRequest.of(evalPage, evalPageSize));
+        	socios = socioService.findByNombreContainingIgnoreCasePageable(evalNombre, PageRequest.of(evalPage, evalPageSize));
         }
 
         // Obtenemos la página definida por evalPage y evalPageSize de objetos de nuestro modelo
@@ -53,13 +88,13 @@ public class PagerController {
         // Creamos el objeto Pager (paginador) indicando los valores correspondientes.
         // Este sirve para que la plantilla sepa cuantas páginas hay en total, cuantos botones
         // debe mostrar y cuál es el número de objetos a dibujar.
-        Pager pager = new Pager(reservas.getTotalPages(), reservas.getNumber(), BUTTONS_TO_SHOW);
+        Pager pager = new Pager(socios.getTotalPages(), socios.getNumber(), BUTTONS_TO_SHOW);
         
-        model.addAttribute("reservas", reservas);
+        model.addAttribute("socios", socios);
         model.addAttribute("selectedPageSize", evalPageSize);
         model.addAttribute("pageSizes", PAGE_SIZES);
         model.addAttribute("pager", pager);
         
-    	return "reservas";
+    	return "socios";
     }
 }

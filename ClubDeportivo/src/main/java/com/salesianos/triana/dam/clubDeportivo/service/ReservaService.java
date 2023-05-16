@@ -2,7 +2,6 @@ package com.salesianos.triana.dam.clubDeportivo.service;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -45,16 +44,16 @@ public class ReservaService extends BaseServiceImp<Reserva, Long, ReservaReposit
 		return repositorio.findNumReservasBySocio(socio);
 	}
 	
-	public List<Reserva> findByNombre(String nombre){
+	/*public List<Reserva> findByNombre(String nombre){
 		return repositorio.findByNombreSocioContainingIgnoreCase(nombre);
-	}
+	}*/
 	
 	public Page<Reserva> findAllPageable(Pageable pageable) {
 		return repositorio.findAll(pageable);
 	}
 
-	public  Page<Reserva> findByNombreContainingIgnoreCasePageable(String nombre, Pageable pageable)
+	public  Page<Reserva> findBySocioNombreContainingIgnoreCasePageable(String nombre, Pageable pageable)
 	{
-		return repositorio.findByNombreContainingIgnoreCase(nombre, pageable);
+		return repositorio.findBySocioNombreContainingIgnoreCase(nombre, pageable);
 	}
 }

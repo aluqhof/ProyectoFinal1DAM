@@ -1,6 +1,5 @@
 package com.salesianos.triana.dam.clubDeportivo.controller;
 
-import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.salesianos.triana.dam.clubDeportivo.formbeans.SearchBean;
 import com.salesianos.triana.dam.clubDeportivo.model.Deporte;
 import com.salesianos.triana.dam.clubDeportivo.model.Pista;
 import com.salesianos.triana.dam.clubDeportivo.model.Reserva;
@@ -63,7 +61,7 @@ public class AdminController {
 		return "formularioReservaAdmin";
 	}
 	
-	@PostMapping("/reservas/search")
+	/*@PostMapping("/reservas/search")
 	public String searchReserva(@ModelAttribute("searchForm") SearchBean searchBean, Model model){
 	    List<Reserva> reservas = reservaService.findByNombre(searchBean.getSearch());
 	    model.addAttribute("reservas", reservas);
@@ -71,7 +69,7 @@ public class AdminController {
 	    model.addAttribute("pistas", pistaService.findAll());
 	    model.addAttribute("socios", socioService.findAll());
 	    return "reservas";
-	}	
+	}	*/
 
 	@GetMapping("/reservas/update/{id}")
 	public String updateReserva(@PathVariable("id") Long id, Model model) {

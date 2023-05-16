@@ -25,6 +25,13 @@
                                 <h3>Socios</h3>
                             </div>
                         </div>
+                        <form th:action="@{/admin/socios/busqueda}" method="GET">
+                            <input type="text" name="nombre" placeholder="Buscar Por Nombre"
+                                style="margin-left: 5%; padding: 4px;" />
+                            <button class="btn btn-danger" type="submit" style="padding: 20px;">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </form>
                         <div class="alert alert-warning alert-dismissible fade show" role="alert"
                             th:if="${param.error}">
                             <span>¡No se puede borrar un socio que tiene reservas! Borra
@@ -96,6 +103,47 @@
                                     </tr>
                                 </tbody>
                             </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-1">
+                            <select class="form-control pagination" id="pageSizeSelect">
+                                <option th:each="pageSize : ${pageSizes}" th:text="${pageSize}" th:value="${pageSize}"
+                                    th:selected="${pageSize} == ${selectedPageSize}"></option>
+                            </select>
+                        </div>
+                        <div th:if="${socios.totalPages != 1}" class="form-group col-md-11 pagination-centered">
+                            <ul class="pagination">
+                                <!-- Si el número de página es cero, deshabilitamos el enlace -->
+                                <li th:class="${socios.number == 0} ? disabled">
+                                    <!-- Este enlace nos debe llevar a la primera página, con el tamaño de página actual -->
+                                    <a class="pageLink"
+                                        th:href="@{/admin/socios/busqueda/(pageSize=${selectedPageSize}, page=1, nombre=${param.nombre})}">&laquo;</a>
+                                </li>
+                                <!-- Si el número de página es cero, deshabilitamos el enlace -->
+                                <li th:class="${socios.number == 0} ? disabled">
+                                    <!-- Este enlace nos debe llevar a la página anterior, con el tamaño de página actual -->
+                                    <a class="pageLink"
+                                        th:href="@{/admin/socios/busqueda/(pageSize=${selectedPageSize}, page=${socios.number}, nombre=${param.nombre})}">&larr;</a>
+                                </li>
+                                <!-- Este bucle genera los enlaces para las demás páginas -->
+                                <li th:class="${socios.number == (page - 1)} ? 'active pointer-disabled' : ''"
+                                    th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}">
+                                    <a class="pageLink"
+                                        th:href="@{/admin/socios/busqueda/(pageSize=${selectedPageSize}, page=${page}, nombre=${param.nombre})}"
+                                        th:text="${page}"></a>
+                                </li>
+                                <!-- Enlace a la siguiente página; si estamos en la última queda desabilitado  -->
+                                <li th:class="${socios.number + 1 == socios.totalPages} ? disabled">
+                                    <a class="pageLink"
+                                        th:href="@{/admin/socios/busqueda/(pageSize=${selectedPageSize}, page=${socios.number + 2}, nombre=${param.nombre})}">&rarr;</a>
+                                </li>
+                                <!-- Enlace a la última página; si estamos en la última queda desabilitado  -->
+                                <li th:class="${socios.number + 1 == socios.totalPages} ? disabled">
+                                    <a class="pageLink"
+                                        th:href="@{/admin/socios/busqueda/(pageSize=${selectedPageSize}, page=${socios.totalPages}, nombre=${param.nombre})}">&raquo;</a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
