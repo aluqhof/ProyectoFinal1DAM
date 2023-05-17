@@ -1,7 +1,9 @@
 package com.salesianos.triana.dam.clubDeportivo.service;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,4 +43,15 @@ public class ReservaService extends BaseServiceImp<Reserva, Long, ReservaReposit
 	public int numeroReservasPorSocio(Socio socio) {
 		return repositorio.findNumReservasBySocio(socio);
 	}
+	
+	public List<Reserva> findReservasEstaSemanaYPista(int idPista) {
+		
+        LocalDate hoy = LocalDate.now();
+        LocalDate inicioSemana = hoy.with(DayOfWeek.MONDAY);
+        LocalDate finSemana = hoy.with(DayOfWeek.SATURDAY);
+        List<Reserva> reservas = repositorio.findByFechaReservaEntreYPista(inicioSemana, finSemana, idPista);
+
+        return reservas;
+    }
+
 }

@@ -1,5 +1,10 @@
 package com.salesianos.triana.dam.clubDeportivo.controller;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.salesianos.triana.dam.clubDeportivo.model.Deporte;
 import com.salesianos.triana.dam.clubDeportivo.model.Pista;
@@ -114,12 +120,35 @@ public class AdminController {
 	}
 	
 	@GetMapping("/reservas/calendario")
-	public String mostrarReservasCalendario(Model model) {
-		model.addAttribute("reservas", reservaService.findAll());
-		model.addAttribute("deportes", deporteService.findAll());
-		model.addAttribute("pistas", pistaService.findAll());
-		model.addAttribute("socios", socioService.findAll());
-		return "calendarioReservas";
+	public String mostrarReservasCalendario(Model model, @RequestParam(defaultValue = "1") int idPista) {
+	    List<Reserva> reservas = reservaService.findReservasEstaSemanaYPista(idPista);
+	    List<LocalTime> horas = new ArrayList<>();
+	    LocalTime horaInicial = LocalTime.of(7, 0);
+	    for (int i = 0; i < 15; i++) {
+	        horas.add(horaInicial.plusHours(i));
+	    }
+	    LocalDate fechaActual = LocalDate.now();
+	    List<LocalDate> dias = new ArrayList<>();
+	    for (int i = 0; i < 6; i++) {
+	        LocalDate diaSemana = fechaActual.with(DayOfWeek.of(i + 1));
+	        dias.add(diaSemana);
+	    }
+	    
+	    for (LocalDate localDate : dias) {
+	        System.out.println(localDate);
+	    }
+	    
+	    for (Reserva reserva : reservas) {
+	        System.out.println(reserva);
+	    }
+	    
+	    model.addAttribute("pistas", pistaService.findAll());
+	    model.addAttribute("reservas", reservas);
+	    model.addAttribute("horas", horas);
+	    model.addAttribute("dias", dias);
+	    model.addAttribute("idPista", idPista);
+	    
+	    return "calendarioReservas";
 	}
 
 	@GetMapping("/socios")
