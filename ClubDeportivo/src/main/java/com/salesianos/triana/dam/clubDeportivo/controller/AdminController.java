@@ -112,6 +112,15 @@ public class AdminController {
 		reservaService.edit(reserva);
 		return "redirect:/admin/reservas";
 	}
+	
+	@GetMapping("/reservas/calendario")
+	public String mostrarReservasCalendario(Model model) {
+		model.addAttribute("reservas", reservaService.findAll());
+		model.addAttribute("deportes", deporteService.findAll());
+		model.addAttribute("pistas", pistaService.findAll());
+		model.addAttribute("socios", socioService.findAll());
+		return "calendarioReservas";
+	}
 
 	@GetMapping("/socios")
 	public String listarSocios(Model model) {
