@@ -270,6 +270,7 @@
 
 .indicadorPrecio{
     margin-right: 30px;
+    font-size: 0.8em;
 }
 
 @media screen and (min-width: 575px) {

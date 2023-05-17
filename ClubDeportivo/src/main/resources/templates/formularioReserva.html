@@ -74,7 +74,8 @@
                                                     <option value=""></option>
                                                     <option th:each="pista : ${pistas}" th:value="${pista.id}"
                                                         th:text="${'Pista' + ' - ' + pista.numero}"
-                                                        th:data-deporte-id="${pista.deporte.id}" th:data-precio="${pista.precio}">
+                                                        th:data-deporte-id="${pista.deporte.id}" th:data-precio="${pista.precio}"
+                                                         th:data-hora_aumento_precio="${pista.hora_aumento_precio}" th:data-aumento_precio="${pista.aumento_precio}">
                                                     </option>></option>
                                                 </select>
                                                 <span class="select-arrow"></span>
