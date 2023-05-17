@@ -291,4 +291,15 @@ public class AdminController {
 		deporteService.edit(deporte);
 		return "redirect:/admin/deportes";
 	}
+	
+	@GetMapping("/general")
+	public String mostrarVistaGeneral(Model model) {
+		model.addAttribute("reservas", reservaService.findAll());
+		model.addAttribute("socios", socioService.findAll());
+		model.addAttribute("pistas", pistaService.findAll());
+		model.addAttribute("socios", deporteService.findAll());
+		model.addAttribute("facturacionMensual", reservaService.calcularFacturacionMensual());
+		model.addAttribute("facturacionAnual", reservaService.calcularFacturacionAnual());
+		return "general";
+	}
 }

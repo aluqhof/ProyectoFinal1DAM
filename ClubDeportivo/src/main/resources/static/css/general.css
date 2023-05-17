@@ -78,19 +78,19 @@
     }
 }
 
-.card {
+.cardIndex {
     position: relative;
 }
 
-.card .card-img-top {
+.cardIndex .card-img-top {
     transition: all 0.3s ease-in-out;
 }
 
-.card:hover .card-img-top {
+.cardIndex:hover .card-img-top {
     transform: scale(1.05);
 }
 
-.card .card-body {
+.cardIndex .card-body {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -100,26 +100,26 @@
     transition: all 0.3s ease-in-out;
 }
 
-.card:hover .card-body {
+.cardIndex:hover .card-body {
     bottom: 40%;
     transform: scale(1.05);
 }
 
-.card .card-title {
+.cardIndex .card-title {
     margin-bottom: 0;
     color: #fff;
     transition: all 0.3s ease-in-out;
 }
 
-.card:hover .card-title {
+.cardIndex:hover .card-title {
     transform: translateY(-50%);
 }
 
-.card .card-body h5 {
+.cardIndex .card-body h5 {
     text-transform: uppercase;
 }
 
-.card:hover .card-body h5 {
+.cardIndex:hover .card-body h5 {
     transform: scale(1.05);
 }
 

@@ -41,4 +41,12 @@ public class ReservaService extends BaseServiceImp<Reserva, Long, ReservaReposit
 	public int numeroReservasPorSocio(Socio socio) {
 		return repositorio.findNumReservasBySocio(socio);
 	}
+	
+	public double calcularFacturacionMensual() {
+		return repositorio.calcularFacturacionMensual();
+	}
+	
+	public double calcularFacturacionAnual() {
+		return repositorio.calcularFacturacionAnual();
+	}
 }
