@@ -1,5 +1,11 @@
 package com.salesianos.triana.dam.clubDeportivo.controller;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.temporal.TemporalAdjusters;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -124,6 +130,58 @@ public class AdminController {
 		}
 		reservaService.edit(reserva);
 		return "redirect:/admin/reservas";
+	}
+	
+	@GetMapping("/reservas/calendario")
+	public String mostrarReservasCalendario(Model model, @RequestParam(defaultValue = "1") int idPista) {
+		int numeroDias = 6;
+		int numeroHoras = 15;
+	    List<Reserva> reservas = reservaService.findReservasEstaSemanaYPista(idPista);
+	    List<LocalTime> horas = new ArrayList<>();
+	    LocalTime horaInicial = LocalTime.of(7, 0);
+	    for (int i = 0; i < numeroHoras; i++) {
+	        horas.add(horaInicial.plusHours(i));
+	    }
+	    LocalDate fechaActual = LocalDate.now();
+	    List<LocalDate> dias = new ArrayList<>();
+	    for (int i = 0; i < numeroDias; i++) {
+	        LocalDate diaSemana = fechaActual.with(DayOfWeek.of(i + 1));
+	        dias.add(diaSemana);
+	    }
+	    model.addAttribute("pistas", pistaService.findAll());
+	    model.addAttribute("reservas", reservas);
+	    model.addAttribute("horas", horas);
+	    model.addAttribute("dias", dias);
+	    model.addAttribute("idPista", idPista);
+	    
+	    return "calendarioEstaSemana";
+	}
+	
+	@GetMapping("/reservas/calendario/semana2")
+	public String mostrarReservasCalendarioSemana2(Model model, @RequestParam(defaultValue = "1") int idPista) {
+		int numeroDias = 6;
+		int numeroHoras = 15;
+		List<Reserva> reservas = reservaService.findReservasProximaSemanaYPista(idPista);
+	    List<LocalTime> horas = new ArrayList<>();
+	    LocalTime horaInicial = LocalTime.of(7, 0);
+	    for (int i = 0; i < numeroHoras; i++) {
+	        horas.add(horaInicial.plusHours(i));
+	    }
+	    LocalDate hoy = LocalDate.now();
+	    LocalDate inicioProximaSemana = hoy.with(TemporalAdjusters.next(DayOfWeek.MONDAY));
+	    List<LocalDate> dias = new ArrayList<>();
+	    for (int i = 0; i < numeroDias; i++) {
+	        LocalDate diaSemana = inicioProximaSemana.with(DayOfWeek.of(i + 1));
+	        dias.add(diaSemana);
+	    }
+	    
+	    model.addAttribute("pistas", pistaService.findAll());
+	    model.addAttribute("reservas", reservas);
+	    model.addAttribute("horas", horas);
+	    model.addAttribute("dias", dias);
+	    model.addAttribute("idPista", idPista);
+	    
+	    return "calendarioProximaSemana";
 	}
 
 	@GetMapping("/socios")
