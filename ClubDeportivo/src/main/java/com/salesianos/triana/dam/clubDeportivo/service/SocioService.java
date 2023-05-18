@@ -16,7 +16,7 @@ public class SocioService extends BaseServiceImp<Socio, Long, SocioRepositorio>{
 	private SocioRepositorio repositorio;
 
 	public List<Socio> findByNombreYApellidos(String nombre, String apellidos) {
-		return repositorio.findByNombreContainingIgnoreCaseAndApellidosContainingIgnoreCase(nombre, apellidos);
+		return repositorio.findByNombreContainingIgnoreCaseOrApellidosContainingIgnoreCase(nombre, apellidos);
 	}
 	
 	public List<Socio> orderByFechaAltaDesc(){

@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.salesianos.triana.dam.clubDeportivo.formbeans.SearchBean;
 import com.salesianos.triana.dam.clubDeportivo.model.Deporte;
 import com.salesianos.triana.dam.clubDeportivo.model.Pista;
 import com.salesianos.triana.dam.clubDeportivo.model.Reserva;
@@ -169,10 +168,9 @@ public class AdminController {
 		return "redirect:/admin/socios";
 	}
 	
-	@PostMapping("/socios/busqueda")
-	public String buscarSocioPorNombreYApellidos(@ModelAttribute("searchForm") SearchBean searchBean, Model model) {
-	    String searchTerm = searchBean.getSearch();
-	    List<Socio> socios = socioService.findByNombreYApellidos(searchTerm, searchTerm);
+	@GetMapping("/socios/busqueda")
+	public String buscarSocioPorNombreYApellidos(@RequestParam("nombre") String busqueda, Model model) {
+	    List<Socio> socios = socioService.findByNombreYApellidos(busqueda, busqueda);
 	    model.addAttribute("socios", socios);
 	    return "socios";
 	}

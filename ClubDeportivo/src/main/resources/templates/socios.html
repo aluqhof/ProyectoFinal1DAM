@@ -25,9 +25,9 @@
                             <div class="col">
                                 <h3>Socios</h3>
                             </div>
-                            <form th:action="@{/admin/socios/busqueda}" method="POST" th:object="${searchForm}"
+                            <form th:action="@{/admin/socios/busqueda}" method="GET"
                                 class="col-md-4 text-lg-end">
-                                <input type="text" id="nombre" name="search" placeholder="Buscar Por Nombre"
+                                <input type="text" id="nombre" name="nombre" placeholder="Buscar Por Nombre"
                                     style="margin-left: 5%; padding: 4px;" />
                                 <button type="submit" class="btn btn-primary">
                                     <i class="bi bi-search"></i>
