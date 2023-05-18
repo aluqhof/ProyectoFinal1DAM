@@ -10,6 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../css/general.css" th:href="@{/css/general.css}">
+
     <title>Document</title>
 </head>
 
@@ -24,14 +25,15 @@
                             <div class="col">
                                 <h3>Socios</h3>
                             </div>
+                            <form th:action="@{/admin/socios/busqueda}" method="POST" th:object="${searchForm}"
+                                class="col-md-4 text-lg-end">
+                                <input type="text" id="nombre" name="search" placeholder="Buscar Por Nombre"
+                                    style="margin-left: 5%; padding: 4px;" />
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="bi bi-search"></i>
+                                </button>
+                            </form>
                         </div>
-                        <form th:action="@{/admin/socios/busqueda}" method="GET">
-                            <input type="text" name="nombre" placeholder="Buscar Por Nombre"
-                                style="margin-left: 5%; padding: 4px;" />
-                            <button class="btn btn-danger" type="submit" style="padding: 20px;">
-                                <span class="glyphicon glyphicon-search"></span>
-                            </button>
-                        </form>
                         <div class="alert alert-warning alert-dismissible fade show" role="alert"
                             th:if="${param.error}">
                             <span>¡No se puede borrar un socio que tiene reservas! Borra
@@ -48,11 +50,41 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
-                                        <th scope="col">Nombre</th>
-                                        <th scope="col">Apellidos</th>
+                                        <th scope="col">
+                                            <div class="d-flex align-items-center">
+                                                <span class="mr-1">Nombre</span>
+                                                <form th:action="@{/admin/socios/nombre}" th:object="${searchForm}"
+                                                    method="POST" id="searchForm" class="form-inline">
+                                                    <button type="submit" class="btn btn-link botonOrdenar">
+                                                        <i class="bi bi-arrow-down-up"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="d-flex align-items-center">
+                                                <span class="mr-1">Apellidos</span>
+                                                <form th:action="@{/admin/socios/apellidos}" th:object="${searchForm}"
+                                                    method="POST" id="searchForm" class="form-inline">
+                                                    <button type="submit" class="btn btn-link botonOrdenar">
+                                                        <i class="bi bi-arrow-down-up"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </th>
                                         <th scope="col">Correo electrónico</th>
                                         <th scope="col">Teléfono</th>
-                                        <th scope="col">Fecha Alta</th>
+                                        <th scope="col">
+                                            <div class="d-flex align-items-center">
+                                                <span class="mr-1">Fecha Alta</span>
+                                                <form th:action="@{/admin/socios/fechaAlta}" th:object="${searchForm}"
+                                                    method="POST" id="searchForm" class="form-inline">
+                                                    <button type="submit" class="btn btn-link botonOrdenar">
+                                                        <i class="bi bi-arrow-down-up"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </th>
                                         <th scope="col">Cuota</th>
                                         <th scope="col">Acciones</th>
                                     </tr>
@@ -103,47 +135,6 @@
                                     </tr>
                                 </tbody>
                             </table>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-md-1">
-                            <select class="form-control pagination" id="pageSizeSelect">
-                                <option th:each="pageSize : ${pageSizes}" th:text="${pageSize}" th:value="${pageSize}"
-                                    th:selected="${pageSize} == ${selectedPageSize}"></option>
-                            </select>
-                        </div>
-                        <div th:if="${socios.totalPages != 1}" class="form-group col-md-11 pagination-centered">
-                            <ul class="pagination">
-                                <!-- Si el número de página es cero, deshabilitamos el enlace -->
-                                <li th:class="${socios.number == 0} ? disabled">
-                                    <!-- Este enlace nos debe llevar a la primera página, con el tamaño de página actual -->
-                                    <a class="pageLink"
-                                        th:href="@{/admin/socios/busqueda/(pageSize=${selectedPageSize}, page=1, nombre=${param.nombre})}">&laquo;</a>
-                                </li>
-                                <!-- Si el número de página es cero, deshabilitamos el enlace -->
-                                <li th:class="${socios.number == 0} ? disabled">
-                                    <!-- Este enlace nos debe llevar a la página anterior, con el tamaño de página actual -->
-                                    <a class="pageLink"
-                                        th:href="@{/admin/socios/busqueda/(pageSize=${selectedPageSize}, page=${socios.number}, nombre=${param.nombre})}">&larr;</a>
-                                </li>
-                                <!-- Este bucle genera los enlaces para las demás páginas -->
-                                <li th:class="${socios.number == (page - 1)} ? 'active pointer-disabled' : ''"
-                                    th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}">
-                                    <a class="pageLink"
-                                        th:href="@{/admin/socios/busqueda/(pageSize=${selectedPageSize}, page=${page}, nombre=${param.nombre})}"
-                                        th:text="${page}"></a>
-                                </li>
-                                <!-- Enlace a la siguiente página; si estamos en la última queda desabilitado  -->
-                                <li th:class="${socios.number + 1 == socios.totalPages} ? disabled">
-                                    <a class="pageLink"
-                                        th:href="@{/admin/socios/busqueda/(pageSize=${selectedPageSize}, page=${socios.number + 2}, nombre=${param.nombre})}">&rarr;</a>
-                                </li>
-                                <!-- Enlace a la última página; si estamos en la última queda desabilitado  -->
-                                <li th:class="${socios.number + 1 == socios.totalPages} ? disabled">
-                                    <a class="pageLink"
-                                        th:href="@{/admin/socios/busqueda/(pageSize=${selectedPageSize}, page=${socios.totalPages}, nombre=${param.nombre})}">&raquo;</a>
-                                </li>
-                            </ul>
                         </div>
                     </div>
                 </div>

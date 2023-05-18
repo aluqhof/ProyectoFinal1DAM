@@ -5,7 +5,7 @@ document.getElementById("addReservaIDPista").addEventListener("blur", validarPis
 let error = document.querySelectorAll(".errorForm");
 error.forEach(p => p.hidden = true);
 
-function validarFormulario() {
+function validarFormulario(event) {
     let resultado = false;
 
     resultado = validarFecha() &&
@@ -13,6 +13,9 @@ function validarFormulario() {
         validarIDSocio() &&
         validarPista();
 
+        if (!resultado) {
+            event.preventDefault();
+        }
 return resultado;
 }
 

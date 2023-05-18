@@ -1,5 +1,6 @@
 package com.salesianos.triana.dam.clubDeportivo.controller;
 
+import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.salesianos.triana.dam.clubDeportivo.formbeans.SearchBean;
 import com.salesianos.triana.dam.clubDeportivo.model.Deporte;
 import com.salesianos.triana.dam.clubDeportivo.model.Pista;
 import com.salesianos.triana.dam.clubDeportivo.model.Reserva;
@@ -163,6 +165,34 @@ public class AdminController {
 		socio.setPassword(contraseñaEncriptada);
 		socioService.add(socio);
 		return "redirect:/admin/socios";
+	}
+	
+	@PostMapping("/socios/busqueda")
+	public String buscarSocioPorNombre(@ModelAttribute("searchForm") SearchBean searchBean, Model model){
+	    List <Socio> socios = socioService.findByNombre(searchBean.getSearch());
+	    model.addAttribute("socios", socios);
+	    return "socios";
+	}
+	
+	@PostMapping("/socios/fechaAlta")
+	public String buscarSocioPorFechaAltaDesc(@ModelAttribute("searchForm") SearchBean searchBean, Model model){
+	    List <Socio> socios = socioService.orderByFechaDesc();
+	    model.addAttribute("socios", socios);
+	    return "socios";
+	}
+	
+	@PostMapping("/socios/nombre")
+	public String buscarSocioPorNombreDesc(@ModelAttribute("searchForm") SearchBean searchBean, Model model){
+	    List <Socio> socios = socioService.orderByNombreDesc();
+	    model.addAttribute("socios", socios);
+	    return "socios";
+	}
+	
+	@PostMapping("/socios/apellidos")
+	public String buscarSocioApellidosDesc(@ModelAttribute("searchForm") SearchBean searchBean, Model model){
+	    List <Socio> socios = socioService.orderByApellidosDesc();
+	    model.addAttribute("socios", socios);
+	    return "socios";
 	}
 
 	@GetMapping("/socios/update/{id}")

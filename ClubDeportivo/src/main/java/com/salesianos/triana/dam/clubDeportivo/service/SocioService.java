@@ -1,8 +1,8 @@
 package com.salesianos.triana.dam.clubDeportivo.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.salesianos.triana.dam.clubDeportivo.model.Socio;
@@ -14,12 +14,19 @@ public class SocioService extends BaseServiceImp<Socio, Long, SocioRepositorio>{
 	@Autowired
 	private SocioRepositorio repositorio;
 
-	public Page<Socio> findAllPageable(Pageable pageable) {
-		return repositorio.findAll(pageable);
+	public List<Socio> findByNombre(String nombre) {
+		return repositorio.findByNombreContainingIgnoreCase(nombre);
+	}
+	
+	public List<Socio> orderByFechaDesc(){
+		return repositorio.findByFechaAltaDesc();
+	}
+	
+	public List<Socio> orderByNombreDesc(){
+		return repositorio.findByApellidosOrderByApellidosDesc();
 	}
 
-	public  Page<Socio> findByNombreContainingIgnoreCasePageable(String nombre, Pageable pageable)
-	{
-		return repositorio.findByNombreContainingIgnoreCase(nombre, pageable);
+	public List<Socio> orderByApellidosDesc(){
+		return repositorio.findByApellidosOrderByApellidosDesc();
 	}
 }
