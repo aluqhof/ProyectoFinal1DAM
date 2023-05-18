@@ -7,8 +7,6 @@ import java.time.temporal.TemporalAdjusters;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.salesianos.triana.dam.clubDeportivo.model.Reserva;
@@ -72,5 +70,8 @@ public class ReservaService extends BaseServiceImp<Reserva, Long, ReservaReposit
 	    return reservas;
 	}
 	
+	public List<Reserva> orderByFechaDesc() {
+		return repositorio.findByFechaReservaDesc();
+	}
 
 }

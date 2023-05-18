@@ -30,4 +30,5 @@ public class SocioService extends BaseServiceImp<Socio, Long, SocioRepositorio>{
 	public List<Socio> orderByApellidosAsc(){
 		return repositorio.findAll(Sort.by(Sort.Direction.ASC, "apellidos"));
 	}
+	
 }

@@ -17,4 +17,9 @@ public interface ReservaRepositorio extends JpaRepository <Reserva, Long>{
 	
 	@Query("SELECT r FROM Reserva r WHERE r.fecha_reserva BETWEEN :inicio AND :fin AND r.pista.id = :idPista")
 	public List<Reserva> findByFechaReservaEntreYPista(@Param("inicio") LocalDate inicio, @Param("fin") LocalDate fin, @Param("idPista") int idPista);
+	
+	@Query("SELECT r FROM Reserva r ORDER BY r.fecha_reserva DESC")
+	public List<Reserva> findByFechaReservaDesc();
+	
+	//public List<Reserva> findByIdAsc();
 }

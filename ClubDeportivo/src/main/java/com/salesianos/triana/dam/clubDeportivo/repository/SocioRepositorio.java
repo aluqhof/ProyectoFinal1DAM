@@ -14,8 +14,4 @@ public interface SocioRepositorio extends JpaRepository<Socio, Long> {
 	@Query("SELECT s FROM Socio s ORDER BY s.fecha_alta DESC")
 	public List<Socio> findByFechaAltaDesc();
 
-//public List<Socio> findByNombreOrderByNombreDesc();
-
-//public List<Socio> findByApellidosOrderByApellidosDesc();
-
 }
