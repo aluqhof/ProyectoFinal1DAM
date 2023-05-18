@@ -6,13 +6,17 @@ document.getElementById("addPistaHoraAumento").addEventListener("blur", validarH
 let error = document.querySelectorAll(".errorForm");
 error.forEach(p => p.hidden = true);
 
-function validarFormulario() {
+function validarFormulario(event) {
     let resultado = true;
 
     resultado = validarDeporte() &&
         validarPrecio() &&
         validarAumento() &&
         validarHoraAumento();
+
+    if (!resultado) {
+        event.preventDefault();
+    }
     return resultado;
 }
 

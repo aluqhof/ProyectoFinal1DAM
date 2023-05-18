@@ -55,7 +55,8 @@
                                         <td th:text="${reserva.hora_reserva}"></td>
                                         <td th:text="${reserva.socio.id}"></td>
                                         <td th:text="${reserva.pista.numero}"></td>
-                                        <td th:text="${#numbers.formatDecimal(reserva.precio_reserva, 1, 2)} + '€'"></td>
+                                        <td th:text="${#numbers.formatDecimal(reserva.precio_reserva, 1, 2)} + '€'">
+                                        </td>
                                         <td th:text="${reserva.pista.deporte.nombre}"></td>
                                         <td>
                                             <a th:href="@{/admin/reservas/update/{id}(id=${reserva.id})}"

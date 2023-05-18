@@ -6,6 +6,8 @@ import java.time.LocalTime;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,6 +69,16 @@ public class AdminController {
 		model.addAttribute("reserva", reserva);
 		return "formularioReservaAdmin";
 	}
+	
+	/*@PostMapping("/reservas/search")
+	public String searchReserva(@ModelAttribute("searchForm") SearchBean searchBean, Model model){
+	    List<Reserva> reservas = reservaService.findByNombre(searchBean.getSearch());
+	    model.addAttribute("reservas", reservas);
+	    model.addAttribute("deportes", deporteService.findAll());
+	    model.addAttribute("pistas", pistaService.findAll());
+	    model.addAttribute("socios", socioService.findAll());
+	    return "reservas";
+	}	*/
 
 	@GetMapping("/reservas/update/{id}")
 	public String updateReserva(@PathVariable("id") Long id, Model model) {
@@ -212,6 +224,31 @@ public class AdminController {
 		socio.setPassword(contraseñaEncriptada);
 		socioService.add(socio);
 		return "redirect:/admin/socios";
+	}
+	
+	@GetMapping("/socios/busqueda")
+	public String buscarSocioPorNombreYApellidos(@RequestParam("nombre") String busqueda, Model model) {
+	    List<Socio> socios = socioService.findByNombreYApellidos(busqueda, busqueda);
+	    model.addAttribute("socios", socios);
+	    return "socios";
+	}
+
+	@GetMapping("/socios/ordenar")
+	public String buscarSocios(@RequestParam("criterio") String criterio, Model model) {
+	    List<Socio> socios;
+	    
+	    if ("nombre".equals(criterio)) {
+	        socios = socioService.orderByNombreAsc();
+	    } else if ("apellidos".equals(criterio)) {
+	        socios = socioService.orderByApellidosAsc();
+	    } else if ("fecha_alta".equals(criterio)){
+	        socios = socioService.orderByFechaAltaDesc();
+	    } else {
+	    	socios = new ArrayList<>();
+	    }
+	    
+	    model.addAttribute("socios", socios);
+	    return "socios";
 	}
 
 	@GetMapping("/socios/update/{id}")

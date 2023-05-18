@@ -285,6 +285,18 @@
         height: 100vh;
     }
 }
+<<<<<<< HEAD
+    
+.botonOrdenar {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    font-size: inherit;
+    color: inherit;
+  }
+=======
 
 .mostrarReservas {
     height: 40px;
@@ -345,3 +357,4 @@ select.round:focus {
     border-color: green;
     outline: 0;
 }
+>>>>>>> main
