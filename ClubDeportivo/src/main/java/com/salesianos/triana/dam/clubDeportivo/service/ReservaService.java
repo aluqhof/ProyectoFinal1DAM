@@ -52,8 +52,4 @@ public class ReservaService extends BaseServiceImp<Reserva, Long, ReservaReposit
 		return repositorio.findAll(pageable);
 	}
 
-	public  Page<Reserva> findBySocioNombreContainingIgnoreCasePageable(String nombre, Pageable pageable)
-	{
-		return repositorio.findBySocioNombreContainingIgnoreCase(nombre, pageable);
-	}
 }

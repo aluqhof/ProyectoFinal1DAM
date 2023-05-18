@@ -50,40 +50,16 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
-                                        <th scope="col">
-                                            <div class="d-flex align-items-center">
-                                                <span class="mr-1">Nombre</span>
-                                                <form th:action="@{/admin/socios/nombre}" th:object="${searchForm}"
-                                                    method="POST" id="searchForm" class="form-inline">
-                                                    <button type="submit" class="btn btn-link botonOrdenar">
-                                                        <i class="bi bi-arrow-down-up"></i>
-                                                    </button>
-                                                </form>
-                                            </div>
+                                        <th scope="col">Nombre <a href="/admin/socios/ordenar?criterio=nombre">
+                                                <i class="bi bi-arrow-down-up"></i></a>
                                         </th>
-                                        <th scope="col">
-                                            <div class="d-flex align-items-center">
-                                                <span class="mr-1">Apellidos</span>
-                                                <form th:action="@{/admin/socios/apellidos}" th:object="${searchForm}"
-                                                    method="POST" id="searchForm" class="form-inline">
-                                                    <button type="submit" class="btn btn-link botonOrdenar">
-                                                        <i class="bi bi-arrow-down-up"></i>
-                                                    </button>
-                                                </form>
-                                            </div>
+                                        <th scope="col">Apellidos <a href="/admin/socios/ordenar?criterio=apellidos">
+                                            <i class="bi bi-arrow-down-up"></i></a>
                                         </th>
                                         <th scope="col">Correo electrónico</th>
                                         <th scope="col">Teléfono</th>
-                                        <th scope="col">
-                                            <div class="d-flex align-items-center">
-                                                <span class="mr-1">Fecha Alta</span>
-                                                <form th:action="@{/admin/socios/fechaAlta}" th:object="${searchForm}"
-                                                    method="POST" id="searchForm" class="form-inline">
-                                                    <button type="submit" class="btn btn-link botonOrdenar">
-                                                        <i class="bi bi-arrow-down-up"></i>
-                                                    </button>
-                                                </form>
-                                            </div>
+                                        <th scope="col">Fecha Alta <a href="/admin/socios/ordenar?criterio=fecha_alta">
+                                            <i class="bi bi-arrow-down-up"></i></a>
                                         </th>
                                         <th scope="col">Cuota</th>
                                         <th scope="col">Acciones</th>

@@ -1,5 +1,6 @@
 package com.salesianos.triana.dam.clubDeportivo.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.salesianos.triana.dam.clubDeportivo.formbeans.SearchBean;
 import com.salesianos.triana.dam.clubDeportivo.model.Deporte;
@@ -168,29 +170,27 @@ public class AdminController {
 	}
 	
 	@PostMapping("/socios/busqueda")
-	public String buscarSocioPorNombre(@ModelAttribute("searchForm") SearchBean searchBean, Model model){
-	    List <Socio> socios = socioService.findByNombre(searchBean.getSearch());
+	public String buscarSocioPorNombreYApellidos(@ModelAttribute("searchForm") SearchBean searchBean, Model model) {
+	    String searchTerm = searchBean.getSearch();
+	    List<Socio> socios = socioService.findByNombreYApellidos(searchTerm, searchTerm);
 	    model.addAttribute("socios", socios);
 	    return "socios";
 	}
-	
-	@PostMapping("/socios/fechaAlta")
-	public String buscarSocioPorFechaAltaDesc(@ModelAttribute("searchForm") SearchBean searchBean, Model model){
-	    List <Socio> socios = socioService.orderByFechaDesc();
-	    model.addAttribute("socios", socios);
-	    return "socios";
-	}
-	
-	@PostMapping("/socios/nombre")
-	public String buscarSocioPorNombreDesc(@ModelAttribute("searchForm") SearchBean searchBean, Model model){
-	    List <Socio> socios = socioService.orderByNombreDesc();
-	    model.addAttribute("socios", socios);
-	    return "socios";
-	}
-	
-	@PostMapping("/socios/apellidos")
-	public String buscarSocioApellidosDesc(@ModelAttribute("searchForm") SearchBean searchBean, Model model){
-	    List <Socio> socios = socioService.orderByApellidosDesc();
+
+	@GetMapping("/socios/ordenar")
+	public String buscarSocios(@RequestParam("criterio") String criterio, Model model) {
+	    List<Socio> socios;
+	    
+	    if ("nombre".equals(criterio)) {
+	        socios = socioService.orderByNombreAsc();
+	    } else if ("apellidos".equals(criterio)) {
+	        socios = socioService.orderByApellidosAsc();
+	    } else if ("fecha_alta".equals(criterio)){
+	        socios = socioService.orderByFechaAltaDesc();
+	    } else {
+	    	socios = new ArrayList<>();
+	    }
+	    
 	    model.addAttribute("socios", socios);
 	    return "socios";
 	}
