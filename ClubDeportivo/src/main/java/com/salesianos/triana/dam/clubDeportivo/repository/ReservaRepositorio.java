@@ -25,4 +25,7 @@ public interface ReservaRepositorio extends JpaRepository <Reserva, Long>{
 	
 	@Query("SELECT r FROM Reserva r ORDER BY r.fecha_reserva DESC")
 	public List<Reserva> findByFechaReservaDesc();
+	
+	@Query("SELECT r FROM Reserva r WHERE r.fecha_reserva = CURRENT_DATE")
+    public List<Reserva> findAllReservasDelDiaActual();
 }

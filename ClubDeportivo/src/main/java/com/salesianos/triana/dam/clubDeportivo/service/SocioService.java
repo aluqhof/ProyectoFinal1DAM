@@ -2,6 +2,8 @@ package com.salesianos.triana.dam.clubDeportivo.service;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -31,4 +33,8 @@ public class SocioService extends BaseServiceImp<Socio, Long, SocioRepositorio>{
 		return repositorio.findAll(Sort.by(Sort.Direction.ASC, "apellidos"));
 	}
 	
+	@Transactional
+	public List<Socio> findTop5SociosByReservas() {
+	    return repositorio.findTop5ByReservas();
+	}
 }

@@ -45,7 +45,6 @@ public class ReservaService extends BaseServiceImp<Reserva, Long, ReservaReposit
 		return repositorio.findNumReservasBySocio(socio);
 	}
 	
-<<<<<<< HEAD
 	public double calcularFacturacionMensual() {
 		return repositorio.calcularFacturacionMensual();
 	}
@@ -53,7 +52,7 @@ public class ReservaService extends BaseServiceImp<Reserva, Long, ReservaReposit
 	public double calcularFacturacionAnual() {
 		return repositorio.calcularFacturacionAnual();
 	}
-=======
+	
 	public List<Reserva> findReservasEstaSemanaYPista(int idPista) {
 		
         LocalDate hoy = LocalDate.now();
@@ -82,6 +81,9 @@ public class ReservaService extends BaseServiceImp<Reserva, Long, ReservaReposit
 	public List<Reserva> orderByFechaDesc() {
 		return repositorio.findByFechaReservaDesc();
 	}
+	
+	public List<Reserva> findReservasHoy(){
+		return repositorio.findAllReservasDelDiaActual();
+	}
 
->>>>>>> main
 }

@@ -285,7 +285,6 @@
         height: 100vh;
     }
 }
-<<<<<<< HEAD
     
 .botonOrdenar {
     background: none;
@@ -296,7 +295,6 @@
     font-size: inherit;
     color: inherit;
   }
-=======
 
 .mostrarReservas {
     height: 40px;
@@ -357,4 +355,35 @@ select.round:focus {
     border-color: green;
     outline: 0;
 }
->>>>>>> main
+
+#cartaDeportes{
+    background-image: url('../img/reserva.jpg');
+    background-size: cover;
+    font-weight: 600;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+#cartaPistas{
+    background-image: url('../img/pista.jpg');
+    background-size: cover;
+    background-position: center;
+    font-weight: 600;
+}
+
+#cartaSocios{
+    background-image: url('../img/socios.jpg');
+    background-size: cover;
+    background-position: center;
+    font-weight: 600;
+}
+
+#cartaReservas{
+    background-image: url('../img/reservas.jpg');
+    background-size: cover;
+    background-position: center;
+    font-weight: 600;
+}
+
+.enlaceGeneral:hover .cartaApartado{
+    transform: scale(1.05);
+}
