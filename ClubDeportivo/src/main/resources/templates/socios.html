@@ -10,6 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../css/general.css" th:href="@{/css/general.css}">
+
     <title>Document</title>
 </head>
 
@@ -24,6 +25,14 @@
                             <div class="col">
                                 <h3>Socios</h3>
                             </div>
+                            <form th:action="@{/admin/socios/busqueda}" method="GET"
+                                class="col-md-4 text-lg-end">
+                                <input type="text" id="nombre" name="nombre" placeholder="Buscar Por Nombre"
+                                    style="margin-left: 5%; padding: 4px;" />
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="bi bi-search"></i>
+                                </button>
+                            </form>
                         </div>
                         <div class="alert alert-warning alert-dismissible fade show" role="alert"
                             th:if="${param.error}">
@@ -40,12 +49,20 @@
                             <table class="table table-striped table-hover tablaSocios">
                                 <thead>
                                     <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Nombre</th>
-                                        <th scope="col">Apellidos</th>
+                                        <th scope="col"># <a href="/admin/socios/ordenar?criterio=id">
+                                            <i class="bi bi-arrow-down-up"></i></a>
+                                        </th>
+                                        <th scope="col">Nombre <a href="/admin/socios/ordenar?criterio=nombre">
+                                                <i class="bi bi-arrow-down-up"></i></a>
+                                        </th>
+                                        <th scope="col">Apellidos <a href="/admin/socios/ordenar?criterio=apellidos">
+                                            <i class="bi bi-arrow-down-up"></i></a>
+                                        </th>
                                         <th scope="col">Correo electrónico</th>
                                         <th scope="col">Teléfono</th>
-                                        <th scope="col">Fecha Alta</th>
+                                        <th scope="col">Fecha Alta <a href="/admin/socios/ordenar?criterio=fecha_alta">
+                                            <i class="bi bi-arrow-down-up"></i></a>
+                                        </th>
                                         <th scope="col">Cuota</th>
                                         <th scope="col">Acciones</th>
                                     </tr>

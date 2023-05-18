@@ -1,5 +1,11 @@
 package com.salesianos.triana.dam.clubDeportivo.controller;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.temporal.TemporalAdjusters;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.salesianos.triana.dam.clubDeportivo.model.Deporte;
 import com.salesianos.triana.dam.clubDeportivo.model.Pista;
@@ -91,7 +98,8 @@ public class AdminController {
 		model.addAttribute("pistas", pistaService.findAll());
 		model.addAttribute("socios", socioService.findAll());
 		reservaService.calcularPrecio(reserva);
-		if (!reservaService.isHoraDisponible(reserva.getHora_reserva(), reserva.getFecha_reserva(), reserva.getPista().getId())) {
+		if (!reservaService.isHoraDisponible(reserva.getHora_reserva(), reserva.getFecha_reserva(),
+				reserva.getPista().getId())) {
 			model.addAttribute("error", "La pista no esta disponible, por favor escoge otra opción.");
 			return "formularioReservaAdmin";
 		}
@@ -105,12 +113,85 @@ public class AdminController {
 		model.addAttribute("pistas", pistaService.findAll());
 		model.addAttribute("socios", socioService.findAll());
 		reservaService.calcularPrecio(reserva);
-		if (!reservaService.isHoraDisponible(reserva.getHora_reserva(), reserva.getFecha_reserva(), reserva.getPista().getId())) {
+		if (!reservaService.isHoraDisponible(reserva.getHora_reserva(), reserva.getFecha_reserva(),
+				reserva.getPista().getId())) {
 			model.addAttribute("error", "La pista no esta disponible, por favor escoge otra opción.");
 			return "formularioReservaAdmin";
 		}
 		reservaService.edit(reserva);
 		return "redirect:/admin/reservas";
+	}
+
+	@GetMapping("/reservas/ordenar")
+	public String ordenarReservasPorFecha(@RequestParam("criterio") String criterio, Model model) {
+		List<Reserva> reservas;
+
+		switch (criterio) {
+		case "fecha_reserva":
+			reservas = reservaService.orderByFechaDesc();
+			break;
+		case "id":
+			reservas = reservaService.findAll();
+			break;
+		default:
+			reservas = new ArrayList<>();
+			break;
+		}
+
+		model.addAttribute("reservas", reservas);
+		return "reservas";
+	}
+
+	@GetMapping("/reservas/calendario")
+	public String mostrarReservasCalendario(Model model, @RequestParam(defaultValue = "1") int idPista) {
+		int numeroDias = 6;
+		int numeroHoras = 15;
+		List<Reserva> reservas = reservaService.findReservasEstaSemanaYPista(idPista);
+		List<LocalTime> horas = new ArrayList<>();
+		LocalTime horaInicial = LocalTime.of(7, 0);
+		for (int i = 0; i < numeroHoras; i++) {
+			horas.add(horaInicial.plusHours(i));
+		}
+		LocalDate fechaActual = LocalDate.now();
+		List<LocalDate> dias = new ArrayList<>();
+		for (int i = 0; i < numeroDias; i++) {
+			LocalDate diaSemana = fechaActual.with(DayOfWeek.of(i + 1));
+			dias.add(diaSemana);
+		}
+		model.addAttribute("pistas", pistaService.findAll());
+		model.addAttribute("reservas", reservas);
+		model.addAttribute("horas", horas);
+		model.addAttribute("dias", dias);
+		model.addAttribute("idPista", idPista);
+
+		return "calendarioEstaSemana";
+	}
+
+	@GetMapping("/reservas/calendario/semana2")
+	public String mostrarReservasCalendarioSemana2(Model model, @RequestParam(defaultValue = "1") int idPista) {
+		int numeroDias = 6;
+		int numeroHoras = 15;
+		List<Reserva> reservas = reservaService.findReservasProximaSemanaYPista(idPista);
+		List<LocalTime> horas = new ArrayList<>();
+		LocalTime horaInicial = LocalTime.of(7, 0);
+		for (int i = 0; i < numeroHoras; i++) {
+			horas.add(horaInicial.plusHours(i));
+		}
+		LocalDate hoy = LocalDate.now();
+		LocalDate inicioProximaSemana = hoy.with(TemporalAdjusters.next(DayOfWeek.MONDAY));
+		List<LocalDate> dias = new ArrayList<>();
+		for (int i = 0; i < numeroDias; i++) {
+			LocalDate diaSemana = inicioProximaSemana.with(DayOfWeek.of(i + 1));
+			dias.add(diaSemana);
+		}
+
+		model.addAttribute("pistas", pistaService.findAll());
+		model.addAttribute("reservas", reservas);
+		model.addAttribute("horas", horas);
+		model.addAttribute("dias", dias);
+		model.addAttribute("idPista", idPista);
+
+		return "calendarioProximaSemana";
 	}
 
 	@GetMapping("/socios")
@@ -153,6 +234,38 @@ public class AdminController {
 		socio.setPassword(contraseñaEncriptada);
 		socioService.add(socio);
 		return "redirect:/admin/socios";
+	}
+
+	@GetMapping("/socios/busqueda")
+	public String buscarSocioPorNombreYApellidos(@RequestParam("nombre") String busqueda, Model model) {
+		List<Socio> socios = socioService.findByNombreYApellidos(busqueda, busqueda);
+		model.addAttribute("socios", socios);
+		return "socios";
+	}
+
+	@GetMapping("/socios/ordenar")
+	public String ordenarSocios(@RequestParam("criterio") String criterio, Model model) {
+		List<Socio> socios;
+
+		switch (criterio) {
+		case "nombre":
+			socios = socioService.orderByNombreAsc();
+			break;
+		case "apellidos":
+			socios = socioService.orderByApellidosAsc();
+			break;
+		case "fecha_alta":
+			socios = socioService.orderByFechaAltaDesc();
+			break;
+		case "id":
+			socios = socioService.findAll(); //No funciona
+		default:
+			socios = new ArrayList<>();
+			break;
+		}
+
+		model.addAttribute("socios", socios);
+		return "socios";
 	}
 
 	@GetMapping("/socios/update/{id}")

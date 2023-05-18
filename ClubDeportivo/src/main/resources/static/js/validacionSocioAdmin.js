@@ -8,7 +8,7 @@ document.getElementById("addSocioCuota").addEventListener("blur", validarCuota);
 let error = document.querySelectorAll(".errorForm");
 error.forEach(p => p.hidden = true);
 
-function validarFormulario() {
+function validarFormulario(event) {
     let resultado = true;
 
     resultado = validarNombre() &&
@@ -17,6 +17,10 @@ function validarFormulario() {
         validarTelefono() &&
         validarFechaAlta() &&
         validarCuota();
+
+        if (!resultado) {
+            event.preventDefault();
+        }
     return resultado;
 }
 
@@ -67,7 +71,8 @@ function validarTelefono() {
 function validarFechaAlta() {
     let fechaAlta = document.getElementById("addSocioFechaAlta").value;
     let fechaActual = new Date();
-    if (!fechaAlta || fechaAlta>fechaActual) { // Verificar que se haya seleccionado una fecha
+    fechaAlta = new Date(fechaAlta);
+    if (!fechaAlta || fechaAlta>fechaActual) {
         document.getElementById("addSocioFechaAlta").focus();
         document.getElementById("addSocioFechaAlta").nextElementSibling.hidden = false;
         return false;
@@ -78,7 +83,7 @@ function validarFechaAlta() {
 
 function validarCuota() {
     let cuota = document.getElementById("addSocioCuota").value;
-    if (cuota < 0) { // Verificar que la cuota no sea negativa
+    if (cuota < 0) {
         document.getElementById("addSocioCuota").focus();
         document.getElementById("addSocioCuota").nextElementSibling.hidden = false;
         return false;
