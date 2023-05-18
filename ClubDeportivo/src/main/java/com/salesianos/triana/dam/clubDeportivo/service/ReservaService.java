@@ -20,7 +20,7 @@ public class ReservaService extends BaseServiceImp<Reserva, Long, ReservaReposit
 	private ReservaRepositorio repositorio;
 	
 	public boolean isHoraDisponible(LocalTime horaReserva, LocalDate fechaReserva, int id) {
-	    for (Reserva reserva : repositorio.findAll()) {
+	    for (Reserva reserva : this.findAll()) {
 	        if (reserva.getPista().getId()==id && reserva.getFecha_reserva().equals(fechaReserva) && reserva.getHora_reserva().equals(horaReserva)) {
 	            return false;
 	        }
@@ -56,11 +56,19 @@ public class ReservaService extends BaseServiceImp<Reserva, Long, ReservaReposit
     }
 	
 	public List<Reserva> findReservasProximaSemanaYPista(int idPista) {
+		int numeroDias = 6;
 	    LocalDate hoy = LocalDate.now();
+	    LocalDate [] dias = new LocalDate[numeroDias];
 	    LocalDate inicioProximaSemana = hoy.with(TemporalAdjusters.next(DayOfWeek.MONDAY));
-	    LocalDate finProximaSemana = hoy.with(TemporalAdjusters.next(DayOfWeek.SATURDAY));
+	    LocalDate finProximaSemana;
+	    for (int i = 0; i < numeroDias; i++) {
+	        LocalDate diaSemana = inicioProximaSemana.with(DayOfWeek.of(i + 1));
+	        dias[i]=diaSemana;
+	    }
+	    finProximaSemana=dias[5];
 	    List<Reserva> reservas = repositorio.findByFechaReservaEntreYPista(inicioProximaSemana, finProximaSemana, idPista);
 	    return reservas;
 	}
+	
 
 }

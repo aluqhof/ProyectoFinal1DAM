@@ -27,9 +27,8 @@
                         <form th:action="@{/admin/reservas/calendario}" method="get">
                             <div class="d-flex">
                                 <div class="form-group mr-2">
-                                    <label for="idPista">Seleccionar pista:</label>
-                                    <select name="idPista" id="idPista" class="form-control" required>
-                                        <option value=""></option>
+                                    <select name="idPista" id="idPista" class="form-control round" required>
+                                        <option value="">Elige una pista</option>
                                         <option th:each="pista : ${pistas}" th:value="${pista.id}"
                                             th:text="${'Pista' + ' ' + pista.numero + ' - ' + pista.deporte.nombre}">
                                         </option>
@@ -41,9 +40,16 @@
                         </form>
                     </div>
                 </div>
+                <div class="row text-end" style="margin-right: 10px; ">
+                    <div class="col">
+                        <a href="" th:href="@{/admin/reservas/calendario/semana2}"
+                            style="text-decoration: none;">Siguiente semana <i class="bi bi-arrow-right-square"></i></a>
+                    </div>
+                </div>
                 <div th:replace="fragments/calendarioReservas :: calendario">
                 </div>
-                <a href="" th:href="@{/admin/reservas/calendario/semana2}" class="btn btn-primary offset-md-9" style="float: right;">Semana siguiente <i class="bi bi-arrow-right-square"></i></a>
+                <a href="" th:href="@{/admin/reservas/calendario/semana2}" class="btn btn-primary offset-md-9"
+                    style="float: right;">Semana siguiente <i class="bi bi-arrow-right-square"></i></a>
             </div>
         </div>
     </div>

@@ -122,15 +122,17 @@ public class AdminController {
 	
 	@GetMapping("/reservas/calendario")
 	public String mostrarReservasCalendario(Model model, @RequestParam(defaultValue = "1") int idPista) {
+		int numeroDias = 6;
+		int numeroHoras = 15;
 	    List<Reserva> reservas = reservaService.findReservasEstaSemanaYPista(idPista);
 	    List<LocalTime> horas = new ArrayList<>();
 	    LocalTime horaInicial = LocalTime.of(7, 0);
-	    for (int i = 0; i < 15; i++) {
+	    for (int i = 0; i < numeroHoras; i++) {
 	        horas.add(horaInicial.plusHours(i));
 	    }
 	    LocalDate fechaActual = LocalDate.now();
 	    List<LocalDate> dias = new ArrayList<>();
-	    for (int i = 0; i < 6; i++) {
+	    for (int i = 0; i < numeroDias; i++) {
 	        LocalDate diaSemana = fechaActual.with(DayOfWeek.of(i + 1));
 	        dias.add(diaSemana);
 	    }
@@ -145,21 +147,21 @@ public class AdminController {
 	
 	@GetMapping("/reservas/calendario/semana2")
 	public String mostrarReservasCalendarioSemana2(Model model, @RequestParam(defaultValue = "1") int idPista) {
-		LocalDate hoy = LocalDate.now();
-	    LocalDate inicioProximaSemana = hoy.with(TemporalAdjusters.next(DayOfWeek.MONDAY));
-	    List<Reserva> reservas = reservaService.findReservasProximaSemanaYPista(idPista);
+		int numeroDias = 6;
+		int numeroHoras = 15;
+		List<Reserva> reservas = reservaService.findReservasProximaSemanaYPista(idPista);
 	    List<LocalTime> horas = new ArrayList<>();
 	    LocalTime horaInicial = LocalTime.of(7, 0);
-	    for (int i = 0; i < 15; i++) {
+	    for (int i = 0; i < numeroHoras; i++) {
 	        horas.add(horaInicial.plusHours(i));
 	    }
+	    LocalDate hoy = LocalDate.now();
+	    LocalDate inicioProximaSemana = hoy.with(TemporalAdjusters.next(DayOfWeek.MONDAY));
 	    List<LocalDate> dias = new ArrayList<>();
-	    for (int i = 0; i < 6; i++) {
+	    for (int i = 0; i < numeroDias; i++) {
 	        LocalDate diaSemana = inicioProximaSemana.with(DayOfWeek.of(i + 1));
 	        dias.add(diaSemana);
 	    }
-	    
-	    System.out.println("Todas las reservas: " + reservaService.findAll());
 	    
 	    model.addAttribute("pistas", pistaService.findAll());
 	    model.addAttribute("reservas", reservas);
