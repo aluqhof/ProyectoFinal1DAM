@@ -15,7 +15,6 @@ public interface ReservaRepositorio extends JpaRepository <Reserva, Long>{
 	@Query("select count(r) from Reserva r where r.socio = ?1")
 	public int findNumReservasBySocio(Socio socio);
 	
-	//List<Reserva> findByFechaReservaEntre(LocalDate start, LocalDate end);
 	@Query("SELECT r FROM Reserva r WHERE r.fecha_reserva BETWEEN :inicio AND :fin AND r.pista.id = :idPista")
-	List<Reserva> findByFechaReservaEntreYPista(@Param("inicio") LocalDate inicio, @Param("fin") LocalDate fin, @Param("idPista") int idPista);
+	public List<Reserva> findByFechaReservaEntreYPista(@Param("inicio") LocalDate inicio, @Param("fin") LocalDate fin, @Param("idPista") int idPista);
 }

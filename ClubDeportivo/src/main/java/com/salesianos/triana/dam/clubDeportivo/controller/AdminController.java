@@ -3,6 +3,7 @@ package com.salesianos.triana.dam.clubDeportivo.controller;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -133,14 +134,32 @@ public class AdminController {
 	        LocalDate diaSemana = fechaActual.with(DayOfWeek.of(i + 1));
 	        dias.add(diaSemana);
 	    }
+	    model.addAttribute("pistas", pistaService.findAll());
+	    model.addAttribute("reservas", reservas);
+	    model.addAttribute("horas", horas);
+	    model.addAttribute("dias", dias);
+	    model.addAttribute("idPista", idPista);
 	    
-	    for (LocalDate localDate : dias) {
-	        System.out.println(localDate);
+	    return "calendarioEstaSemana";
+	}
+	
+	@GetMapping("/reservas/calendario/semana2")
+	public String mostrarReservasCalendarioSemana2(Model model, @RequestParam(defaultValue = "1") int idPista) {
+		LocalDate hoy = LocalDate.now();
+	    LocalDate inicioProximaSemana = hoy.with(TemporalAdjusters.next(DayOfWeek.MONDAY));
+	    List<Reserva> reservas = reservaService.findReservasProximaSemanaYPista(idPista);
+	    List<LocalTime> horas = new ArrayList<>();
+	    LocalTime horaInicial = LocalTime.of(7, 0);
+	    for (int i = 0; i < 15; i++) {
+	        horas.add(horaInicial.plusHours(i));
+	    }
+	    List<LocalDate> dias = new ArrayList<>();
+	    for (int i = 0; i < 6; i++) {
+	        LocalDate diaSemana = inicioProximaSemana.with(DayOfWeek.of(i + 1));
+	        dias.add(diaSemana);
 	    }
 	    
-	    for (Reserva reserva : reservas) {
-	        System.out.println(reserva);
-	    }
+	    System.out.println("Todas las reservas: " + reservaService.findAll());
 	    
 	    model.addAttribute("pistas", pistaService.findAll());
 	    model.addAttribute("reservas", reservas);
@@ -148,7 +167,7 @@ public class AdminController {
 	    model.addAttribute("dias", dias);
 	    model.addAttribute("idPista", idPista);
 	    
-	    return "calendarioReservas";
+	    return "calendarioProximaSemana";
 	}
 
 	@GetMapping("/socios")

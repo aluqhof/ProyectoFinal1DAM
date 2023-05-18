@@ -3,6 +3,7 @@ package com.salesianos.triana.dam.clubDeportivo.service;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.temporal.TemporalAdjusters;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,5 +54,13 @@ public class ReservaService extends BaseServiceImp<Reserva, Long, ReservaReposit
 
         return reservas;
     }
+	
+	public List<Reserva> findReservasProximaSemanaYPista(int idPista) {
+	    LocalDate hoy = LocalDate.now();
+	    LocalDate inicioProximaSemana = hoy.with(TemporalAdjusters.next(DayOfWeek.MONDAY));
+	    LocalDate finProximaSemana = hoy.with(TemporalAdjusters.next(DayOfWeek.SATURDAY));
+	    List<Reserva> reservas = repositorio.findByFechaReservaEntreYPista(inicioProximaSemana, finProximaSemana, idPista);
+	    return reservas;
+	}
 
 }
