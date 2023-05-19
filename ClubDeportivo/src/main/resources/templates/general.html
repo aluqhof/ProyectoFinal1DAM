@@ -128,7 +128,7 @@
                                                     <tr th:each="socio : ${top5Socios}">
                                                         <td th:text="${socio.nombre}"></td>
                                                         <td th:text="${socio.apellidos}"></td>
-                                                        <td>1</td>
+                                                        <td th:text="${socio.reservas.size()}"></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
