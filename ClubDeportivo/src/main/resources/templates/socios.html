@@ -63,19 +63,17 @@
                                         <th scope="col">Fecha Alta <a href="/admin/socios/ordenar?criterio=fecha_alta">
                                             <i class="bi bi-arrow-down-up"></i></a>
                                         </th>
-                                        <th scope="col">Cuota</th>
                                         <th scope="col">Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr th:each="socio : ${socios}">
-                                        <th th:text="${socio.id}">1</th>
-                                        <td th:text="${socio.nombre}">John</td>
-                                        <td th:text="${socio.apellidos}">Doe hajfd hfdsaj hj</td>
-                                        <td th:text="${socio.username}">jdoe</td>
-                                        <td th:text="${socio.telefono}">555-1234</td>
-                                        <td th:text="${socio.fecha_alta}">01/01/2021</td>
-                                        <td th:text="${socio.cuota}">$100</td>
+                                        <th th:text="${socio.id}"></th>
+                                        <td th:text="${socio.nombre}"></td>
+                                        <td th:text="${socio.apellidos}"></td>
+                                        <td th:text="${socio.username}"></td>
+                                        <td th:text="${socio.telefono}"></td>
+                                        <td th:text="${socio.fecha_alta}"></td>
                                         <td>
                                             <a th:href="@{/admin/socios/update/{id}(id=${socio.id})}"
                                                 class="btn btn-primary btn-sm botonEditar">
