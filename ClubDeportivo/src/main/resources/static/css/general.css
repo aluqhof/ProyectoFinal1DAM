@@ -159,12 +159,12 @@
 
 /*Estilos para el formulario de registro*/
 
-#booking {
+body{
     font-family: 'Montserrat', sans-serif;
 }
 
 
-.booking-form {
+.tablaDisponibilidad {
     background-color: #fff;
     padding: 50px 20px;
     -webkit-box-shadow: 0px 5px 20px -5px rgba(0, 0, 0, 0.3);
@@ -172,58 +172,6 @@
     border-radius: 4px;
     min-width: 300px;
     margin-bottom: 50px;
-}
-
-.booking-form .form-group {
-    position: relative;
-    margin-bottom: 30px;
-}
-
-.booking-form .form-control {
-    background-color: #ebecee;
-    border-radius: 4px;
-    border: none;
-    height: 40px;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-    color: #3e485c;
-    font-size: 14px;
-}
-
-.booking-form .form-control::-webkit-input-placeholder {
-    color: rgba(62, 72, 92, 0.3);
-}
-
-.booking-form .form-control:-ms-input-placeholder {
-    color: rgba(62, 72, 92, 0.3);
-}
-
-.booking-form .form-control::placeholder {
-    color: rgba(62, 72, 92, 0.3);
-}
-
-.booking-form input[type="date"].form-control:invalid {
-    color: rgba(62, 72, 92, 0.3);
-}
-
-.booking-form select.form-control+.select-arrow {
-    position: absolute;
-    right: 0px;
-    bottom: 4px;
-    width: 32px;
-    line-height: 32px;
-    height: 32px;
-    text-align: center;
-    pointer-events: none;
-    color: rgba(62, 72, 92, 0.3);
-    font-size: 14px;
-}
-
-.booking-form select.form-control+.select-arrow:after {
-    content: '\279C';
-    display: block;
-    -webkit-transform: rotate(90deg);
-    transform: rotate(90deg);
 }
 
 .booking-form .form-label {
@@ -246,26 +194,9 @@
     transition: 0.2s all;
 }
 
-.booking-form .submit-btn:hover,
-.booking-form .submit-btn:focus {
+.tablaDisponibilidad .submit-btn:hover,
+.tablaDisponibilidad .submit-btn:focus {
     opacity: 0.9;
-}
-
-.booking-cta {
-    margin-top: 50px;
-    margin-bottom: 30px;
-}
-
-.booking-cta h1 {
-    font-size: 52px;
-    text-transform: uppercase;
-    color: black;
-    font-weight: 700;
-}
-
-.booking-cta p {
-    font-size: 16px;
-    color: rgba(255, 255, 255, 0.8);
 }
 
 .indicadorPrecio {
@@ -397,85 +328,18 @@ select.round:focus {
     transform: scale(1.1);
 }
 
-/*Estilos confirmacion reserva*/
 .section {
     background: #ffffff;
 }
 
-#progressbar-1 {
-    color: #455A64;
-}
-
-#progressbar-1 li {
-    list-style-type: none;
-    font-size: 13px;
-    width: 33.33%;
-    float: left;
-    position: relative;
-}
-
-#progressbar-1 #step1:before {
-    content: "1";
-    color: #fff;
-    width: 29px;
-    margin-left: 22px;
-    padding-left: 11px;
-}
-
-#progressbar-1 #step2:before {
-    content: "2";
-    color: #fff;
-    width: 29px;
-}
-
-#progressbar-1 #step3:before {
-    content: "3";
-    color: #fff;
-    width: 29px;
-    margin-right: 22px;
-    text-align: center;
-}
-
-#progressbar-1 li:before {
-    line-height: 29px;
-    display: block;
-    font-size: 12px;
-    background: #455A64;
-    border-radius: 50%;
-    margin: auto;
-}
-
-#progressbar-1 li:after {
-    content: '';
-    width: 121%;
-    height: 2px;
-    background: #455A64;
-    position: absolute;
-    left: 0%;
-    right: 0%;
-    top: 15px;
-    z-index: -1;
-}
-
-#progressbar-1 li:nth-child(2):after {
-    left: 50%
-}
-
-#progressbar-1 li:nth-child(1):after {
-    left: 25%;
-    width: 121%
-}
-
-#progressbar-1 li:nth-child(3):after {
-    left: 25%;
-    width: 50%;
-}
-
-#progressbar-1 li.active:before,
-#progressbar-1 li.active:after {
-    background: #1266f1;
-}
-
 .card-stepper {
     z-index: 0
+}
+
+.disponibilidad h1 {
+    margin-top: 30px;
+    font-size: 52px;
+    text-transform: uppercase;
+    color: black;
+    font-weight: 700;
 }

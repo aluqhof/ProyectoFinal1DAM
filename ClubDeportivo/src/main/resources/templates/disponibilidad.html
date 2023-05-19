@@ -15,31 +15,52 @@
 
 <body>
     <header th:replace="~{fragments/encabezado :: encabezado}"></header>
-    <main>
-        <h1 class="text-center">HAZ TU RESERVA</h1>
-        <div class="offset-md-8 col-md-4">
-            <form th:action="@{/disponibilidad}" method="get">
-                <div class="d-flex">
-                    <div class="form-group mr-2">
-                        <select name="idDeporte" id="idDeporte" class="form-control round" required>
-                            <option value="">Elige un deporte</option>
-                            <option th:each="deporte : ${deportes}" th:value="${deporte.id}"
-                                th:text="${deporte.nombre}">
-                            </option>
-                        </select>
-                        <span class="select-arrow"></span>
+    <main class="disponibilidad">
+        <div class="container">
+            <h1 class="text-center">HAZ TU RESERVA</h1>
+            <div class="offset-md-8 col-md-4 mb-2">
+                <form th:action="@{/disponibilidad}" method="get">
+                    <div class="d-flex">
+                        <div class="form-group mr-2">
+                            <select name="idDeporte" id="idDeporte" class="form-control round" required>
+                                <option value="">Elige un deporte</option>
+                                <option th:each="deporte : ${deportes}" th:value="${deporte.id}"
+                                    th:text="${deporte.nombre}">
+                                </option>
+                            </select>
+                            <span class="select-arrow"></span>
+                        </div>
+                        <button type="submit" class="btn btn-primary mostrarReservas">Mostrar disponibilidad</button>
                     </div>
-                    <button type="submit" class="btn btn-primary mostrarReservas">Mostrar disponibilidad</button>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
         <div class="container" th:fragment="calendario">
             <div class="table-responsive">
-                <table class="table table-bordered text-center">
+                <table class="table table-bordered text-center tablaDisponibilidad">
                     <thead>
                         <tr>
-                            <th colspan="7">
-                                <span th:text="${#temporals.format(dia, 'dd/MM/yyyy')+ ' - ' +deporte.nombre}"></span>
+                            <th colspan="100%">
+                                <div class="d-flex justify-content-between">
+                                    <form th:action="@{/disponibilidad}" method="get" th:if="${mostrarBotonAnterior}">
+                                        <input type="hidden" name="idDeporte" th:value="${idDeporte}">
+                                        <input type="hidden" name="dia" th:value="${diaAnterior}">
+                                        <button type="submit" class="btn btn-primary mostrarReservas">
+                                            <i class="bi bi-arrow-bar-left"></i> Anterior
+                                        </button>
+                                    </form>
+                                    <div class="position-relative" style="width: 40%; text-align: center; margin: 0 auto;">
+                                        <span class="text-center" th:text="${#temporals.format(dia, 'dd/MM/yyyy')+ ' - ' +deporte.nombre}"></span>
+                                    </div>
+                                    <form th:action="@{/disponibilidad}" style="float: inline-end;" method="get"
+                                        th:if="${mostrarBotonSiguiente}">
+                                        <input type="hidden" name="idDeporte" th:value="${idDeporte}">
+                                        <input type="hidden" name="dia" th:value="${diaSiguiente}">
+                                        <button type="submit" class="btn btn-primary mostrarReservas">
+                                            Siguiente <i class="bi bi-arrow-bar-right"></i>
+                                        </button>
+                                    </form>
+                                </div>
                             </th>
                         </tr>
                         <tr class="bg-light-gray">
@@ -57,38 +78,12 @@
                                         th:text="${'Reservar a las '+horas[iStat.index]}"></span></a>
                             </td>
                         </tr>
-                        <tr>
                     </tbody>
-                    <tfoot>
-                        <tr>
-                            <td colspan="100%">
-                                <div class="d-flex justify-content-between">
-                                    <form th:action="@{/disponibilidad}" method="get" th:if="${mostrarBotonAnterior}">
-                                        <input type="hidden" name="idDeporte" th:value="${idDeporte}">
-                                        <input type="hidden" name="dia" th:value="${diaAnterior}">
-                                        <input type="submit" class="btn btn-primary mostrarReservas"
-                                            value="Anterior día">
-                                    </form>
-                                    <form th:action="@{/disponibilidad}" style="float: inline-end;" method="get"
-                                        th:if="${mostrarBotonSiguiente}">
-                                        <input type="hidden" name="idDeporte" th:value="${idDeporte}">
-                                        <input type="hidden" name="dia" th:value="${diaSiguiente}">
-                                        <input type="submit" class="btn btn-primary mostrarReservas"
-                                            value="Siguiente día">
-                                    </form>
-                                </div>
-                            </td>
-                        </tr>
-                    </tfoot>
                 </table>
-                <form th:action="@{/disponibilidad}" method="get">
-                    <input type="hidden" name="idDeporte" th:value="${idDeporte}">
-                    <input type="hidden" name="dia" th:value="${diaSiguiente}">
-                    <input type="submit" class="btn btn-primary mostrarReservas" value="Mostrar disponibilidad">
-                </form>
             </div>
         </div>
     </main>
+
 </body>
 
 </html>
