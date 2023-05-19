@@ -21,7 +21,7 @@
     <div class="container-fluid">
         <div class="row flex-nowrap col-12">
             <nav th:replace="fragments/navAdmin :: menuPanelAdmin"></nav>
-            <div class="col py-3 contenidoDerechaAdmin">
+            <div class="col offset-2 offset-xl-2 offset-md-3 py-3 contenidoDerechaAdmin">
                 <form method="POST" id="formularioReservaAdmin"
                     th:action="${reserva.id != 0} ? @{/admin/reservas/edit/submit} : @{/admin/reservas/add/submit}"
                     th:object="${reserva}">
