@@ -62,33 +62,6 @@
                 </div>
             </div>
         </nav>
-        <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="loginModalLabel">Iniciar sesión</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form method="post" th:action="@{/login}">
-                            <div class="mb-3">
-                                <label for="inputEmail" class="form-label">Correo electrónico</label>
-                                <input type="username" class="form-control" name="username" id="username"
-                                    aria-describedby="emailHelp">
-                            </div>
-                            <div class="mb-3">
-                                <label for="inputPassword" class="form-label">Contraseña</label>
-                                <input type="password" class="form-control" name="password" id="password">
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                <input type="submit" class="btn btn-primary" value="Iniciar sesión">
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
     </header>
 </body>
 
