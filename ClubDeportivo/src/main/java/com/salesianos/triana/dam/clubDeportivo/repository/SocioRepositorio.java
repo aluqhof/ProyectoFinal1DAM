@@ -9,9 +9,11 @@ import com.salesianos.triana.dam.clubDeportivo.model.Socio;
 
 public interface SocioRepositorio extends JpaRepository<Socio, Long> {
 
-	List<Socio> findByNombreContainingIgnoreCaseOrApellidosContainingIgnoreCase(String nombre, String apellidos);
+	public List<Socio> findByNombreContainingIgnoreCaseOrApellidosContainingIgnoreCase(String nombre, String apellidos);
 
 	@Query("SELECT s FROM Socio s ORDER BY s.fecha_alta DESC")
 	public List<Socio> findByFechaAltaDesc();
 
+	@Query("SELECT s FROM Socio s ORDER BY SIZE(s.reservas) DESC")
+	public List<Socio> findTop5ByReservas();
 }

@@ -6,6 +6,7 @@ import java.time.LocalTime;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,9 +75,9 @@ public class AdminController {
 		model.addAttribute("deportes", deporteService.findAll());
 		model.addAttribute("pistas", pistaService.findAll());
 		model.addAttribute("socios", socioService.findAll());
-		Reserva rEditar = reservaService.findById(id).orElse(null);
-		if (rEditar != null) {
-			model.addAttribute("reserva", rEditar);
+		Optional <Reserva> rEditar = reservaService.findById(id);
+		if (rEditar.isPresent()) {
+			model.addAttribute("reserva", rEditar.get());
 			return "formularioReservaAdmin";
 		} else {
 			return "redirect:/admin/reservas";
@@ -85,9 +86,9 @@ public class AdminController {
 
 	@GetMapping("/reservas/borrar/{id}")
 	public String borrarReserva(@PathVariable("id") long id) {
-		Reserva aBorrar = reservaService.findById(id).orElse(null);
-		if (aBorrar != null) {
-			reservaService.delete(aBorrar);
+		Optional <Reserva> aBorrar = reservaService.findById(id);
+		if (aBorrar.isPresent()) {
+			reservaService.delete(aBorrar.get());
 		}
 		return "redirect:/admin/reservas";
 	}
@@ -271,9 +272,9 @@ public class AdminController {
 	@GetMapping("/socios/update/{id}")
 	public String editarSocio(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("socios", socioService.findAll());
-		Socio sEditar = socioService.findById(id).orElse(null);
-		if (sEditar != null) {
-			model.addAttribute("socio", sEditar);
+		Optional <Socio> sEditar = socioService.findById(id);
+		if (sEditar.isPresent()) {
+			model.addAttribute("socio", sEditar.get());
 			return "formularioSocioAdmin";
 		} else {
 			return "redirect:/admin/socios";
@@ -282,10 +283,10 @@ public class AdminController {
 
 	@GetMapping("/socios/borrar/{id}")
 	public String borrarSocio(@PathVariable("id") long id) {
-		Socio sBorrar = socioService.findById(id).orElse(null);
-		if (sBorrar != null) {
-			if (reservaService.numeroReservasPorSocio(sBorrar) == 0) {
-				socioService.delete(sBorrar);
+		Optional <Socio> sBorrar = socioService.findById(id);
+		if (sBorrar.isPresent()) {
+			if (reservaService.numeroReservasPorSocio(sBorrar.get()) == 0) {
+				socioService.delete(sBorrar.get());
 			} else {
 				return "redirect:/admin/socios/?error=true";
 			}
@@ -328,9 +329,9 @@ public class AdminController {
 	public String updatePista(@PathVariable("id") int id, Model model) {
 		model.addAttribute("pistas", pistaService.findAll());
 		model.addAttribute("deportes", deporteService.findAll());
-		Pista pEditar = pistaService.findById(id).orElse(null);
-		if (pEditar != null) {
-			model.addAttribute("pista", pEditar);
+		Optional <Pista> pEditar = pistaService.findById(id);
+		if (pEditar.isPresent()) {
+			model.addAttribute("pista", pEditar.get());
 			return "formularioPistaAdmin";
 		} else {
 			return "redirect:/admin/pistas";
@@ -339,9 +340,9 @@ public class AdminController {
 
 	@GetMapping("/pistas/borrar/{id}")
 	public String borrarPista(@PathVariable("id") int id) {
-		Pista aBorrar = pistaService.findById(id).orElse(null);
-		if (aBorrar != null) {
-			pistaService.delete(aBorrar);
+		Optional <Pista> aBorrar = pistaService.findById(id);
+		if (aBorrar.isPresent()) {
+			pistaService.delete(aBorrar.get());
 		}
 		return "redirect:/admin/pistas";
 	}
@@ -377,9 +378,9 @@ public class AdminController {
 	@GetMapping("/deportes/update/{id}")
 	public String updateDeporte(@PathVariable("id") int id, Model model) {
 		model.addAttribute("deportes", deporteService.findAll());
-		Deporte dEditar = deporteService.findById(id).orElse(null);
-		if (dEditar != null) {
-			model.addAttribute("deporte", dEditar);
+		Optional <Deporte> dEditar = deporteService.findById(id);
+		if (dEditar.isPresent()) {
+			model.addAttribute("deporte", dEditar.get());
 			return "formularioDeporteAdmin";
 		} else {
 			return "redirect:/admin/deportes";
@@ -388,10 +389,10 @@ public class AdminController {
 
 	@GetMapping("/deportes/borrar/{id}")
 	public String borrarDepor(@PathVariable("id") int id) {
-		Deporte aBorrar = deporteService.findById(id).orElse(null);
-		if (aBorrar != null) {
-			if (pistaService.numeroDePistasPorDeporte(aBorrar.getId()) == 0) {
-				deporteService.delete(aBorrar);
+		Optional <Deporte> aBorrar = deporteService.findById(id);
+		if (aBorrar.isPresent()) {
+			if (pistaService.numeroDePistasPorDeporte(aBorrar.get().getId()) == 0) {
+				deporteService.delete(aBorrar.get());
 			} else {
 				return "redirect:/admin/deportes/?error=true";
 			}
@@ -403,5 +404,20 @@ public class AdminController {
 	public String editDeporteSubmit(@ModelAttribute("deporte") Deporte deporte) {
 		deporteService.edit(deporte);
 		return "redirect:/admin/deportes";
+	}
+	
+	@GetMapping("/general")
+	public String mostrarVistaGeneral(Model model) {
+		List<Socio> top5Socios = socioService.findTop5SociosByReservas();
+		List<Reserva> reservasHoy = reservaService.findReservasHoy();
+		model.addAttribute("reservasHoy", reservasHoy);	    
+		model.addAttribute("top5Socios", top5Socios);
+		model.addAttribute("reservas", reservaService.findAll());
+		model.addAttribute("socios", socioService.findAll());
+		model.addAttribute("pistas", pistaService.findAll());
+		model.addAttribute("socios", deporteService.findAll());
+		model.addAttribute("facturacionMensual", reservaService.calcularFacturacionMensual());
+		model.addAttribute("facturacionAnual", reservaService.calcularFacturacionAnual());
+		return "general";
 	}
 }

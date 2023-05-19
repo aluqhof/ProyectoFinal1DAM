@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+        th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css}" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" th:href="@{/css/general.css}">
+    <title>Panel General</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row flex-nowrap col-12">
+            <nav th:replace="fragments/navAdmin :: menuPanelAdmin"></nav>
+            <div class="col py-3 contenidoDerechaAdmin">
+                <div id="content-wrapper" class="d-flex flex-column">
+
+                    <div id="content">
+                        <div class="container-fluid">
+
+                            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                                <h1 class="h3 mb-0 text-gray-800">General</h1>
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-xl-3 col-md-6 mb-4">
+                                    <div class="card border-left-primary shadow h-100 py-2">
+                                        <div class="card-body">
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col mr-2">
+                                                    <div
+                                                        class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                        Facturación (Este mes)</div>
+                                                    <div class="h5 mb-0 font-weight-bold text-gray-800"
+                                                        th:text="${#numbers.formatDecimal(facturacionMensual, 1, 2)} + '€'">
+                                                        </div>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-3 col-md-6 mb-4">
+                                    <div class="card border-left-success shadow h-100 py-2">
+                                        <div class="card-body">
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col mr-2">
+                                                    <div
+                                                        class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                        Facturación (Este año)</div>
+                                                    <div class="h5 mb-0 font-weight-bold text-gray-800"
+                                                        th:text="${#numbers.formatDecimal(facturacionAnual, 1, 2)} + '€'">
+                                                        </div>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-3 col-md-6 mb-4">
+                                    <div class="card border-left-info shadow h-100 py-2">
+                                        <div class="card-body">
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col mr-2">
+                                                    <div
+                                                        class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                                                        Socios Totales</div>
+                                                    <div class="h5 mb-0 font-weight-bold text-gray-800"
+                                                        th:text="${socios.size()}"></div>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-3 col-md-6 mb-4">
+                                    <div class="card border-left-warning shadow h-100 py-2">
+                                        <div class="card-body">
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col mr-2">
+                                                    <div
+                                                        class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                        Reservas Totales</div>
+                                                    <div class="h5 mb-0 font-weight-bold text-gray-800"
+                                                        th:text="${reservas.size()}"></div>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <div class="col-xl-8 col-lg-7">
+                                    <div class="card shadow mb-4">
+                                        <div
+                                            class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                            <h6 class="m-0 font-weight-bold text-primary">Top 5 Ranking</h6>
+                                        </div>
+                                        <div class="card-body">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Nombre</th>
+                                                        <th>Apellidos</th>
+                                                        <th>Reservas</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr th:each="socio : ${top5Socios}">
+                                                        <td th:text="${socio.nombre}"></td>
+                                                        <td th:text="${socio.apellidos}"></td>
+                                                        <td th:text="${socio.reservas.size()}"></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="col-xl-4 col-lg-5">
+                                    <div class="card shadow mb-4">
+                                        <div
+                                            class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                            <h6 class="m-0 font-weight-bold text-primary">Próximas Reservas</h6>
+                                        </div>
+                                        <div class="card-body">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Hora</th>
+                                                        <th>Socio</th>
+                                                        <th>Pista</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr th:each="reserva : ${reservasHoy}">
+                                                        <td th:text="${reserva.hora_reserva}"></td>
+                                                        <td th:text="${reserva.socio.nombre}"></td>
+                                                        <td
+                                                            th:text="${'Pista '+reserva.pista.numero+' - '+reserva.pista.deporte.nombre}">
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-3 col-md-6 mb-4">
+                                    <a href="/admin/reservas" class="enlaceGeneral" style="text-decoration: none;">
+                                        <div id="cartaReservas"
+                                            class="card border-left-primary shadow py-2 cartaApartado"
+                                            style="height: 150px;">
+                                            <div class="card-body">
+                                                <div class="row no-gutters align-items-center">
+                                                    <div class="col mr-2">
+                                                        <div
+                                                            class="text-xs font-weight-bold text-center text-bg-danger text-uppercase mt-4">
+                                                            Reservas</div>
+                                                    </div>
+                                                    <div class="col-auto">
+                                                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+
+                                <div class="col-xl-3 col-md-6 mb-4">
+                                    <a href="/admin/socios" class="enlaceGeneral" style="text-decoration: none;">
+                                        <div id="cartaSocios" class="card border-left-success shadow py-2 cartaApartado"
+                                            style="height: 150px;">
+                                            <div class="card-body">
+                                                <div class="row no-gutters align-items-center">
+                                                    <div class="col mr-2">
+                                                        <div
+                                                            class="text-xs font-weight-bold text-center text-bg-warning text-uppercase mt-4">
+                                                            Socios</div>
+                                                    </div>
+                                                    <div class="col-auto">
+                                                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+
+                                <div class="col-xl-3 col-md-6 mb-4">
+                                    <a href="/admin/pistas" class="enlaceGeneral" style="text-decoration: none;">
+                                        <div id="cartaPistas" class="card border-left-info shadow py-2 cartaApartado"
+                                            style="height: 150px;">
+                                            <div class="card-body">
+                                                <div class="row no-gutters align-items-center">
+                                                    <div class="col mr-2">
+                                                        <div
+                                                            class="text-xs font-weight-bold text-center text-bg-primary text-uppercase mt-4">
+                                                            Pistas</div>
+                                                    </div>
+                                                    <div class="col-auto">
+                                                        <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+
+                                <div class="col-xl-3 col-md-6 mb-4">
+                                    <a href="/admin/deportes" class="enlaceGeneral" style="text-decoration: none;">
+                                        <div id="cartaDeportes"
+                                            class="card border-left-warning shadow py-2 cartaApartado"
+                                            style="height: 150px;">
+                                            <div class="card-body">
+                                                <div class="row no-gutters align-items-center">
+                                                    <div class="col mr-2">
+                                                        <div
+                                                            class="text-xs font-weight-bold text-center text-bg-success text-uppercase mt-4">
+                                                            Deportes
+                                                        </div>
+                                                        <div class="col-auto">
+                                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    </div>
+</body>
+
+</html>

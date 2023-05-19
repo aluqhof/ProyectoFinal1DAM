@@ -22,8 +22,9 @@ return resultado;
 let fechaReserva = document.getElementById("addReservaFecha");
 let horaReserva = document.getElementById("addReservaHora");
 function validarFecha() {
-    let fecha = new Date(fechaReserva.value);
     let hoy = new Date();
+    hoy.setHours(0,0,0,0);
+    let fecha = new Date(fechaReserva.value);
 
     if (fecha < hoy) {
         fechaReserva.focus();
