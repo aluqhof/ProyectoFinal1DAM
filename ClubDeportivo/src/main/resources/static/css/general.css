@@ -285,7 +285,7 @@
         height: 100vh;
     }
 }
-    
+
 .botonOrdenar {
     background: none;
     border: none;
@@ -294,7 +294,7 @@
     cursor: pointer;
     font-size: inherit;
     color: inherit;
-  }
+}
 
 .mostrarReservas {
     height: 40px;
@@ -356,43 +356,126 @@ select.round:focus {
     outline: 0;
 }
 
-#cartaDeportes{
+#cartaDeportes {
     background-image: url('../img/reserva.jpg');
     background-size: cover;
     font-weight: 600;
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-#cartaPistas{
+#cartaPistas {
     background-image: url('../img/pista.jpg');
     background-size: cover;
     background-position: center;
     font-weight: 600;
 }
 
-#cartaSocios{
+#cartaSocios {
     background-image: url('../img/socios.jpg');
     background-size: cover;
     background-position: center;
     font-weight: 600;
 }
 
-#cartaReservas{
+#cartaReservas {
     background-image: url('../img/reservas.jpg');
     background-size: cover;
     background-position: center;
     font-weight: 600;
 }
 
-.enlaceGeneral:hover .cartaApartado{
+.enlaceGeneral:hover .cartaApartado {
     transform: scale(1.05);
 }
 
-.enlaceReserva{
+.enlaceReserva {
     color: white;
     text-decoration: none;
 }
 
-.enlaceReserva:hover td{
+.enlaceReserva:hover td {
     transform: scale(1.1);
+}
+
+/*Estilos confirmacion reserva*/
+.section {
+    background: #ffffff;
+}
+
+#progressbar-1 {
+    color: #455A64;
+}
+
+#progressbar-1 li {
+    list-style-type: none;
+    font-size: 13px;
+    width: 33.33%;
+    float: left;
+    position: relative;
+}
+
+#progressbar-1 #step1:before {
+    content: "1";
+    color: #fff;
+    width: 29px;
+    margin-left: 22px;
+    padding-left: 11px;
+}
+
+#progressbar-1 #step2:before {
+    content: "2";
+    color: #fff;
+    width: 29px;
+}
+
+#progressbar-1 #step3:before {
+    content: "3";
+    color: #fff;
+    width: 29px;
+    margin-right: 22px;
+    text-align: center;
+}
+
+#progressbar-1 li:before {
+    line-height: 29px;
+    display: block;
+    font-size: 12px;
+    background: #455A64;
+    border-radius: 50%;
+    margin: auto;
+}
+
+#progressbar-1 li:after {
+    content: '';
+    width: 121%;
+    height: 2px;
+    background: #455A64;
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    top: 15px;
+    z-index: -1;
+}
+
+#progressbar-1 li:nth-child(2):after {
+    left: 50%
+}
+
+#progressbar-1 li:nth-child(1):after {
+    left: 25%;
+    width: 121%
+}
+
+#progressbar-1 li:nth-child(3):after {
+    left: 25%;
+    width: 50%;
+}
+
+#progressbar-1 li.active:before,
+#progressbar-1 li.active:after {
+    background: #1266f1;
+}
+
+.card-stepper {
+    z-index: 0
 }

@@ -49,8 +49,11 @@
                     </thead>
                     <tbody>
                         <tr th:each="i, iStat : ${pistasHoras}">
-                            <td th:class="${item ? 'Ocupado bg-danger' : 'Disponible bg-success'}" th:each="item: ${i}">
-                                <a class="enlaceReserva" href="" th:if="${!item}"><span th:value="${item}"
+                            <td th:class="${item ? 'Ocupado bg-danger' : 'Disponible bg-success'}"
+                                th:each="item, pistaIndex: ${i}">
+                                <a class="enlaceReserva"
+                                    th:href="@{/reserva-pista(idDeporte=${idDeporte}, dia=${dia}, hora=${horas[iStat.index]}, numPista=${pistaIndex.index + 1})}"
+                                    th:if="${!item}"><span th:value="${item}"
                                         th:text="${'Reservar a las '+horas[iStat.index]}"></span></a>
                             </td>
                         </tr>
@@ -64,9 +67,10 @@
                                         <input type="hidden" name="idDeporte" th:value="${idDeporte}">
                                         <input type="hidden" name="dia" th:value="${diaAnterior}">
                                         <input type="submit" class="btn btn-primary mostrarReservas"
-                                        value="Anterior día">
+                                            value="Anterior día">
                                     </form>
-                                    <form th:action="@{/disponibilidad}" style="float: inline-end;" method="get" th:if="${mostrarBotonSiguiente}">
+                                    <form th:action="@{/disponibilidad}" style="float: inline-end;" method="get"
+                                        th:if="${mostrarBotonSiguiente}">
                                         <input type="hidden" name="idDeporte" th:value="${idDeporte}">
                                         <input type="hidden" name="dia" th:value="${diaSiguiente}">
                                         <input type="submit" class="btn btn-primary mostrarReservas"

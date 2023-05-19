@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.salesianos.triana.dam.clubDeportivo.model.Deporte;
+import com.salesianos.triana.dam.clubDeportivo.model.Pista;
 import com.salesianos.triana.dam.clubDeportivo.model.Reserva;
 import com.salesianos.triana.dam.clubDeportivo.model.Socio;
 import com.salesianos.triana.dam.clubDeportivo.service.DeporteService;
@@ -84,7 +85,7 @@ public class ReservaController {
 
 		if (LocalDate.now().isAfter(diaAnterior)) {
 			model.addAttribute("mostrarBotonAnterior", false);
-		} else {
+		} else { //tiene que salir excepcion si lo ponen en el navegador
 			model.addAttribute("mostrarBotonAnterior", true);
 		}
 
@@ -111,8 +112,17 @@ public class ReservaController {
 	}
 
 	@GetMapping("/reserva-pista")
-	public String verFormularioReserva(Model model) {
+	public String verFormularioReserva(@RequestParam("idDeporte") int idDeporte,
+            @RequestParam("dia") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dia,
+            @RequestParam("hora") @DateTimeFormat(pattern = "HH:mm") LocalTime hora,
+            @RequestParam("numPista") int numPista, Model model) {
 		Reserva reserva = new Reserva();
+		Pista pista = pistaService.findByNumeroAndDeporte(numPista, deporteService.findById(idDeporte).get());
+		reserva.setPista(pista);
+		reserva.setFecha_reserva(dia);
+		reserva.setHora_reserva(hora);
+		service.calcularPrecio(reserva);
+		System.out.println(reserva);
 		model.addAttribute("pistas", pistaService.findAll());
 		model.addAttribute("deportes", deporteService.findAll());
 		model.addAttribute("reserva", reserva);
@@ -123,9 +133,7 @@ public class ReservaController {
 	@PostMapping("/reserva-pista/nuevo")
 	public String agregarReservaUser(@ModelAttribute("reserva") Reserva reserva, Model model,
 			@AuthenticationPrincipal Socio s) {
-		model.addAttribute("pistas", pistaService.findAll());
-		model.addAttribute("deportes", deporteService.findAll());
-		model.addAttribute("nombre", s.getNombre());
+		System.out.println(reserva);
 		if (service.isHoraDisponible(reserva.getHora_reserva(), reserva.getFecha_reserva(),
 				reserva.getPista().getId())) {
 			reserva.setSocio(s);
@@ -141,6 +149,9 @@ public class ReservaController {
 					"La pista no esta disponible a esa hora, intenta escoger otra pista o buscar otra hora");
 			return "formularioReserva";
 		}
+		model.addAttribute("pistas", pistaService.findAll());
+		model.addAttribute("deportes", deporteService.findAll());
+		model.addAttribute("nombre", s.getNombre());
 		return "confirmacionReserva";
 	}
 
