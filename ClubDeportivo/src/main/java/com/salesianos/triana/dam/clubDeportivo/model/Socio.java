@@ -33,17 +33,15 @@ public class Socio extends Usuario{
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate fecha_alta;
-	private double cuota;
 
 	
-	public Socio(Long id, String username, String password,String nombre, String apellidos, String telefono, LocalDate fecha_alta, double cuota,
+	public Socio(Long id, String username, String password,String nombre, String apellidos, String telefono, LocalDate fecha_alta,
 			List<Reserva> reservas) {
 		super(id, username, password);
 		this.nombre = nombre;
 		this.apellidos = apellidos;
 		this.telefono = telefono;
 		this.fecha_alta = fecha_alta;
-		this.cuota = cuota;
 		this.reservas = reservas;
 	}
 

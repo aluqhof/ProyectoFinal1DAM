@@ -15,8 +15,7 @@ function validarFormulario(event) {
         validarApellidos() &&
         validarEmail() &&
         validarTelefono() &&
-        validarFechaAlta() &&
-        validarCuota();
+        validarFechaAlta();
 
         if (!resultado) {
             event.preventDefault();
@@ -78,17 +77,6 @@ function validarFechaAlta() {
         return false;
     }
     document.getElementById("addSocioFechaAlta").nextElementSibling.hidden = true;
-    return true;
-}
-
-function validarCuota() {
-    let cuota = document.getElementById("addSocioCuota").value;
-    if (cuota < 0) {
-        document.getElementById("addSocioCuota").focus();
-        document.getElementById("addSocioCuota").nextElementSibling.hidden = false;
-        return false;
-    }
-    document.getElementById("addSocioCuota").nextElementSibling.hidden = true;
     return true;
 }
 
