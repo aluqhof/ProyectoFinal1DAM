@@ -53,7 +53,7 @@ function validarHora() {
     }
 
     // Verificar que la hora de reserva esté dentro del horario de apertura del club deportivo
-    if (hora < "09:00" || hora > "21:00") {
+    if (hora < "07:00" || hora > "21:00") {
         horaReserva.focus();
         horaReserva.nextElementSibling.hidden = false;
         return false;
