@@ -89,8 +89,7 @@ public class ReservaService extends BaseServiceImp<Reserva, Long, ReservaReposit
 		return repositorio.findAllReservasDelDiaActual();
 	}
 
-	public List<Reserva> findReservasHoyYDeporte(int idDeporte) {
-		LocalDate dia = LocalDate.now();
+	public List<Reserva> findReservasHoyYDeporte(int idDeporte, LocalDate dia) {
 		return repositorio.findByFechaReservaHoyYDeporte(dia, idDeporte);
 	}
 

@@ -343,3 +343,16 @@ select.round:focus {
     color: black;
     font-weight: 700;
 }
+
+.pasado{
+    background-color: #aaaaaa;
+}
+
+@media screen and (max-width: 575px) {
+    .cambiarDia {
+        font-size: 0.5em;
+    }
+    .leyenda{
+        font-size: 0.7em;
+    }
+}

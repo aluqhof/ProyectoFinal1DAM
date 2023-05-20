@@ -37,7 +37,8 @@
                                         <p class="text-muted" th:text="${reserva.pista.deporte.nombre}"></p>
                                         <h4 class="mb-3"
                                             th:text="${#numbers.formatDecimal(reserva.precio_reserva, 1, 2)} + '€'">
-                                            <span class="small text-muted"> via (COD) </span></h4>
+                                            <span class="small text-muted"> via (COD) </span>
+                                        </h4>
                                         <p class="text-muted">Fecha de reserva: <span class="text-body"
                                                 th:text="${#temporals.format(reserva.fecha_reserva, 'dd/MM/yyyy')}"></span>
                                         </p>
@@ -50,6 +51,12 @@
                                             width="250">
                                     </div>
                                 </div>
+                                <div class="alert alert-warning alert-dismissible fade show" role="alert"
+                                    th:if="${error}">
+                                    <span th:text="${error}"></span> <a href="/disponibilidad">Volver</a>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                                </div>
                             </div>
                             <div class="card-footer p-4 text-center">
                                 <form th:action="@{/reserva-pista/nuevo}" method="POST" th:object="${reserva}">
@@ -58,7 +65,7 @@
                                     <input type="hidden" th:field="*{hora_reserva}" />
                                     <input type="hidden" th:field="*{pista}" />
                                     <input type="submit" class="btn btn-primary" value="Confirmar Reserva">
-                                </form>                              
+                                </form>
                             </div>
                         </div>
                     </div>

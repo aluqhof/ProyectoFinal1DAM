@@ -35,6 +35,10 @@
                 </form>
             </div>
         </div>
+        <div class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${error}">
+            <span th:text="${error}"></span> <a href="/disponibilidad">Volver</a>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
         <div class="container" th:fragment="calendario">
             <div class="table-responsive">
                 <table class="table table-bordered text-center tablaDisponibilidad">
@@ -45,18 +49,20 @@
                                     <form th:action="@{/disponibilidad}" method="get" th:if="${mostrarBotonAnterior}">
                                         <input type="hidden" name="idDeporte" th:value="${idDeporte}">
                                         <input type="hidden" name="dia" th:value="${diaAnterior}">
-                                        <button type="submit" class="btn btn-primary mostrarReservas">
+                                        <button type="submit" class="btn btn-primary cambiarDia">
                                             <i class="bi bi-arrow-bar-left"></i> Anterior
                                         </button>
                                     </form>
-                                    <div class="position-relative" style="width: 40%; text-align: center; margin: 0 auto;">
-                                        <span class="text-center" th:text="${#temporals.format(dia, 'dd/MM/yyyy')+ ' - ' +deporte.nombre}"></span>
+                                    <div class="position-relative"
+                                        style="width: 40%; text-align: center; margin: 0 auto;">
+                                        <span class="text-center"
+                                            th:text="${#temporals.format(dia, 'dd/MM/yyyy')+ ' - ' +deporte.nombre}"></span>
                                     </div>
                                     <form th:action="@{/disponibilidad}" style="float: inline-end;" method="get"
                                         th:if="${mostrarBotonSiguiente}">
                                         <input type="hidden" name="idDeporte" th:value="${idDeporte}">
                                         <input type="hidden" name="dia" th:value="${diaSiguiente}">
-                                        <button type="submit" class="btn btn-primary mostrarReservas">
+                                        <button type="submit" class="btn btn-primary cambiarDia">
                                             Siguiente <i class="bi bi-arrow-bar-right"></i>
                                         </button>
                                     </form>
@@ -64,22 +70,46 @@
                             </th>
                         </tr>
                         <tr class="bg-light-gray">
+                            <th class="text-uppercase">Hora</th>
                             <th class="text-uppercase" th:each="pista : ${pistas}" th:text="${'Pista ' + pista.numero}">
                             </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr th:each="i, iStat : ${pistasHoras}">
-                            <td th:class="${item ? 'Ocupado bg-danger' : 'Disponible bg-success'}"
+                            <td th:text="${horas[iStat.index]}"></td>
+                            <td th:class="${item ? 'Ocupado bg-danger' : (dia.getDayOfWeek().getValue() == 7 ? 'pasado bg-secondary' : (dia < hoy || (dia == hoy && horaActual > horas[iStat.index]) ? 'pasado bg-secondary' : 'Disponible bg-success'))}"
                                 th:each="item, pistaIndex: ${i}">
                                 <a class="enlaceReserva"
                                     th:href="@{/reserva-pista(idDeporte=${idDeporte}, dia=${dia}, hora=${horas[iStat.index]}, numPista=${pistaIndex.index + 1})}"
-                                    th:if="${!item}"><span th:value="${item}"
-                                        th:text="${'Reservar a las '+horas[iStat.index]}"></span></a>
+                                    th:if="${!item && (dia.getDayOfWeek().getValue() != 7 && (dia > hoy || (dia == hoy && horaActual < horas[iStat.index])))}"
+                                    th:text="${'Reservar a las '+horas[iStat.index]}" sec:authorize="hasRole('ROLE_USER')"></span></a>
                             </td>
                         </tr>
                     </tbody>
                 </table>
+            </div>
+        </div>
+        <div class="container mb-4">
+            <div class="row leyenda">
+                <div class="col">
+                    <div class="d-flex align-items-center">
+                        <span class="color-box bg-danger text-danger mx-2">IIII</span>
+                        <span>Ocupado</span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="d-flex align-items-center">
+                        <span class="color-box bg-secondary text-secondary mx-2">IIII</span>
+                        <span>No disponible</span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="d-flex align-items-center">
+                        <span class="color-box bg-success text-success mx-2"> IIII</span>
+                        <span>Disponible</span>
+                    </div>
+                </div>
             </div>
         </div>
     </main>

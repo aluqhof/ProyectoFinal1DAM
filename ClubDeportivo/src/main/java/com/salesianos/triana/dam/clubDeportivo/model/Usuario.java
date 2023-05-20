@@ -66,5 +66,9 @@ public abstract class Usuario implements UserDetails{
 		// TODO Auto-generated method stub
 		return true;
 	}
+	
+	public boolean puedeReservar() {
+        return !(this instanceof Admin);
+    }
 
 }
