@@ -1,10 +1,13 @@
 package com.salesianos.triana.dam.clubDeportivo.controller;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -13,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -25,6 +29,7 @@ import com.salesianos.triana.dam.clubDeportivo.service.DeporteService;
 import com.salesianos.triana.dam.clubDeportivo.service.EmailSenderService;
 import com.salesianos.triana.dam.clubDeportivo.service.PistaService;
 import com.salesianos.triana.dam.clubDeportivo.service.ReservaService;
+import com.salesianos.triana.dam.clubDeportivo.service.SocioService;
 
 @Controller
 public class ReservaController {
@@ -37,28 +42,156 @@ public class ReservaController {
 	private PistaService pistaService;
 	@Autowired
 	private EmailSenderService emailService;
+	@Autowired
+	private SocioService socioService;
 
-	/*
-	 * @GetMapping("/disponibilidad") public String mostrarReservasCalendario(Model
-	 * model, @RequestParam(defaultValue = "1") int idDeporte) { //meter tambien dia
-	 * int numeroPistas =
-	 * deporteService.findById(idDeporte).get().getPistas().size(); int numeroHoras
-	 * = 15; List<Integer> pistas = new ArrayList<>(); List<Reserva> reservas =
-	 * service.findReservasHoyYDeporte(idDeporte); LocalDate hoy=LocalDate.now();
-	 * List<LocalTime> horas = new ArrayList<>(); LocalTime horaInicial =
-	 * LocalTime.of(7, 0);
-	 * 
-	 * for (int i = 0; i < numeroHoras; i++) { horas.add(horaInicial.plusHours(i));
-	 * }
-	 * 
-	 * for (int i = 0; i < numeroPistas; i++) { int pista = i + 1;
-	 * pistas.add(pista); }
-	 * 
-	 * model.addAttribute("pistas", pistaService.findAll());
-	 * model.addAttribute("reservas", reservas); model.addAttribute("horas", horas);
-	 * model.addAttribute("pistas", pistas); model.addAttribute("idDeporte",
-	 * idDeporte); model.addAttribute("dia", hoy); return "disponibilidad"; }
-	 */
+	@GetMapping("/admin/reservas")
+	public String showReservas(Model model) {
+
+		model.addAttribute("reservas", service.findAll());
+		model.addAttribute("deportes", deporteService.findAll());
+		model.addAttribute("pistas", pistaService.findAll());
+		model.addAttribute("socios", socioService.findAll());
+		model.addAttribute("reserva", new Reserva());
+		return "reservas";
+	}
+	
+	@GetMapping("/admin/reservas/add")
+	public String addReserva(Model model) {
+		model.addAttribute("reservas", service.findAll());
+		model.addAttribute("deportes", deporteService.findAll());
+		model.addAttribute("pistas", pistaService.findAll());
+		model.addAttribute("socios", socioService.findAll());
+		Reserva reserva = new Reserva();
+		model.addAttribute("reserva", reserva);
+		return "formularioReservaAdmin";
+	}
+
+	@GetMapping("/admin/reservas/update/{id}")
+	public String updateReserva(@PathVariable("id") Long id, Model model) {
+		model.addAttribute("reservas", service.findAll());
+		model.addAttribute("deportes", deporteService.findAll());
+		model.addAttribute("pistas", pistaService.findAll());
+		model.addAttribute("socios", socioService.findAll());
+		Optional <Reserva> rEditar = service.findById(id);
+		if (rEditar.isPresent()) {
+			model.addAttribute("reserva", rEditar.get());
+			return "formularioReservaAdmin";
+		} else {
+			return "redirect:/admin/reservas";
+		}
+	}
+
+	@GetMapping("/admin/reservas/borrar/{id}")
+	public String borrarReserva(@PathVariable("id") long id) {
+		Optional <Reserva> aBorrar = service.findById(id);
+		if (aBorrar.isPresent()) {
+			service.delete(aBorrar.get());
+		}
+		return "redirect:/admin/reservas";
+	}
+
+	@PostMapping("/admin/reservas/add/submit")
+	public String addReservaSubmit(@ModelAttribute("reserva") Reserva reserva, Model model) {
+		model.addAttribute("deportes", deporteService.findAll());
+		model.addAttribute("pistas", pistaService.findAll());
+		model.addAttribute("socios", socioService.findAll());
+		service.calcularPrecio(reserva);
+		if (!service.isHoraDisponible(reserva.getHora_reserva(), reserva.getFecha_reserva(),
+				reserva.getPista().getId())) {
+			model.addAttribute("error", "La pista no esta disponible, por favor escoge otra opción.");
+			return "formularioReservaAdmin";
+		}
+		service.add(reserva);
+		return "redirect:/admin/reservas";
+	}
+
+	@PostMapping("/admin/reservas/edit/submit")
+	public String editReservaSubmit(@ModelAttribute("reserva") Reserva reserva, Model model) {
+		model.addAttribute("deportes", deporteService.findAll());
+		model.addAttribute("pistas", pistaService.findAll());
+		model.addAttribute("socios", socioService.findAll());
+		service.calcularPrecio(reserva);
+		if (!service.isHoraDisponible(reserva.getHora_reserva(), reserva.getFecha_reserva(),
+				reserva.getPista().getId())) {
+			model.addAttribute("error", "La pista no esta disponible, por favor escoge otra opción.");
+			return "formularioReservaAdmin";
+		}
+		service.edit(reserva);
+		return "redirect:/admin/reservas";
+	}
+
+	@GetMapping("/admin/reservas/ordenar")
+	public String ordenarReservasPorFecha(@RequestParam("criterio") String criterio, Model model) {
+		List<Reserva> reservas;
+
+		switch (criterio) {
+		case "fecha_reserva":
+			reservas = service.orderByFechaDesc();
+			break;
+		case "id":
+			reservas = service.findAll();
+			break;
+		default:
+			reservas = new ArrayList<>();
+			break;
+		}
+
+		model.addAttribute("reservas", reservas);
+		return "reservas";
+	}
+
+	@GetMapping("/admin/reservas/calendario")
+	public String mostrarReservasCalendario(Model model, @RequestParam(defaultValue = "1") int idPista) {
+		int numeroDias = 6;
+		int numeroHoras = 15;
+		List<Reserva> reservas = service.findReservasEstaSemanaYPista(idPista);
+		List<LocalTime> horas = new ArrayList<>();
+		LocalTime horaInicial = LocalTime.of(7, 0);
+		for (int i = 0; i < numeroHoras; i++) {
+			horas.add(horaInicial.plusHours(i));
+		}
+		LocalDate fechaActual = LocalDate.now();
+		List<LocalDate> dias = new ArrayList<>();
+		for (int i = 0; i < numeroDias; i++) {
+			LocalDate diaSemana = fechaActual.with(DayOfWeek.of(i + 1));
+			dias.add(diaSemana);
+		}
+		model.addAttribute("pistas", pistaService.findAll());
+		model.addAttribute("reservas", reservas);
+		model.addAttribute("horas", horas);
+		model.addAttribute("dias", dias);
+		model.addAttribute("idPista", idPista);
+
+		return "calendarioEstaSemana";
+	}
+
+	@GetMapping("/admin/reservas/calendario/semana2")
+	public String mostrarReservasCalendarioSemana2(Model model, @RequestParam(defaultValue = "1") int idPista) {
+		int numeroDias = 6;
+		int numeroHoras = 15;
+		List<Reserva> reservas = service.findReservasProximaSemanaYPista(idPista);
+		List<LocalTime> horas = new ArrayList<>();
+		LocalTime horaInicial = LocalTime.of(7, 0);
+		for (int i = 0; i < numeroHoras; i++) {
+			horas.add(horaInicial.plusHours(i));
+		}
+		LocalDate hoy = LocalDate.now();
+		LocalDate inicioProximaSemana = hoy.with(TemporalAdjusters.next(DayOfWeek.MONDAY));
+		List<LocalDate> dias = new ArrayList<>();
+		for (int i = 0; i < numeroDias; i++) {
+			LocalDate diaSemana = inicioProximaSemana.with(DayOfWeek.of(i + 1));
+			dias.add(diaSemana);
+		}
+
+		model.addAttribute("pistas", pistaService.findAll());
+		model.addAttribute("reservas", reservas);
+		model.addAttribute("horas", horas);
+		model.addAttribute("dias", dias);
+		model.addAttribute("idPista", idPista);
+
+		return "calendarioProximaSemana";
+	}
 
 	@GetMapping("/disponibilidad")
 	public String mostrarReservasCalendario(Model model, @RequestParam(defaultValue = "1") int idDeporte,
