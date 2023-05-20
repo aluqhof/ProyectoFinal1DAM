@@ -72,7 +72,11 @@
                                                         </div>
 
                                                         <div class="modal-body bg-white">
-                                                            <p class="text-dark mb-4">¿Quieres borrar esta pista?</p>
+                                                            <div class="alert alert-danger alert-dismissible fade show"
+                                                                role="alert">
+                                                                <span>¡Atención! Si borras una pista se borraran todas
+                                                                    las pistas asociadas a ella</span>
+                                                            </div>
                                                             <div class="d-grid gap-2">
                                                                 <a class="btn btn-danger btn-lg"
                                                                     th:href="@{/admin/pistas/borrar/{id}(id=${pista.id})}">

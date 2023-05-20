@@ -14,6 +14,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -47,16 +50,8 @@ public class Pista {
     @ToString.Exclude
 	@EqualsAndHashCode.Exclude
 	@Builder.Default
-    @OneToMany(mappedBy = "pista", cascade = CascadeType.REMOVE, orphanRemoval = true)//fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true
+    @OneToMany(mappedBy = "pista", cascade = CascadeType.ALL, orphanRemoval = true)//fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Reserva> reservas = new ArrayList<>();
     
-	public void addToDeporte(Deporte deporte) {
-		this.deporte=deporte;
-		deporte.getPistas().add(this);
-	}
-	
-	public void removeFromDeporte(Deporte deporte) {
-		deporte.getPistas().remove(this);
-		this.deporte=null;
-	}
 }
