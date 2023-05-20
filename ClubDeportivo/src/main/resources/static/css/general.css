@@ -159,12 +159,12 @@
 
 /*Estilos para el formulario de registro*/
 
-#booking {
+body{
     font-family: 'Montserrat', sans-serif;
 }
 
 
-.booking-form {
+.tablaDisponibilidad {
     background-color: #fff;
     padding: 50px 20px;
     -webkit-box-shadow: 0px 5px 20px -5px rgba(0, 0, 0, 0.3);
@@ -172,58 +172,6 @@
     border-radius: 4px;
     min-width: 300px;
     margin-bottom: 50px;
-}
-
-.booking-form .form-group {
-    position: relative;
-    margin-bottom: 30px;
-}
-
-.booking-form .form-control {
-    background-color: #ebecee;
-    border-radius: 4px;
-    border: none;
-    height: 40px;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-    color: #3e485c;
-    font-size: 14px;
-}
-
-.booking-form .form-control::-webkit-input-placeholder {
-    color: rgba(62, 72, 92, 0.3);
-}
-
-.booking-form .form-control:-ms-input-placeholder {
-    color: rgba(62, 72, 92, 0.3);
-}
-
-.booking-form .form-control::placeholder {
-    color: rgba(62, 72, 92, 0.3);
-}
-
-.booking-form input[type="date"].form-control:invalid {
-    color: rgba(62, 72, 92, 0.3);
-}
-
-.booking-form select.form-control+.select-arrow {
-    position: absolute;
-    right: 0px;
-    bottom: 4px;
-    width: 32px;
-    line-height: 32px;
-    height: 32px;
-    text-align: center;
-    pointer-events: none;
-    color: rgba(62, 72, 92, 0.3);
-    font-size: 14px;
-}
-
-.booking-form select.form-control+.select-arrow:after {
-    content: '\279C';
-    display: block;
-    -webkit-transform: rotate(90deg);
-    transform: rotate(90deg);
 }
 
 .booking-form .form-label {
@@ -246,26 +194,9 @@
     transition: 0.2s all;
 }
 
-.booking-form .submit-btn:hover,
-.booking-form .submit-btn:focus {
+.tablaDisponibilidad .submit-btn:hover,
+.tablaDisponibilidad .submit-btn:focus {
     opacity: 0.9;
-}
-
-.booking-cta {
-    margin-top: 50px;
-    margin-bottom: 30px;
-}
-
-.booking-cta h1 {
-    font-size: 52px;
-    text-transform: uppercase;
-    color: black;
-    font-weight: 700;
-}
-
-.booking-cta p {
-    font-size: 16px;
-    color: rgba(255, 255, 255, 0.8);
 }
 
 .indicadorPrecio {
@@ -285,7 +216,7 @@
         height: 100vh;
     }
 }
-    
+
 .botonOrdenar {
     background: none;
     border: none;
@@ -294,7 +225,7 @@
     cursor: pointer;
     font-size: inherit;
     color: inherit;
-  }
+}
 
 .mostrarReservas {
     height: 40px;
@@ -356,34 +287,72 @@ select.round:focus {
     outline: 0;
 }
 
-#cartaDeportes{
+#cartaDeportes {
     background-image: url('../img/reserva.jpg');
     background-size: cover;
     font-weight: 600;
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-#cartaPistas{
+#cartaPistas {
     background-image: url('../img/pista.jpg');
     background-size: cover;
     background-position: center;
     font-weight: 600;
 }
 
-#cartaSocios{
+#cartaSocios {
     background-image: url('../img/socios.jpg');
     background-size: cover;
     background-position: center;
     font-weight: 600;
 }
 
-#cartaReservas{
+#cartaReservas {
     background-image: url('../img/reservas.jpg');
     background-size: cover;
     background-position: center;
     font-weight: 600;
 }
 
-.enlaceGeneral:hover .cartaApartado{
+.enlaceGeneral:hover .cartaApartado {
     transform: scale(1.05);
+}
+
+.enlaceReserva {
+    color: white;
+    text-decoration: none;
+}
+
+.enlaceReserva:hover td {
+    transform: scale(1.1);
+}
+
+.section {
+    background: #ffffff;
+}
+
+.card-stepper {
+    z-index: 0
+}
+
+.disponibilidad h1 {
+    margin-top: 30px;
+    font-size: 52px;
+    text-transform: uppercase;
+    color: black;
+    font-weight: 700;
+}
+
+.pasado{
+    background-color: #aaaaaa;
+}
+
+@media screen and (max-width: 575px) {
+    .cambiarDia {
+        font-size: 0.5em;
+    }
+    .leyenda{
+        font-size: 0.7em;
+    }
 }

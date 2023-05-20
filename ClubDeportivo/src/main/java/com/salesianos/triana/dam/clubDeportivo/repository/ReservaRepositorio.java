@@ -20,8 +20,12 @@ public interface ReservaRepositorio extends JpaRepository <Reserva, Long>{
 	
 	@Query("SELECT SUM(r.precio_reserva) FROM Reserva r WHERE YEAR(r.fecha_reserva) = YEAR(CURRENT_DATE())")
 	public Double calcularFacturacionAnual();
+	
 	@Query("SELECT r FROM Reserva r WHERE r.fecha_reserva BETWEEN :inicio AND :fin AND r.pista.id = :idPista")
 	public List<Reserva> findByFechaReservaEntreYPista(@Param("inicio") LocalDate inicio, @Param("fin") LocalDate fin, @Param("idPista") int idPista);
+	
+	@Query("SELECT r FROM Reserva r WHERE r.fecha_reserva = :dia AND r.pista.deporte.id = :idDeporte")
+	public List<Reserva> findByFechaReservaHoyYDeporte(@Param("dia") LocalDate dia, @Param("idDeporte") int idDeporte);
 	
 	@Query("SELECT r FROM Reserva r ORDER BY r.fecha_reserva DESC")
 	public List<Reserva> findByFechaReservaDesc();

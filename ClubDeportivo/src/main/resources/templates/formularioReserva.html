@@ -17,93 +17,61 @@
 <body>
     <header th:replace="~{fragments/encabezado :: encabezado}"></header>
     <main>
-        <div id="booking" class="section">
-            <div class="section-center">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-7 col-md-push-5">
-                            <div class="booking-cta">
-                                <h1>Haz tu reserva</h1>
-                                <p>Haz tu reserva con nosotros
-                                </p>
+        <section class="vh-100 section">
+            <div class="container py-5 h-100">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col-md-10 col-lg-8 col-xl-6">
+                        <div class="card card-stepper" style="border-radius: 16px;">
+                            <div class="card-header p-4">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <p class="text-muted mb-2">Lugar: <span class="fw-bold text-body">Club Deportivo
+                                                Pista Central</span></p>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-4 col-md-pull-7">
-                            <div class="booking-form mt-md-5">
-                                <form method="POST" th:action="@{/reserva-pista/nuevo}" th:object="${reserva}"
-                                    id="formularioReserva">
+                            <div class="card-body p-4">
+                                <div class="d-flex flex-row mb-4 pb-2">
+                                    <div class="flex-fill">
+                                        <h5 class="bold">Reserva</h5>
+                                        <p class="text-muted" th:text="${reserva.pista.deporte.nombre}"></p>
+                                        <h4 class="mb-3"
+                                            th:text="${#numbers.formatDecimal(reserva.precio_reserva, 1, 2)} + '€'">
+                                            <span class="small text-muted"> via (COD) </span>
+                                        </h4>
+                                        <p class="text-muted">Fecha de reserva: <span class="text-body"
+                                                th:text="${#temporals.format(reserva.fecha_reserva, 'dd/MM/yyyy')}"></span>
+                                        </p>
+                                        <p class="text-muted">Hora de reserva: <span class="text-body"
+                                                th:text="${reserva.hora_reserva}"></span></p>
+                                    </div>
+                                    <div>
+                                        <img class="align-self-center img-fluid"
+                                            src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/6.webp"
+                                            width="250">
+                                    </div>
+                                </div>
+                                <div class="alert alert-warning alert-dismissible fade show" role="alert"
+                                    th:if="${error}">
+                                    <span th:text="${error}"></span> <a href="/disponibilidad">Volver</a>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                                </div>
+                            </div>
+                            <div class="card-footer p-4 text-center">
+                                <form th:action="@{/reserva-pista/nuevo}" method="POST" th:object="${reserva}">
                                     <input type="hidden" th:field="*{socio}" />
-                                    <div class="form-group">
-                                        <span class="form-label">Deporte</span>
-                                        <select class="form-select" id="addDeporte" th:field="*{pista.deporte}"
-                                            required>
-                                            <option value="">Selecciona un deporte</option>
-                                            <option th:each="deporte : ${deportes}" th:value="${deporte.id}"
-                                                th:text="${deporte.nombre}"></option>
-                                        </select>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <span class="form-label">Fecha</span>
-                                                <input class="form-control" id="addFechaReserva" type="date"
-                                                    th:field="*{fecha_reserva}" required>
-                                                <p class="errorForm">"La fecha seleccionada no es válida. Por favor,
-                                                    verifica que no sea un domingo, tampoco se puede hacer una reserva para
-                                                    un plazo mayor de 14 días.</p>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <span
-                                                    class="form-label">Hora</span><!--Tiene que ir asociado con el horario-->
-                                                <input class="form-control" id="addHoraReserva" type="time"
-                                                    th:field="*{hora_reserva}" step="3600" min="07:00" max="21:00"
-                                                    required>
-                                                <p class="errorForm">La hora seleccionada no es válida. Por favor, elige
-                                                    una hora que sea al menos 10 minutos mayor que la hora actual.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="form-group" style="display: none;" id="pistaContainer">
-                                                <span class="form-label" th:disabled="${#lists.isEmpty(pistas)}">Pista</span>
-                                                <select id="addPista" class="form-select" th:field="*{pista}" required
-                                                    th:disabled="${#lists.isEmpty(pistas)}">
-                                                    <option value=""></option>
-                                                    <option th:each="pista : ${pistas}" th:value="${pista.id}"
-                                                        th:text="${'Pista' + ' - ' + pista.numero}"
-                                                        th:data-deporte-id="${pista.deporte.id}" th:data-precio="${pista.precio}"
-                                                         th:data-hora_aumento_precio="${pista.hora_aumento_precio}" th:data-aumento_precio="${pista.aumento_precio}">
-                                                    </option>></option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-group text-end" style="display: none;" id="precioContainer">
-                                                <p class="indicadorPrecio form-label" style="color: red;">Precio: <span id="precioPista"></span></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${error}">
-                                        <span th:text="${error}"></span>
-                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                    </div>
-                                    <div class="form-btn text-center" sec:authorize="hasRole('ROLE_USER')">
-                                        <input type="submit" class="submit-btn" value="Reservar">
-                                    </div>
-                                    <div class="alert alert-danger text-center p-md-1" role="alert"
-                                        sec:authorize="hasRole('ROLE_ADMIN')">
-                                        ¡Atención! Solo los socios pueden reservar pistas en este sitio.
-                                    </div>
+                                    <input type="hidden" th:field="*{fecha_reserva}" />
+                                    <input type="hidden" th:field="*{hora_reserva}" />
+                                    <input type="hidden" th:field="*{pista}" />
+                                    <input type="submit" class="btn btn-primary" value="Confirmar Reserva">
                                 </form>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     </main>
 </body>
 

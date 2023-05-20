@@ -3,6 +3,7 @@ package com.salesianos.triana.dam.clubDeportivo.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.salesianos.triana.dam.clubDeportivo.model.Deporte;
 import com.salesianos.triana.dam.clubDeportivo.model.Pista;
 import com.salesianos.triana.dam.clubDeportivo.repository.PistaRepositorio;
 
@@ -15,5 +16,9 @@ public class PistaService extends BaseServiceImp<Pista, Integer, PistaRepositori
 	public int numeroDePistasPorDeporte(int id) {
 		return repositorio.countPistasByDeporte(id);
 	}
+	
+	public Pista findByNumeroAndDeporte(int numero, Deporte deporte) {
+        return repositorio.findByNumeroAndDeporte(numero, deporte);
+    }
 
 }
