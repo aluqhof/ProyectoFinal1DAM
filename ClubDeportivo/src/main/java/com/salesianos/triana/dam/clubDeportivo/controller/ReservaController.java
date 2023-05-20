@@ -1,5 +1,6 @@
 package com.salesianos.triana.dam.clubDeportivo.controller;
 
+import java.text.DecimalFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -74,10 +75,13 @@ public class ReservaController {
 		model.addAttribute("pistas", pistaService.findAll());
 		model.addAttribute("socios", socioService.findAll());
 		Optional <Reserva> rEditar = service.findById(id);
-		if (rEditar.isPresent()) {
+		if (rEditar.isPresent() && LocalDateTime.of(rEditar.get().getFecha_reserva(), rEditar.get().getHora_reserva()).isAfter(LocalDateTime.now())) {
 			model.addAttribute("reserva", rEditar.get());
 			return "formularioReservaAdmin";
 		} else {
+			if(LocalDateTime.of(rEditar.get().getFecha_reserva(), rEditar.get().getHora_reserva()).isBefore(LocalDateTime.now())) {
+				return "redirect:/admin/reservas/?error=true";
+			}
 			return "redirect:/admin/reservas";
 		}
 	}
@@ -284,16 +288,20 @@ public class ReservaController {
 	@PostMapping("/reserva-pista/nuevo")
 	public String agregarReservaUser(@ModelAttribute("reserva") Reserva reserva, Model model,
 			@AuthenticationPrincipal Socio s) {
+		DecimalFormat decimalFormat = new DecimalFormat("#.00");
+		String precioFormateado;
 		System.out.println(reserva);
 		if (service.isHoraDisponible(reserva.getHora_reserva(), reserva.getFecha_reserva(),
 				reserva.getPista().getId())) {
 			reserva.setSocio(s);
 			service.calcularPrecio(reserva);
+			precioFormateado=decimalFormat.format(reserva.getPrecio_reserva()) + " €";
 			service.add(reserva);
 			model.addAttribute("reservaExitosa", true);
 			emailService.sendEmail(s.getUsername(), "Reserva confirmada",
-					"Hola " + s.getNombre() + " su reserva para el día " + reserva.getFecha_reserva() + " " + "a las "
-							+ reserva.getHora_reserva() + " ha sido confirmada.");
+					"Hola " + s.getNombre() + ",\nSu reserva para el día " + reserva.getFecha_reserva() + " " + "a las "
+							+ reserva.getHora_reserva() + " ha sido confirmada.\n"
+									+ "Precio "+precioFormateado);
 
 		} else {
 			model.addAttribute("error",

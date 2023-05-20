@@ -42,16 +42,12 @@ public class Pista {
 	@ManyToOne
 	@JoinColumn(foreignKey = @ForeignKey (name="fk_deporte_pista"))
 	private Deporte deporte;
-	
-	/*
-    @ManyToOne
-    @JoinColumn(foreignKey = @ForeignKey (name="fk_socio_pista"))
-    private Socio socio;*/
+
 	
     @ToString.Exclude
 	@EqualsAndHashCode.Exclude
 	@Builder.Default
-    @OneToMany(mappedBy = "pista", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "pista", cascade = CascadeType.REMOVE, orphanRemoval = true)//fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true
     private List<Reserva> reservas = new ArrayList<>();
     
 	public void addToDeporte(Deporte deporte) {

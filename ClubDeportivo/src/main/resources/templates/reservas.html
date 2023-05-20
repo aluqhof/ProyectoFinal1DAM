@@ -30,6 +30,11 @@
                                     th:href="@{/admin/reservas/calendario}">Calendario Semanal</a>
                             </div>
                         </div>
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert"
+                            th:if="${param.error}">
+                            <span>¡Atención! No se pueden editar reservas pasadas</span>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
                         <div class="row my-2">
                             <a id="add" href="#" class="btn btn-primary" th:href="@{/admin/reservas/add}">
                                 <i class="bi bi-plus-square"></i>

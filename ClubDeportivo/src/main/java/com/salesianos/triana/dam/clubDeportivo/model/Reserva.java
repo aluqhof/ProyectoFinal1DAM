@@ -36,12 +36,10 @@ public class Reserva {
     
     private double precio_reserva;
     
-    // Many-to-One con la clase Socio
     @ManyToOne
     @JoinColumn(foreignKey = @ForeignKey (name="fk_socio_reserva"))
     private Socio socio;
     
-    // Many-to-One con la clase Pista
     @ManyToOne
     @JoinColumn(foreignKey = @ForeignKey (name="fk_pista_reserva"))
     private Pista pista;
