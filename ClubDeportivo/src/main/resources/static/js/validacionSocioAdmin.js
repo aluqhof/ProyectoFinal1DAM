@@ -3,7 +3,6 @@ document.getElementById("addSocioApellidos").addEventListener("blur", validarApe
 document.getElementById("addSocioUsername").addEventListener("blur", validarEmail);
 document.getElementById("addSocioTelefono").addEventListener("blur", validarTelefono);
 document.getElementById("addSocioFechaAlta").addEventListener("blur", validarFechaAlta);
-document.getElementById("addSocioCuota").addEventListener("blur", validarCuota);
 
 let error = document.querySelectorAll(".errorForm");
 error.forEach(p => p.hidden = true);

@@ -36,7 +36,7 @@ import com.salesianos.triana.dam.clubDeportivo.service.SocioService;
 public class ReservaController {
 
 	@Autowired
-	private ReservaService service;
+	private ReservaService reservaService;
 	@Autowired
 	private DeporteService deporteService;
 	@Autowired
@@ -49,7 +49,7 @@ public class ReservaController {
 	@GetMapping("/admin/reservas")
 	public String showReservas(Model model) {
 
-		model.addAttribute("reservas", service.findAll());
+		model.addAttribute("reservas", reservaService.findAll());
 		model.addAttribute("deportes", deporteService.findAll());
 		model.addAttribute("pistas", pistaService.findAll());
 		model.addAttribute("socios", socioService.findAll());
@@ -59,7 +59,7 @@ public class ReservaController {
 	
 	@GetMapping("/admin/reservas/add")
 	public String addReserva(Model model) {
-		model.addAttribute("reservas", service.findAll());
+		model.addAttribute("reservas", reservaService.findAll());
 		model.addAttribute("deportes", deporteService.findAll());
 		model.addAttribute("pistas", pistaService.findAll());
 		model.addAttribute("socios", socioService.findAll());
@@ -70,11 +70,11 @@ public class ReservaController {
 
 	@GetMapping("/admin/reservas/update/{id}")
 	public String updateReserva(@PathVariable("id") Long id, Model model) {
-		model.addAttribute("reservas", service.findAll());
+		model.addAttribute("reservas", reservaService.findAll());
 		model.addAttribute("deportes", deporteService.findAll());
 		model.addAttribute("pistas", pistaService.findAll());
 		model.addAttribute("socios", socioService.findAll());
-		Optional <Reserva> rEditar = service.findById(id);
+		Optional <Reserva> rEditar = reservaService.findById(id);
 		if (rEditar.isPresent() && LocalDateTime.of(rEditar.get().getFecha_reserva(), rEditar.get().getHora_reserva()).isAfter(LocalDateTime.now())) {
 			model.addAttribute("reserva", rEditar.get());
 			return "formularioReservaAdmin";
@@ -88,9 +88,10 @@ public class ReservaController {
 
 	@GetMapping("/admin/reservas/borrar/{id}")
 	public String borrarReserva(@PathVariable("id") long id) {
-		Optional <Reserva> aBorrar = service.findById(id);
+		Optional <Reserva> aBorrar = reservaService.findById(id);
 		if (aBorrar.isPresent()) {
-			service.delete(aBorrar.get());
+			reservaService.delete(aBorrar.get());
+			System.out.println(aBorrar.get());
 		}
 		return "redirect:/admin/reservas";
 	}
@@ -100,13 +101,13 @@ public class ReservaController {
 		model.addAttribute("deportes", deporteService.findAll());
 		model.addAttribute("pistas", pistaService.findAll());
 		model.addAttribute("socios", socioService.findAll());
-		service.calcularPrecio(reserva);
-		if (!service.isHoraDisponible(reserva.getHora_reserva(), reserva.getFecha_reserva(),
+		reservaService.calcularPrecio(reserva);
+		if (!reservaService.isHoraDisponible(reserva.getHora_reserva(), reserva.getFecha_reserva(),
 				reserva.getPista().getId())) {
 			model.addAttribute("error", "La pista no esta disponible, por favor escoge otra opción.");
 			return "formularioReservaAdmin";
 		}
-		service.add(reserva);
+		reservaService.add(reserva);
 		return "redirect:/admin/reservas";
 	}
 
@@ -115,13 +116,13 @@ public class ReservaController {
 		model.addAttribute("deportes", deporteService.findAll());
 		model.addAttribute("pistas", pistaService.findAll());
 		model.addAttribute("socios", socioService.findAll());
-		service.calcularPrecio(reserva);
-		if (!service.isHoraDisponible(reserva.getHora_reserva(), reserva.getFecha_reserva(),
+		reservaService.calcularPrecio(reserva);
+		if (!reservaService.isHoraDisponible(reserva.getHora_reserva(), reserva.getFecha_reserva(),
 				reserva.getPista().getId())) {
 			model.addAttribute("error", "La pista no esta disponible, por favor escoge otra opción.");
 			return "formularioReservaAdmin";
 		}
-		service.edit(reserva);
+		reservaService.edit(reserva);
 		return "redirect:/admin/reservas";
 	}
 
@@ -131,10 +132,10 @@ public class ReservaController {
 
 		switch (criterio) {
 		case "fecha_reserva":
-			reservas = service.orderByFechaDesc();
+			reservas = reservaService.orderByFechaDesc();
 			break;
 		case "id":
-			reservas = service.findAll();
+			reservas = reservaService.findAll();
 			break;
 		default:
 			reservas = new ArrayList<>();
@@ -149,7 +150,7 @@ public class ReservaController {
 	public String mostrarReservasCalendario(Model model, @RequestParam(defaultValue = "1") int idPista) {
 		int numeroDias = 6;
 		int numeroHoras = 15;
-		List<Reserva> reservas = service.findReservasEstaSemanaYPista(idPista);
+		List<Reserva> reservas = reservaService.findReservasEstaSemanaYPista(idPista);
 		List<LocalTime> horas = new ArrayList<>();
 		LocalTime horaInicial = LocalTime.of(7, 0);
 		for (int i = 0; i < numeroHoras; i++) {
@@ -174,7 +175,7 @@ public class ReservaController {
 	public String mostrarReservasCalendarioSemana2(Model model, @RequestParam(defaultValue = "1") int idPista) {
 		int numeroDias = 6;
 		int numeroHoras = 15;
-		List<Reserva> reservas = service.findReservasProximaSemanaYPista(idPista);
+		List<Reserva> reservas = reservaService.findReservasProximaSemanaYPista(idPista);
 		List<LocalTime> horas = new ArrayList<>();
 		LocalTime horaInicial = LocalTime.of(7, 0);
 		for (int i = 0; i < numeroHoras; i++) {
@@ -205,7 +206,7 @@ public class ReservaController {
 			int numeroHoras = 15;
 			LocalDate diaSiguiente = dia.plusDays(1);
 			LocalDate diaAnterior = dia.minusDays(1);
-			List<Reserva> reservas = service.findReservasHoyYDeporte(idDeporte, dia);
+			List<Reserva> reservas = reservaService.findReservasHoyYDeporte(idDeporte, dia);
 			List<LocalTime> horas = new ArrayList<>();
 			LocalTime horaInicial = LocalTime.of(7, 0);
 			List<Pista> pistas = deporte.getPistas();
@@ -274,7 +275,7 @@ public class ReservaController {
 			reserva.setFecha_reserva(dia);
 			reserva.setHora_reserva(hora);
 			reserva.setPrecio_reserva(pista.getPrecio());
-			service.calcularPrecio(reserva);
+			reservaService.calcularPrecio(reserva);
 			model.addAttribute("pistas", pistaService.findAll());
 			model.addAttribute("deportes", deporteService.findAll());
 			model.addAttribute("reserva", reserva);
@@ -291,13 +292,13 @@ public class ReservaController {
 		DecimalFormat decimalFormat = new DecimalFormat("#.00");
 		String precioFormateado;
 		System.out.println(reserva);
-		if (service.isHoraDisponible(reserva.getHora_reserva(), reserva.getFecha_reserva(),
+		if (reservaService.isHoraDisponible(reserva.getHora_reserva(), reserva.getFecha_reserva(),
 				reserva.getPista().getId())) {
 			reserva.setSocio(s);
-			service.calcularPrecio(reserva);
+			reservaService.calcularPrecio(reserva);
 			System.out.println(reserva);
 			precioFormateado=decimalFormat.format(reserva.getPrecio_reserva()) + " €";
-			service.add(reserva);
+			reservaService.add(reserva);
 			model.addAttribute("reservaExitosa", true);
 			emailService.sendEmail(s.getUsername(), "Reserva confirmada",
 					"Hola " + s.getNombre() + ",\nSu reserva para el día " + reserva.getFecha_reserva() + " " + "a las "

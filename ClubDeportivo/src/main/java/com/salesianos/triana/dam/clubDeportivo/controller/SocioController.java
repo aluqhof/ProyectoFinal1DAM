@@ -131,9 +131,9 @@ public class SocioController {
 		return "redirect:/admin/socios";
 	}
 
-	@PostMapping("/admin/socio/edit/submit")
+	@PostMapping("/admin/socios/edit/submit")
 	public String editSocioSubmit(@ModelAttribute("socio") Socio socio) {
 		socioService.edit(socio);
-		return "redirect:/admin/reservas";
+		return "redirect:/admin/socios";
 	}
 }

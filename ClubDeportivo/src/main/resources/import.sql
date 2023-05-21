@@ -1,6 +1,6 @@
 INSERT INTO usuario (id, username, password) VALUES (1, 'admin', '{bcrypt}$2a$10$ZJFsSxIuhAE6yhj4zWkBe.hfELM1KA0UXnNBV8l/KknWQPTjvY8BS');
 
-INSERT INTO usuario (id, username, password) VALUES (2, 'user', '{bcrypt}$2a$10$FUDKq1l1PRlxG4B7fnDfoOrxu/ChhiWNtdEPle5hN2JlM/cWbIJlK');
+INSERT INTO usuario (id, username, password) VALUES (2, 'user@user.com', '{bcrypt}$2a$10$FUDKq1l1PRlxG4B7fnDfoOrxu/ChhiWNtdEPle5hN2JlM/cWbIJlK');
 
 INSERT INTO usuario (id, username, password) VALUES (3, 'alexanderluquehoffrogge@gmail.com', '{bcrypt}$2a$10$FUDKq1l1PRlxG4B7fnDfoOrxu/ChhiWNtdEPle5hN2JlM/cWbIJlK');
 
@@ -29,8 +29,8 @@ INSERT INTO reserva (id, fecha_reserva, hora_reserva, precio_reserva, socio_id, 
 
 INSERT INTO reserva (id, fecha_reserva, hora_reserva, precio_reserva, socio_id, pista_id) VALUES (2, '2023-05-16', '12:00:00', 10, 2, 2); 
 
-INSERT INTO reserva (id, fecha_reserva, hora_reserva, precio_reserva, socio_id, pista_id) VALUES (3, '2023-05-15', '10:00:00', 15, 2, 3);
+INSERT INTO reserva (id, fecha_reserva, hora_reserva, precio_reserva, socio_id, pista_id) VALUES (3, '2023-05-15', '10:00:00', 15, 3, 3);
 
-INSERT INTO reserva (id, fecha_reserva, hora_reserva, precio_reserva, socio_id, pista_id) VALUES (4, '2023-05-16', '12:00:00', 15, 2, 4); 
+INSERT INTO reserva (id, fecha_reserva, hora_reserva, precio_reserva, socio_id, pista_id) VALUES (4, '2023-05-16', '12:00:00', 15, 3, 4); 
 
 ALTER SEQUENCE hibernate_sequence RESTART WITH 1000;
