@@ -278,7 +278,7 @@ public class ReservaController {
 			model.addAttribute("pistas", pistaService.findAll());
 			model.addAttribute("deportes", deporteService.findAll());
 			model.addAttribute("reserva", reserva);
-			// model.addAttribute("reservaExitosa", false);
+			model.addAttribute("reservaExitosa", false);
 			return "formularioReserva";
 		}
 

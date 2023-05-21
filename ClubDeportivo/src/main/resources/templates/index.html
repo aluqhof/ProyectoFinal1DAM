@@ -8,152 +8,136 @@
     <link rel="stylesheet" href="../static/css/general.css" th:href="@{/css/general.css}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
         th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <title>Página de inicio</title>
+
 </head>
 
-<body>
+<body style="width: 100%;">
     <header th:replace="fragments/encabezado :: encabezado">
     </header>
     <main>
-        <div class="banner text-center bg-image py-4">
+        <div class="banner text-center bg-image py-4 mt-5">
             <div class="mask d-flex justify-content-center align-items-center">
                 <div class="bloque text-white mt-2 bannerContenido">
-                    <img src="../img/CD Pista Central Blanco.png" alt="" class="img-fluid" style="max-width: 20%; width: 100%;">
-                    <p class="fs-4 text-warning ls-md text-uppercase fw-semibold">get things done</p>
-                    <h2 class="display-3 mt-4 mb-3 fw-bold">Just try it out! You’ll fall in love</h2>
-                    <p class="lead px-lg-8 mb-6">Designed for modern companies looking to launch a simple, premium and modern website and apps.</p>
-                    <a href="#" class="btn btn-primary">Try For Free</a>
+                    <img src="../img/CD Pista Central Blanco.png" alt="Logo del club deportivo" class="img-fluid mt-3"
+                        style="max-width: 20%; width: 90%;">
+                    <p class="fs-4 text-warning ls-md text-uppercase fw-semibold">No te quedes sin tu lugar</p>
+                    <h2 class="display-3 mt-4 mb-3 fw-bold">Descubre una experiencia única</h2>
+                    <p class="lead px-lg-8 mb-6 p-3">Reserva ahora desde nuestro portal exclusivo para socios.</p>
+                    <a href="/disponibilidad" class="btn btn-primary">Reserva como socio</a>
                 </div>
             </div>
         </div>
-        <div class="bannerAcceso container-fluid bg-primary py-3" sec:authorize="!isAuthenticated()">
+        <div class="bannerAcceso container-fluid bg-primary py-3" data-aos="fade-left"
+            sec:authorize="!isAuthenticated()">
             <div class="row align-items-center">
                 <div class="col-md-6 text-md-start text-center">
-                    <h1 class="display-6 text-black">Accede a la zona privada</h1>
+                    <h1 class="display-6 text-black" style="font-size: 2rem; font-weight: bold; margin-bottom: 1rem;">
+                        Acceso exclusivo para socios</h1>
                 </div>
                 <div class="col-md-6 text-md-end text-center">
                     <a href="#" class="btn botonAcceso btn-outline-dark btn-lg" th:href="@{/login}">Iniciar sesión</a>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col">
-                <a href="#" th:href="@{/disponibilidad}" class="btn">
-                    <div class="card cardIndex">
-                        <img src="../img/banner.jpg" class="card-img-top" alt="Imagen botón reserva" />
-                        <div class="card-body">
-                            <h5 class="card-title text-center">Reserva una pista</h5>
-                        </div>
+        <div class="container-fluid">
+            <div class="row m-4" data-aos="fade-right">
+                <div class="col-lg-6 order-lg-1 order-2">
+                    <div class="d-flex flex-column justify-content-center align-items-center h-100">
+                        <h2 class="text-center" style="font-size: 2rem; font-weight: bold; margin-bottom: 1rem;">
+                            Bienvenido a nuestro Club
+                            Deportivo</h2>
+                        <p style="font-size: 1.2rem; text-align: center;">Descubre un lugar donde la pasión por el
+                            deporte se vive en cada rincón. En nuestro club, te ofrecemos una multitud de pistas
+                            diseñadas para satisfacer todas tus necesidades deportivas. Ya sea que disfrutes del tenis,
+                            el fútbol, el pádel o muchos otros deportes, aquí encontrarás el espacio perfecto para
+                            practicar tu actividad favorita.</p>
+                        <p style="font-size: 1.2rem; text-align: center;">Nuestro club no solo se trata de deporte, sino
+                            también de crear un ambiente cálido y familiar. Conecta con otros entusiastas del deporte,
+                            haz nuevos amigos y forma parte de una comunidad apasionada. Organizamos eventos, torneos y
+                            actividades para que puedas divertirte y superarte a ti mismo.</p>
+                        <p style="font-size: 1.2rem; text-align: center;">Únete a nuestro club y descubre un lugar donde
+                            el deporte se convierte en una forma de vida. Te damos la bienvenida a nuestra familia
+                            deportiva y esperamos verte pronto en nuestras pistas.</p>
                     </div>
-                </a>
-            </div>
-        </div>
-        <div class="py-14 reservaPista">
-            <div class="container py-5">
-                <div class="row">
-                    <div class="offset-lg-2 col-lg-8 col-md-12 col-12 text-center">
-                        <img src="../img/CD Pista Central Blanco.png" alt="" class="text-center" style="width: 20%;">
-                        <p class="fs-4 text-warning ls-md text-uppercase
-             fw-semibold">get things done
-
-                    </p>
-                        <!-- heading  -->
-                        <h2 class="display-3 mt-4 mb-3  fw-bold">Just try it out! You’ll
-                            fall in love</h2>
-                        <!-- para  -->
-                        <p class="lead  px-lg-8 mb-6">Designed for modern
-                            companies looking to launch
-                            a simple, premium and modern website and apps.</p>
-                        <a href="#" class="btn btn-primary">Try For Free</a>
-                    </div>
+                </div>
+                <div class="col-lg-6 order-lg-2 order-1">
+                    <img src="../img/pistapadel.png" alt="Pista de pádel" style="width: 100%;"
+                        class="img-fluid mb-4 mb-lg-0">
                 </div>
             </div>
         </div>
-        <h2 class="text-center tituloHorario">Horario</h2>
-        <div class="table-responsive tablaHorarios">
-            <table class="table table-striped table-bordered text-center">
-                <thead>
-                    <tr>
-                        <th class="bg-primary text-white">Día</th>
-                        <th class="bg-primary text-white">Horario</th>
-                        <th class="bg-primary text-white">Disponibilidad</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Lunes</td>
-                        <td>9:00 - 22:00</td>
-                        <td>Abierto</td>
-                    </tr>
-                    <tr>
-                        <td>Martes</td>
-                        <td>9:00 - 22:00</td>
-                        <td>Abierto</td>
-                    </tr>
-                    <tr>
-                        <td>Miércoles</td>
-                        <td>9:00 - 22:00</td>
-                        <td>Abierto</td>
-                    </tr>
-                    <tr>
-                        <td>Jueves</td>
-                        <td>9:00 - 22:00</td>
-                        <td>Abierto</td>
-                    </tr>
-                    <tr>
-                        <td>Viernes</td>
-                        <td>9:00 - 22:00</td>
-                        <td>Abierto</td>
-                    </tr>
-                    <tr>
-                        <td>Sábado</td>
-                        <td>9:00 - 22:00</td>
-                        <td>Abierto</td>
-                    </tr>
-                    <tr>
-                        <td>Domingo</td>
-                        <td>X</td>
-                        <td>Cerrado</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        <section class="text-center" data-aos="fade-left">
+            <div class="row w-100">
+                <div class="col-lg-3 col-md-6 mb-5 mb-md-5 mb-lg-0 position-relative">
+                    <i class="bi bi-people-fill fs-4 mb-4" style="color: rgb(0, 218, 255); "></i>
+                    <h5 class="fw-bold mb-3" th:text="${numSocios}" style="color: rgb(0, 218, 255); "></h5>
+                    <h6 class="fw-normal mb-0" style="font-size: 1.2rem">Socios Registrados</h6>
+                    <div class="vr vr-blurry position-absolute my-0 h-100 d-none d-md-block top-0 end-0"></div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-5 mb-md-5 mb-lg-0 position-relative">
+                    <i class="bi bi-calendar-event fs-4 mb-4" style="color: rgb(0, 218, 255);"></i>
+                    <h5 class="fw-bold mb-3" th:text="${numReservas}" style="color: rgb(0, 218, 255);">490+</h5>
+                    <h6 class="fw-normal mb-0" style="font-size: 1.2rem">Reservas</h6>
+                    <div class="vr vr-blurry position-absolute my-0 h-100 d-none d-md-block top-0 end-0"></div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-5 mb-md-0 position-relative">
+                    <i class="bi bi-1-square fs-4 mb-4" style="color: rgb(0, 218, 255);"></i>
+                    <h5 class="fw-bold mb-3" th:text="${numPistas}" style="color: rgb(0, 218, 255);">100+</h5>
+                    <h6 class="fw-normal mb-0" style="font-size: 1.2rem">Pistas</h6>
+                    <div class="vr vr-blurry position-absolute my-0 h-100 d-none d-md-block top-0 end-0"></div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-5 mb-md-0 position-relative">
+                    <i class="bi bi-dribbble fs-4 mb-4" style="color: rgb(0, 218, 255);"></i>
+                    <h5 class="fw-bold mb-3" th:text="${numDeportes}" style="color: rgb(0, 218, 255);">28</h5>
+                    <h6 class="fw-normal mb-0" style="font-size: 1.2rem">Deportes</h6>
+                </div>
+            </div>
+        </section>
         <div class="bg-white py-5">
             <div class="container py-5">
-                <div class="row align-items-center mb-5">
-                    <div class="col-lg-6 order-2 order-lg-1"><i class="fa fa-bar-chart fa-2x mb-3 text-primary"></i>
-                        <h2 class="font-weight-light">Lorem ipsum dolor sit amet</h2>
-                        <p class="font-italic text-muted mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><a href="#"
-                            class="btn btn-light px-5 rounded-pill shadow-sm">Learn More</a>
+                <div class="row align-items-center mb-5" data-aos="fade-right">
+                    <div class="col-lg-6 order-2 order-lg-1 text-center">
+                        <h2 class="font-weight-light">Reserva con facilidad</h2>
+                        <p class="font-italic text-muted mb-4">Nuestro exclusivo servicio de reservas te permite
+                            asegurar tu lugar en nuestras instalaciones de manera rápida y sencilla. Ahorra tiempo y
+                            disfruta al máximo de tus actividades favoritas.</p>
+                        <a href="/disponibilidad" class="btn btn-light px-5 rounded-pill shadow-sm">Reservar</a>
                     </div>
-                    <div class="col-lg-5 px-5 mx-auto order-1 order-lg-2"><img
-                            src="https://bootstrapious.com/i/snippets/sn-about/img-1.jpg" alt=""
-                            class="img-fluid mb-4 mb-lg-0"></div>
+                    <div class="col-lg-5 px-5 mx-auto order-1 order-lg-2 text-center">
+                        <img src="../img/reservar.png" alt="Icono de reserva" style="width: 70%"
+                            class="img-fluid mb-4 mb-lg-0">
+                    </div>
                 </div>
-                <div class="row align-items-center">
-                    <div class="col-lg-5 px-5 mx-auto"><img
-                            src="https://bootstrapious.com/i/snippets/sn-about/img-2.jpg" alt=""
-                            class="img-fluid mb-4 mb-lg-0"></div>
-                    <div class="col-lg-6"><i class="fa fa-leaf fa-2x mb-3 text-primary"></i>
-                        <h2 class="font-weight-light">Lorem ipsum dolor sit amet</h2>
-                        <p class="font-italic text-muted mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><a href="#"
-                            class="btn btn-light px-5 rounded-pill shadow-sm">Learn More</a>
+                <div class="row align-items-center" data-aos="fade-left">
+                    <div class="col-lg-5 px-5 mx-auto text-center">
+                        <img src="../img/privacidad.png" alt="Icono de privacidad" style="width: 70%;"
+                            class="img-fluid mb-4 mb-lg-0">
+                    </div>
+                    <div class="col-lg-6 text-center">
+                        <i class="fa fa-lock fa-2x mb-3 text-primary"></i>
+                        <h2 class="font-weight-light">Seguridad y privacidad</h2>
+                        <p class="font-italic text-muted mb-4">Nos preocupamos por tu seguridad y privacidad. Nuestro
+                            sistema de reservas garantiza la protección de tus datos personales y la confidencialidad de
+                            tus transacciones. Reserva con total tranquilidad.</p>
+                        <a href="/disponibilidad" class="btn btn-light px-5 rounded-pill shadow-sm">Reservar</a>
                     </div>
                 </div>
             </div>
         </div>
-
-
-        <footer class="bg-light pb-5">
-            <div class="container text-center">
-                <p class="font-italic text-muted mb-0">&copy; Copyrights Company.com All rights reserved.</p>
-            </div>
-        </footer>
+        <footer th:replace="fragments/footer :: footer"></footer>
     </main>
 
 </body>
+<script>
+    AOS.init();
+</script>
 
 </html>

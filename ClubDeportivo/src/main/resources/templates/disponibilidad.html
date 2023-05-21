@@ -16,8 +16,8 @@
 <body>
     <header th:replace="~{fragments/encabezado :: encabezado}"></header>
     <main class="disponibilidad">
-        <div class="container">
-            <h1 class="text-center">HAZ TU RESERVA</h1>
+        <div class="containert">
+            <h1 class="text-center" style="margin-top: 80px;">HAZ TU RESERVA</h1>
             <div class="offset-md-8 col-md-4 mb-2">
                 <form th:action="@{/disponibilidad}" method="get">
                     <div class="d-flex">
@@ -113,7 +113,7 @@
             </div>
         </div>
     </main>
-
+    <footer th:replace="fragments/footer :: footer"></footer>
 </body>
 
 </html>
