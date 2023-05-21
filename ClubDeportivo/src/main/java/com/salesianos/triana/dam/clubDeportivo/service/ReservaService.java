@@ -39,6 +39,8 @@ public class ReservaService extends BaseServiceImp<Reserva, Long, ReservaReposit
 				precioAumentado = reserva.getPista().getPrecio()
 						+ reserva.getPista().getAumento_precio() / div * reserva.getPista().getAumento_precio();
 				reserva.setPrecio_reserva(precioAumentado);
+			}else {
+				reserva.setPrecio_reserva(reserva.getPista().getPrecio());
 			}
 		}
 	}

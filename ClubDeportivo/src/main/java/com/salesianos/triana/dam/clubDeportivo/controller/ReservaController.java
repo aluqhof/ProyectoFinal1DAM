@@ -295,6 +295,7 @@ public class ReservaController {
 				reserva.getPista().getId())) {
 			reserva.setSocio(s);
 			service.calcularPrecio(reserva);
+			System.out.println(reserva);
 			precioFormateado=decimalFormat.format(reserva.getPrecio_reserva()) + " €";
 			service.add(reserva);
 			model.addAttribute("reservaExitosa", true);
