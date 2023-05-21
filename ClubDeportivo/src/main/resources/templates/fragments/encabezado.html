@@ -14,51 +14,35 @@
 </head>
 
 <body>
-    <header th:fragment="encabezado">
+    <header th:fragment="encabezado" class="fixed-top">
         <form th:action="@{/logout}" method="POST" id="logoutForm"></form>
         <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container-fluid">
-                <a class="navbar-brand" href="index.html" th:href="@{/inicio}">
-                    <img src="../../img/CD Pista Central.png" alt="Logo CD Pista Central" style="width: 100px;">
-                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
                     aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarColor01">
                     <ul class="navbar-nav me-auto">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="index.html" th:href="@{/inicio}">Inicio
-                                <span class="visually-hidden">(current)</span>
-                            </a>
-                        </li>
                         <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
-                            <a class="nav-link" href="#" th:href="@{http://localhost:9000/admin/general}">Administración</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Pricing</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">About</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
-                                aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Separated link</a>
-                            </div>
+                            <a class="nav-link" href="#"
+                                th:href="@{http://localhost:9000/admin/general}">Administración</a>
                         </li>
                     </ul>
-                    <li class="d-flex" sec:authorize="!isAuthenticated()">
-                        <a href="" th:href="@{/login}" class="btn botonAcceso btn-outline-dark btn-lg">Acceder</a>
-                    </li>
-                    <li class="d-flex" sec:authorize="isAuthenticated()">
-                        <a href="javascript:document.getElementById('logoutForm').submit()" class="btn botonSalir btn-outline-dark btn-lg">Salir</a>
-                    </li>
+                    <div class="d-flex justify-content-center align-items-center" style="position: fixed; top: 0; left: 50%; transform: translateX(-50%);">
+                        <a class="navbar-brand text-center" href="index.html" th:href="@{/inicio}">
+                            <img src="../../img/CD Pista Central.png" alt="Logo CD Pista Central" style="width: 100px;">
+                        </a>
+                    </div>
+                    <ul class="navbar-nav ms-auto">
+                        <li class="d-flex" sec:authorize="!isAuthenticated()">
+                            <a href="" th:href="@{/login}" class="btn botonAcceso btn-outline-dark btn-lg">Acceder</a>
+                        </li>
+                        <li class="d-flex" sec:authorize="isAuthenticated()">
+                            <a href="javascript:document.getElementById('logoutForm').submit()"
+                                class="btn botonSalir btn-outline-dark btn-lg">Salir</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </nav>

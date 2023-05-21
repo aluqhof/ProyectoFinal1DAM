@@ -48,10 +48,11 @@
 }
 
 .banner {
-    background-image: url('../img/banner.jpg');
-    background-repeat: no-repeat;
-    background-position: center;
+    background-image: url('../img/banner6.jpeg');
     background-size: 100%;
+    background-attachment: fixed;
+    background-position:top center;
+    background-repeat: no-repeat;
 }
 
 .banner .mask {
@@ -76,60 +77,6 @@
     .banner .mask .bloque .btn {
         font-size: 0.8em;
     }
-}
-
-.cardIndex {
-    position: relative;
-}
-
-.cardIndex .card-img-top {
-    transition: all 0.3s ease-in-out;
-}
-
-.cardIndex:hover .card-img-top {
-    transform: scale(1.05);
-}
-
-.cardIndex .card-body {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 1rem;
-    background-color: rgba(0, 0, 0, 0.5);
-    transition: all 0.3s ease-in-out;
-}
-
-.cardIndex:hover .card-body {
-    bottom: 40%;
-    transform: scale(1.05);
-}
-
-.cardIndex .card-title {
-    margin-bottom: 0;
-    color: #fff;
-    transition: all 0.3s ease-in-out;
-}
-
-.cardIndex:hover .card-title {
-    transform: translateY(-50%);
-}
-
-.cardIndex .card-body h5 {
-    text-transform: uppercase;
-}
-
-.cardIndex:hover .card-body h5 {
-    transform: scale(1.05);
-}
-
-.tablaHorarios {
-    margin: 0 auto;
-    width: 80%;
-}
-
-.tituloHorario {
-    margin-top: 30px;
 }
 
 .bannerAcceso {
@@ -159,7 +106,7 @@
 
 /*Estilos para el formulario de registro*/
 
-body{
+body {
     font-family: 'Montserrat', sans-serif;
 }
 
@@ -174,25 +121,6 @@ body{
     margin-bottom: 50px;
 }
 
-.booking-form .form-label {
-    display: inline-block;
-    color: #3e485c;
-    font-weight: 700;
-    margin-bottom: 6px;
-    margin-left: 7px;
-}
-
-.booking-form .submit-btn {
-    display: inline-block;
-    color: #fff;
-    background-color: #1e62d8;
-    font-weight: 700;
-    padding: 14px 30px;
-    border-radius: 4px;
-    border: none;
-    -webkit-transition: 0.2s all;
-    transition: 0.2s all;
-}
 
 .tablaDisponibilidad .submit-btn:hover,
 .tablaDisponibilidad .submit-btn:focus {
@@ -344,7 +272,7 @@ select.round:focus {
     font-weight: 700;
 }
 
-.pasado{
+.pasado {
     background-color: #aaaaaa;
 }
 
@@ -352,7 +280,8 @@ select.round:focus {
     .cambiarDia {
         font-size: 0.5em;
     }
-    .leyenda{
+
+    .leyenda {
         font-size: 0.7em;
     }
 }
