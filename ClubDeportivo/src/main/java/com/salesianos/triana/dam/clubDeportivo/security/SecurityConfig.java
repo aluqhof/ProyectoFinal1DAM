@@ -16,59 +16,40 @@ import lombok.RequiredArgsConstructor;
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-public class SecurityConfig{
-	
+public class SecurityConfig {
+
 	private final UserDetailsService userDetailsService;
 	private final PasswordEncoder passwordEncoder;
-	
 
 	@Bean
-	public AuthenticationManager 
-			authenticationManager(HttpSecurity http) throws Exception {
-		
-		AuthenticationManagerBuilder authBuilder =
-				http.getSharedObject(AuthenticationManagerBuilder.class);
-		
-		return authBuilder
-			.authenticationProvider(daoAuthenticationProvider())
-			.build();
-		
-		
+	public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
+
+		AuthenticationManagerBuilder authBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
+
+		return authBuilder.authenticationProvider(daoAuthenticationProvider()).build();
+
 	}
-	
-	
-	@Bean 
+
+	@Bean
 	public DaoAuthenticationProvider daoAuthenticationProvider() {
 		DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
 		provider.setUserDetailsService(userDetailsService);
-		provider.setPasswordEncoder(passwordEncoder);     
+		provider.setPasswordEncoder(passwordEncoder);
 		return provider;
 	}
-	
+
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http
-        .authorizeRequests() 
-            .antMatchers("/css/**","/js/**","/img/**", "/h2-console/**").permitAll()
-            .antMatchers("/admin/**").hasRole("ADMIN")
-            .anyRequest().authenticated() // Requiere autenticación para cualquier otra petición
-            .and()
-        .formLogin()
-            .loginPage("/login")
-            .defaultSuccessUrl("/")
-            .permitAll()
-		.and()
-        .logout()
-            .logoutUrl("/logout")
-            .logoutSuccessUrl("/")
-            .permitAll();
-        
-	    // Añadimos esto para poder seguir accediendo a la consola de H2
-	    // con Spring Security habilitado.
-	    http.csrf().disable();
-	    http.headers().frameOptions().disable();
-	    
-	    return http.build();
+		http.authorizeRequests().antMatchers("/css/**", "/js/**", "/img/**", "/h2-console/**").permitAll()
+				.antMatchers("/admin/**").hasRole("ADMIN").anyRequest().authenticated()
+				.and().formLogin().loginPage("/login").defaultSuccessUrl("/").permitAll()
+				.and().exceptionHandling().accessDeniedPage("/errorAcceso")
+				.and().logout().logoutUrl("/logout").logoutSuccessUrl("/").permitAll();
+
+		http.csrf().disable();
+		http.headers().frameOptions().disable();
+
+		return http.build();
 	}
 
 }

@@ -35,4 +35,9 @@ public class MainController {
 	public String showLoginForm(Model model) {
 		return "paginaLogin";
 	}
+	
+	@GetMapping("/errorAcceso")
+	public String errorPermiso() {
+		return "errorAcceso";
+	}
 }
