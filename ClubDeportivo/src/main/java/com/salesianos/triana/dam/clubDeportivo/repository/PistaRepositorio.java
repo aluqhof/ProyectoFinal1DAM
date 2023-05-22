@@ -1,5 +1,7 @@
 package com.salesianos.triana.dam.clubDeportivo.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -12,4 +14,6 @@ public interface PistaRepositorio extends JpaRepository<Pista, Integer>{
 	public int countPistasByDeporte(int idDeporte);
 	
 	public Pista findByNumeroAndDeporte(int numero, Deporte deporte);
+	
+	public List<Pista> findByDeporteId(int IdDeporte);
 }

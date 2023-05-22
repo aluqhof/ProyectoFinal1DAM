@@ -89,11 +89,8 @@ public class ReservaController {
 	@GetMapping("/admin/reservas/borrar/{id}")
 	public String borrarReserva(@PathVariable("id") long id) {
 		Optional <Reserva> aBorrar = reservaService.findById(id);
-		if (aBorrar.isPresent()) {
-			//aBorrar.get().borrarPistaDeReserva();
-			aBorrar.get().borrarSocioDeReserva();
+		if (aBorrar.isPresent()) {;
 			reservaService.delete(aBorrar.get());
-			System.out.println(aBorrar.get());
 		}
 		return "redirect:/admin/reservas";
 	}
@@ -220,10 +217,6 @@ public class ReservaController {
 		    		idDeporte=deporte.getId();
 		    	}
 		    }
-		    
-		    if (deporte == null) {
-		    	return "error";
-		    }
 		
 			int numeroHoras = 15;
 			LocalDate diaSiguiente = dia.plusDays(1);
@@ -231,7 +224,7 @@ public class ReservaController {
 			List<Reserva> reservas = reservaService.findReservasHoyYDeporte(idDeporte, dia);
 			List<LocalTime> horas = new ArrayList<>();
 			LocalTime horaInicial = LocalTime.of(7, 0);
-			List<Pista> pistas = deporte.getPistas();
+			List<Pista> pistas = pistaService.findPistasByDeporteId(idDeporte);
 			int numeroPistas = pistas != null ? pistas.size() : 0;
 
 			boolean[][] pistasHoras = new boolean[numeroHoras][numeroPistas];
@@ -260,11 +253,10 @@ public class ReservaController {
 			}
 
 			model.addAttribute("deporte", deporte);
-			//model.addAttribute("pistas", pistaService.findAll());
 			model.addAttribute("deportes", deporteService.findAll());
 			model.addAttribute("reservas", reservas);
 			model.addAttribute("horas", horas);
-			model.addAttribute("pistas", deporte.getPistas());
+			model.addAttribute("pistas", pistas);
 			model.addAttribute("idDeporte", idDeporte);
 			model.addAttribute("hoy", LocalDate.now());
 			model.addAttribute("horaActual", LocalTime.now());

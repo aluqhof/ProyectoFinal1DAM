@@ -1,5 +1,7 @@
 package com.salesianos.triana.dam.clubDeportivo.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,4 +23,8 @@ public class PistaService extends BaseServiceImp<Pista, Integer, PistaRepositori
         return repositorio.findByNumeroAndDeporte(numero, deporte);
     }
 
+	public List<Pista> findPistasByDeporteId(int IdDeporte) {
+        return repositorio.findByDeporteId(IdDeporte);
+    }
+	
 }
