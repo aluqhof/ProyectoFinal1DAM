@@ -33,6 +33,10 @@ public class SocioService extends BaseServiceImp<Socio, Long, SocioRepositorio>{
 		return repositorio.findAll(Sort.by(Sort.Direction.ASC, "apellidos"));
 	}
 	
+	public List<Socio> orderByIdAsc(){
+		return repositorio.findAll(Sort.by(Sort.Direction.ASC, "id"));
+	}
+	
 	@Transactional
 	public List<Socio> findTop5SociosByReservas() {
 	    return repositorio.findTop5ByReservas();

@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.transaction.Transactional;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -48,4 +49,13 @@ public class Reserva {
     	this.id=id;
     }
     
+    public void borrarSocioDeReserva() {
+        socio.getReservas().remove(this);
+        socio = null;
+    }
+    
+    public void borrarPistaDeReserva() {
+        pista.getReservas().remove(this);
+        pista = null;
+    }
 }

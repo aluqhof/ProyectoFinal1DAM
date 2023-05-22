@@ -7,6 +7,7 @@ import java.time.temporal.TemporalAdjusters;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.salesianos.triana.dam.clubDeportivo.model.Reserva;
@@ -95,5 +96,8 @@ public class ReservaService extends BaseServiceImp<Reserva, Long, ReservaReposit
 		return repositorio.findByFechaReservaHoyYDeporte(dia, idDeporte);
 	}
 
+	public List<Reserva> orderByIdAsc(){
+		return repositorio.findAll(Sort.by(Sort.Direction.ASC, "id"));
+	}
 
 }

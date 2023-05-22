@@ -96,7 +96,8 @@ public class SocioController {
 			socios = socioService.orderByFechaAltaDesc();
 			break;
 		case "id":
-			socios = socioService.findAll(); //No funciona
+			socios = socioService.orderByIdAsc();//No funciona
+			break;
 		default:
 			socios = new ArrayList<>();
 			break;

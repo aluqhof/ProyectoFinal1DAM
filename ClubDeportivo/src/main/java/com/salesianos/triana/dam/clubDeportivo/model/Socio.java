@@ -48,7 +48,7 @@ public class Socio extends Usuario{
 
 	@ToString.Exclude
 	@EqualsAndHashCode.Exclude
-	@OneToMany(mappedBy="socio", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="socio", fetch = FetchType.EAGER)
 	private List<Reserva> reservas;
 
 	

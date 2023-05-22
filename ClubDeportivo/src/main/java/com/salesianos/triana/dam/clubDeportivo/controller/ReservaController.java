@@ -90,6 +90,8 @@ public class ReservaController {
 	public String borrarReserva(@PathVariable("id") long id) {
 		Optional <Reserva> aBorrar = reservaService.findById(id);
 		if (aBorrar.isPresent()) {
+			//aBorrar.get().borrarPistaDeReserva();
+			aBorrar.get().borrarSocioDeReserva();
 			reservaService.delete(aBorrar.get());
 			System.out.println(aBorrar.get());
 		}
@@ -135,7 +137,7 @@ public class ReservaController {
 			reservas = reservaService.orderByFechaDesc();
 			break;
 		case "id":
-			reservas = reservaService.findAll();
+			reservas = reservaService.orderByIdAsc();
 			break;
 		default:
 			reservas = new ArrayList<>();
@@ -199,10 +201,30 @@ public class ReservaController {
 	}
 
 	@GetMapping("/disponibilidad")
-	public String mostrarReservasCalendario(Model model, @RequestParam(defaultValue = "1") int idDeporte,
+	public String mostrarReservasCalendario(Model model, @RequestParam(defaultValue = "0") int idDeporte,
 			@RequestParam(defaultValue = "#{T(java.time.LocalDate).now()}") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dia) {
 		
-			Deporte deporte = deporteService.findById(idDeporte).get();
+			Deporte deporte = null;
+			Optional <Deporte> deporteEncontrado;
+		
+		    if(idDeporte == 0) {
+		    	deporteEncontrado = deporteService.findFirstDeporte();
+		    	if(deporteEncontrado.isPresent()) {
+		    		deporte=deporteEncontrado.get();
+		    		idDeporte=deporte.getId();
+		    	}
+		    } else {
+		    	deporteEncontrado = deporteService.findById(idDeporte);
+		    	if(deporteEncontrado.isPresent()) {
+		    		deporte=deporteEncontrado.get();
+		    		idDeporte=deporte.getId();
+		    	}
+		    }
+		    
+		    if (deporte == null) {
+		    	return "error";
+		    }
+		
 			int numeroHoras = 15;
 			LocalDate diaSiguiente = dia.plusDays(1);
 			LocalDate diaAnterior = dia.minusDays(1);
@@ -212,10 +234,9 @@ public class ReservaController {
 			List<Pista> pistas = deporte.getPistas();
 			int numeroPistas = pistas != null ? pistas.size() : 0;
 
-			// Crear matriz bidimensional de pistas y horas
 			boolean[][] pistasHoras = new boolean[numeroHoras][numeroPistas];
 
-			// Marcar las pistas ocupadas en cada hora
+			// Marca las pistas ocupadas en cada hora
 			for (Reserva reserva : reservas) {
 				int horaIndex = reserva.getHora_reserva().getHour() - horaInicial.getHour();
 				int pistaIndex = reserva.getPista().getId() - 1;
@@ -228,7 +249,7 @@ public class ReservaController {
 
 			if (LocalDate.now().isAfter(diaAnterior)) {
 				model.addAttribute("mostrarBotonAnterior", false);
-			} else { // tiene que salir excepcion si lo ponen en el navegador
+			} else { 
 				model.addAttribute("mostrarBotonAnterior", true);
 			}
 
@@ -239,7 +260,7 @@ public class ReservaController {
 			}
 
 			model.addAttribute("deporte", deporte);
-			model.addAttribute("pistas", pistaService.findAll());
+			//model.addAttribute("pistas", pistaService.findAll());
 			model.addAttribute("deportes", deporteService.findAll());
 			model.addAttribute("reservas", reservas);
 			model.addAttribute("horas", horas);
