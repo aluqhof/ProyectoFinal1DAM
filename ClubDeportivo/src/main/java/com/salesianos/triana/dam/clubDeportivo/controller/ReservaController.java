@@ -232,7 +232,7 @@ public class ReservaController {
 			// Marca las pistas ocupadas en cada hora
 			for (Reserva reserva : reservas) {
 				int horaIndex = reserva.getHora_reserva().getHour() - horaInicial.getHour();
-				int pistaIndex = reserva.getPista().getId() - 1;
+				int pistaIndex = reserva.getPista().getNumero() - 1;
 				pistasHoras[horaIndex][pistaIndex] = true;
 			}
 

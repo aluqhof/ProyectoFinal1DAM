@@ -13,17 +13,17 @@ function validarFormulario(event) {
         validarIDSocio() &&
         validarPista();
 
-        if (!resultado) {
-            event.preventDefault();
-        }
-return resultado;
+    if (!resultado) {
+        event.preventDefault();
+    }
+    return resultado;
 }
 
 let fechaReserva = document.getElementById("addReservaFecha");
 let horaReserva = document.getElementById("addReservaHora");
 function validarFecha() {
     let hoy = new Date();
-    hoy.setHours(0,0,0,0);
+    hoy.setHours(0, 0, 0, 0);
     let fecha = new Date(fechaReserva.value);
 
     if (fecha < hoy) {
@@ -32,7 +32,7 @@ function validarFecha() {
         return false;
     }
 
-    if (fecha.getDay() === 0) {//No es domingo
+    if (fecha.getDay() === 0) {
         fechaReserva.focus();
         fechaReserva.nextElementSibling.hidden = false;
         return false;
@@ -44,16 +44,27 @@ function validarFecha() {
 
 function validarHora() {
     let hora = horaReserva.value;
+    let fecha = new Date(fechaReserva.value);
+    let ahora = new Date();
 
-    // Verificar que se haya seleccionado una hora de reserva
     if (!hora) {
         horaReserva.focus();
         horaReserva.nextElementSibling.hidden = false;
         return false;
     }
 
-    // Verificar que la hora de reserva esté dentro del horario de apertura del club deportivo
     if (hora < "07:00" || hora > "21:00") {
+        horaReserva.focus();
+        horaReserva.nextElementSibling.hidden = false;
+        return false;
+    }
+
+    if (
+        fecha.getDate() === ahora.getDate() &&
+        fecha.getMonth() === ahora.getMonth() &&
+        fecha.getFullYear() === ahora.getFullYear() &&
+        hora < ahora.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })//He tenido que buscar como hacerlo porque no me funcionaba cogiendo la hora de la fecha
+    ) {
         horaReserva.focus();
         horaReserva.nextElementSibling.hidden = false;
         return false;
@@ -65,7 +76,6 @@ function validarHora() {
 
 function validarIDSocio() {
     let idSocio = document.getElementById("addReservaIDSocio");
-    // Verificar que se haya seleccionado un socio
     if (!idSocio.value) {
         idSocio.focus();
         idSocio.nextElementSibling.hidden = false;
@@ -78,7 +88,6 @@ function validarIDSocio() {
 
 function validarPista() {
     let idPista = document.getElementById("addReservaIDPista");
-    // Verificar que se haya seleccionado una pista
     if (!idPista.value) {
         idPista.focus();
         idPista.nextElementSibling.hidden = false;
