@@ -45,10 +45,11 @@
                                 <thead>
                                     <tr class="text-center">
                                         <th scope="col"># <a href="/admin/reservas/ordenar?criterio=id">
-                                            <i class="bi bi-arrow-down-up"></i></a>
+                                                <i class="bi bi-arrow-down-up"></i></a>
                                         </th>
-                                        <th scope="col">Fecha Reserva <a href="/admin/reservas/ordenar?criterio=fecha_reserva">
-                                            <i class="bi bi-arrow-down-up"></i></a>
+                                        <th scope="col">Fecha Reserva <a
+                                                href="/admin/reservas/ordenar?criterio=fecha_reserva">
+                                                <i class="bi bi-arrow-down-up"></i></a>
                                         </th>
                                         <th scope="col">Hora Reserva</th>
                                         <th scope="col">ID Socio</th>
@@ -61,7 +62,7 @@
                                 <tbody>
                                     <tr th:each="reserva : ${reservas}" class="text-center">
                                         <th th:text="${reserva.id}"></th>
-                                        <td th:text="${reserva.fecha_reserva}"></td>
+                                        <td th:text="${#temporals.format(reserva.fecha_reserva, 'dd/MM/yyyy')}"></td>
                                         <td th:text="${reserva.hora_reserva}"></td>
                                         <td th:text="${reserva.socio.id}"></td>
                                         <td th:text="${reserva.pista.numero}"></td>

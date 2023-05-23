@@ -35,7 +35,7 @@
                                 <div class="d-flex flex-row mb-4 pb-2">
                                     <div class="flex-fill">
                                         <h5 class="bold">Reserva</h5>
-                                        <p class="text-muted" th:text="${reserva.pista.deporte.nombre}"></p>
+                                        <p class="text-muted" th:text="${'Pista ' + reserva.pista.numero + ' - ' + reserva.pista.deporte.nombre}"></p>
                                         <h4 class="mb-3"
                                             th:text="${#numbers.formatDecimal(reserva.precio_reserva, 1, 2)} + '€'">
                                             <span class="small text-muted"> via (COD) </span>

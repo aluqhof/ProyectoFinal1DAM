@@ -72,7 +72,7 @@
                                         <td th:text="${socio.apellidos}"></td>
                                         <td th:text="${socio.username}"></td>
                                         <td th:text="${socio.telefono}"></td>
-                                        <td th:text="${socio.fecha_alta}"></td>
+                                        <td th:text="${#temporals.format(socio.fecha_alta, 'dd/MM/yyyy')}"></td>
                                         <td>
                                             <a th:href="@{/admin/socios/update/{id}(id=${socio.id})}"
                                                 class="btn btn-primary btn-sm botonEditar">
