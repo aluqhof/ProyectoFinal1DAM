@@ -18,6 +18,10 @@
     <main class="disponibilidad">
         <div class="containert">
             <h1 class="text-center" style="margin-top: 80px;">HAZ TU RESERVA</h1>
+            <div class="alert alert-warning alert-dismissible fade show w-75 mb-2" role="alert" style="margin:0 auto" th:if="${deporte.pistas.size() == 0}">
+                <span>Lo sentimos. Aún no hay pistas disponibles para este deporte.</span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
             <div class="offset-md-8 col-md-4 mb-2">
                 <form th:action="@{/disponibilidad}" method="get">
                     <div class="d-flex">
@@ -34,10 +38,6 @@
                     </div>
                 </form>
             </div>
-        </div>
-        <div class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${error}">
-            <span th:text="${error}"></span> <a href="/disponibilidad">Volver</a>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         <div class="container" th:fragment="calendario">
             <div class="table-responsive">
@@ -83,7 +83,8 @@
                                 <a class="enlaceReserva"
                                     th:href="@{/reserva-pista(idDeporte=${idDeporte}, dia=${dia}, hora=${horas[iStat.index]}, numPista=${pistaIndex.index + 1})}"
                                     th:if="${!item && (dia.getDayOfWeek().getValue() != 7 && (dia > hoy || (dia == hoy && horaActual < horas[iStat.index])))}"
-                                    th:text="${'Reservar a las '+horas[iStat.index]}" sec:authorize="hasRole('ROLE_USER')"></span></a>
+                                    th:text="${'Reservar a las '+horas[iStat.index]}"
+                                    sec:authorize="hasRole('ROLE_USER')"></span></a>
                             </td>
                         </tr>
                     </tbody>
