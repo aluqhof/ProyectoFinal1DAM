@@ -314,7 +314,9 @@ public class ReservaController {
 			reservaService.add(reserva);
 			model.addAttribute("reservaExitosa", true);
 			emailService.sendEmail(s.getUsername(), "Reserva confirmada",
-					"Hola " + s.getNombre() + ",\nSu reserva para el día " + reserva.getFecha_reserva() + " " + "a las "
+					"Hola " + s.getNombre() + ",\nSu reserva de la pista "+reserva.getPista().getNumero()+" "
+							+ "de "+reserva.getPista().getDeporte().getNombre().toLowerCase()+""
+							+ ", para el día " + reserva.getFecha_reserva() + " " + "a las "
 							+ reserva.getHora_reserva() + " ha sido confirmada.\n"
 									+ "Precio "+precioFormateado);
 
